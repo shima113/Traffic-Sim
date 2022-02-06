@@ -5,19 +5,23 @@ import java.util.ArrayList;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedQuadArray;
 import javax.media.j3d.Shape3D;
+import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
 
 import tools.Colors;
 import traffic.Node;
 
 public class PassengerCar extends Car {
 	
-	public PassengerCar(int load, ArrayList<Node> nodes) {
-		super(load, nodes);
+	public PassengerCar(int load, ArrayList<Node> nodes, Point3f startPoint, double direction) {
+		super(load, nodes, startPoint, direction);
 		
 		carObjectGroup = createObject();
+		init(startPoint, direction);
 	}
 	
 	private TransformGroup createObject() {
@@ -53,6 +57,13 @@ public class PassengerCar extends Car {
 		//create tires
 		
 		return object;
+	}
+	
+	private void init(Point3f startPoint, double direction) {
+		Transform3D pointTransform3d = new Transform3D();
+		Vector3f pointVector3f = new Vector3f(startPoint.x, startPoint.y, startPoint.z);
+		pointTransform3d.setTranslation(pointVector3f);
+		carObjectGroup.setTransform(pointTransform3d);
 	}
 
 }

@@ -1,6 +1,5 @@
 /* Trafic Simulator ver1.0.0
- * 単位： 0.1f = 1m
- * 0.01f = 1m nishitai
+ * 単位：0.01f = 1m 
  */
 package traffic;
 
@@ -171,8 +170,8 @@ public class MainFrame extends JFrame {
 		nodeGroup3.add(node11);
 		nodeGroup3.add(node12);
 		
-		car1 = new PassengerCar(militime, nodeGroup3);
-		car2 = new PassengerCar(militime, nodeGroup2);
+		car1 = new PassengerCar(militime, nodeGroup3, new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2);
+		car2 = new PassengerCar(militime, nodeGroup2, new Point3f(0, 0, 0), Math.PI);
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
 		
@@ -228,7 +227,7 @@ public class MainFrame extends JFrame {
 		@Override
 		public void run() {
 			BranchGroup tempBranchGroup = new BranchGroup();
-			PassengerCar car = new PassengerCar(militime, nodeGroup2);
+			PassengerCar car = new PassengerCar(militime, nodeGroup2, new Point3f(0, 0, 0), Math.PI);
 			Mascon mascon = new Mascon(car, militime);
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);

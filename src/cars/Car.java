@@ -30,7 +30,7 @@ public class Car {
 	
 	final Node STOPNODE = new StraightNode(0, 0, new Point3f(), 0);
 	
-	public Car(int loadingTime, ArrayList<Node> nodes) {
+	public Car(int loadingTime, ArrayList<Node> nodes, Point3f startPoint, double direction) {
 		time = loadingTime / 1000.0; //ミリ秒 → 秒
 		nodeGroup = nodes;
 		nowNode = nodeGroup.get(nowNodeIndex);
