@@ -1,3 +1,4 @@
+/*
 package traffic;
 
 import java.awt.event.ActionEvent;
@@ -68,7 +69,7 @@ public class Mascon implements ActionListener {
 		
 		@Override
 		public void run() {
-			move();
+			/*move();
 			movedDistance = car.getMovedDistance();
 			totalDistance += movedDistance;
 			carTransformGroup.setTransform(movedTransform3d);
@@ -92,3 +93,4 @@ public class Mascon implements ActionListener {
 	}
 
 }
+*/

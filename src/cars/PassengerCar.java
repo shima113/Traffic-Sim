@@ -61,8 +61,13 @@ public class PassengerCar extends Car {
 	
 	private void init(Point3f startPoint, double direction) {
 		Transform3D pointTransform3d = new Transform3D();
+		Transform3D angleTransform3d = new Transform3D();
+		
 		Vector3f pointVector3f = new Vector3f(startPoint.x, startPoint.y, startPoint.z);
 		pointTransform3d.setTranslation(pointVector3f);
+		angleTransform3d.rotY(-direction);
+		
+		pointTransform3d.mul(angleTransform3d);
 		carObjectGroup.setTransform(pointTransform3d);
 	}
 

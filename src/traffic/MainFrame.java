@@ -45,7 +45,6 @@ public class MainFrame extends JFrame {
 	ArrayList<Node> nodeGroup2, nodeGroup3;
 	
 	PassengerCar car1, car2;
-	Mascon m1, m2;
 	
 	int militime = 40;
 	
@@ -84,33 +83,30 @@ public class MainFrame extends JFrame {
 
 		universe.addBranchGraph(carBranchGroup);
 		universe.addBranchGraph(createEnvironment());
-
-		m1 = new Mascon(car1, militime);
-		m2 = new Mascon(car2, militime);
 		
 		JButton accelButton = new JButton("加速");
 		accelButton.setBounds(20, 650, 100, 30);
-		accelButton.addActionListener(m1);
-		accelButton.addActionListener(m2);
+		accelButton.addActionListener(car1);
+		accelButton.addActionListener(car2);
 		accelButton.setActionCommand("accel");
 		cp.add(accelButton);
 		
-		accelDisplay = new JLabel("状態：" + m1.accel);
+		accelDisplay = new JLabel("状態：" + car1.getAccel());
 		accelDisplay.setBounds(130, 650, 100, 30);
 		cp.add(accelDisplay);
 		
 		JButton brakeButton = new JButton("ブレーキ");
 		brakeButton.setBounds(20, 720, 100, 30);
-		brakeButton.addActionListener(m1);
-		accelButton.addActionListener(m2);
+		brakeButton.addActionListener(car1);
+		accelButton.addActionListener(car2);
 		brakeButton.setActionCommand("brake");
 		cp.add(brakeButton);
 		
-		speedDisplay = new JLabel("速度：" + m1.speed);
+		speedDisplay = new JLabel("速度：" + car1.getSpeed());
 		speedDisplay.setBounds(250, 650, 100, 30);
 		cp.add(speedDisplay);
 		
-		distanceDisplay = new JLabel("走行距離：" + m1.totalDistance);
+		distanceDisplay = new JLabel("走行距離：" + car1.getTotalDistance());
 		distanceDisplay.setBounds(250, 700, 100, 30);
 		cp.add(distanceDisplay);
 		
@@ -215,9 +211,9 @@ public class MainFrame extends JFrame {
 
 		@Override
 		public void run() {
-			speedDisplay.setText("速度：" + m1.speed + "km/h");
-			distanceDisplay.setText("走行距離" + m1.totalDistanceDisplay + "m");
-			accelDisplay.setText("状態：" + m1.accel);
+			speedDisplay.setText("速度：" + car1.getSpeed() + "km/h");
+			distanceDisplay.setText("走行距離" + car1.getTotalDistanceDisplay() + "m");
+			accelDisplay.setText("状態：" + car1.getAccel());
 		}
 		
 	}
@@ -226,11 +222,13 @@ public class MainFrame extends JFrame {
 
 		@Override
 		public void run() {
+			/*
 			BranchGroup tempBranchGroup = new BranchGroup();
 			PassengerCar car = new PassengerCar(militime, nodeGroup2, new Point3f(0, 0, 0), Math.PI);
 			Mascon mascon = new Mascon(car, militime);
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
+			*/
 		}
 		
 	}
