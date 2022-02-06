@@ -69,7 +69,7 @@ public class Car implements ActionListener {
 		return movedVector;
 	}
 	
-	public void changeLane() {
+	public void changeLane(Node changedNode, ArrayList<Node> changedNodeGroup) {
 		
 	}
 	
