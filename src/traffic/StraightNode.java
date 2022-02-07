@@ -1,5 +1,6 @@
 package traffic;
 
+import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Point3f;
 
 public class StraightNode extends Node {
@@ -15,6 +16,7 @@ public class StraightNode extends Node {
 		movedVector[0] = start.x;
 		movedVector[1] = start.y;
 		movedVector[2] = start.z;
+		angleTransform3d.setRotation(new AxisAngle4d(0, 1, 0, declination));
 		slope = upHeight / lenXZ;
 		length = (float) Math.sqrt(upHeight * upHeight + lenXZ * lenXZ);
 	}

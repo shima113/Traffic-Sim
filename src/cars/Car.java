@@ -90,7 +90,6 @@ public class Car implements ActionListener {
 	class TimerMove extends TimerTask{
 		Vector3f movedVector3f = new Vector3f(0.0f, 0.0f, 0.0f);
 		Transform3D movedTransform3d = new Transform3D();
-		Transform3D movedAngleTransform3d = new Transform3D();
 		
 		//field for curve
 		double angle;
@@ -111,12 +110,11 @@ public class Car implements ActionListener {
 		
 		private void moveCulculation() {
 			movedVector = move();
-			movedAngleTransform3d = getNowNodeAngleTransform3d();
 			movedVector3f.x = movedVector[0];
 			movedVector3f.y = movedVector[1];
 			movedVector3f.z = movedVector[2];
 			movedTransform3d.setTranslation(movedVector3f);
-			movedTransform3d.mul(movedAngleTransform3d);
+			movedTransform3d.mul(nowNode.getAngleTransform3d());
 			updateNode();
 		}
 		
@@ -171,10 +169,6 @@ public class Car implements ActionListener {
 	
 	public float getMovedDistance() {
 		return movedDistance;
-	}
-	
-	public Transform3D getNowNodeAngleTransform3d() {
-		return nowNode.getAngleTransform3d();
 	}
 	
 	public void setAcceralation(double accel) {
