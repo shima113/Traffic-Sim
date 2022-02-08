@@ -1,5 +1,6 @@
 package traffic;
 
+import javax.media.j3d.Transform3D;
 import javax.vecmath.Point3f;
 
 public class CurveNode extends Node {
@@ -13,6 +14,7 @@ public class CurveNode extends Node {
 	double slope;
 
 	Point3f centrePoint3f;
+	Transform3D angleTempTransform3d = new Transform3D();
 
 	public CurveNode(float radius, double declination, double angle, Point3f centre, float upHeight, float nowHeight) {
 		this.radius = radius * 100;
@@ -20,6 +22,7 @@ public class CurveNode extends Node {
 		centrePoint3f = centre;
 		wholeAngle = angle;
 		movedVector[1] = nowHeight;
+		angleTransform3d.rotY(-declination);
 		float lengthTemp = (float) (radius * 2 * Math.PI * (wholeAngle / (Math.PI * 2)));
 		slope = upHeight / lengthTemp;
 		length = (float) Math.sqrt(upHeight * upHeight + lengthTemp * lengthTemp);
@@ -37,7 +40,8 @@ public class CurveNode extends Node {
 		movedVector[1] += movedDistanceY;
 		movedVector[2] = (float) (Math.sin(angle) * radius) / 100 + centrePoint3f.z;
 
-		angleTransform3d.rotY(-movedAngle);
+		angleTempTransform3d.rotY(-movedAngle);
+		angleTransform3d.mul(angleTempTransform3d);
 
 		this.declination = angle;
 

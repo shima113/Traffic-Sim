@@ -96,6 +96,8 @@ public class Car implements ActionListener {
 		double movedAngle;
 		double declination = 0;
 		
+		double[] printed;
+		
 		float[] movedVector;
 		
 		@Override
@@ -113,9 +115,16 @@ public class Car implements ActionListener {
 			movedVector3f.x = movedVector[0];
 			movedVector3f.y = movedVector[1];
 			movedVector3f.z = movedVector[2];
+			movedTransform3d.setIdentity();
 			movedTransform3d.setTranslation(movedVector3f);
+			//printtransform();
 			movedTransform3d.mul(nowNode.getAngleTransform3d());
 			updateNode();
+		}
+
+		@SuppressWarnings("unused")
+		private void printtransform() {
+			System.out.println(movedTransform3d.toString());
 		}
 		
 	}
