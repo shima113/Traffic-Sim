@@ -19,10 +19,12 @@ public class CurveNode extends Node {
 	public CurveNode(float radius, double declination, double angle, Point3f centre, float upHeight, float nowHeight) {
 		this.radius = radius * 100;
 		this.declination = declination;
+		
 		centrePoint3f = centre;
 		wholeAngle = angle;
 		movedVector[1] = nowHeight;
 		angleTransform3d.rotY(-declination);
+		
 		float lengthTemp = (float) (radius * 2 * Math.PI * (wholeAngle / (Math.PI * 2)));
 		slope = upHeight / lengthTemp;
 		length = (float) Math.sqrt(upHeight * upHeight + lengthTemp * lengthTemp);

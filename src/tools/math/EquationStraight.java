@@ -8,7 +8,21 @@ package tools.math;
  */
 public class EquationStraight {
 
-	Fraction xValue, yValue, constantValue;
+	double xValue, yValue, constantValue;
+
+	public EquationStraight(double x, double y, double constant) {
+		xValue = x;
+		yValue = y;
+		constantValue = constant;
+	}
+
+	public EquationStraight(double[] startPoint, double angle) {
+		double slope = Math.tan(angle);
+
+		constantValue = startPoint[1] - slope * startPoint[0];
+		xValue = -slope;
+		yValue = 1;
+	}
 
 	/**
 	 * y=0のときの直線状の点を求めます。
@@ -16,26 +30,43 @@ public class EquationStraight {
 	 * <br>ax+by=c
 	 * <br>ax=c (yに0を代入)
 	 * <br>x=c/a
-	 * @return 求めた点のx座標
+	 * @return 求めた点の座標
 	 */
-	public Fraction getPoint() {
-		Fraction xReturnFraction = constantValue.division(xValue);
+	public double[] getPoint() {
+		double[] xReturn = new double[2];
+		if (xValue != 0 ) {
+			xReturn[0] = constantValue / xValue;
+			xReturn[1] = 0;
+		}else {
+			xReturn[1] = constantValue / yValue;
+			xReturn[0] = 0;
+		}
 
-		return xReturnFraction;
+		return xReturn;
 	}
 
 	/**
-	 * 点と子の直線の距離を求めます。
+	 * 点とこの直線の距離を求めます。
 	 * @return 点と直線の距離
-	 * @param 点（Fraction型の長さ2の配列、要素の1つ目がx座標、2つ目がy座標）
+	 * @param point 点の座標（Fraction型の長さ2の配列、要素の1つ目がx座標、2つ目がy座標）
 	 */
-	public double getDistancePoint(Fraction[] point) {
+	public double getDistancePoint(double[] point) {
 		double distance = 0;
 
-		Fraction tempNume = xValue.multiple(point[0]).plus(yValue.multiple(point[1]).plus(constantValue));
-		tempNume = tempNume.abs();
+		if(xValue == 0) {
+			distance = Math.abs(constantValue / yValue - point[1]);
+		}else if(yValue == 0) {
+			distance = Math.abs(constantValue / xValue - point[0]);
+		}else {
+			double tempNume = xValue * point[0] + yValue * point[1] + constantValue;
+			tempNume = Math.abs(tempNume);
+			System.out.println(tempNume);
 
-		Fraction tempDeno =
+			double tempDeno = Math.sqrt(xValue * xValue + yValue * yValue);
+
+			distance = tempNume / tempDeno;
+		}
+
 		return distance;
 	}
 
@@ -47,6 +78,13 @@ public class EquationStraight {
 	public double getDistanceLine(EquationStraight otherStraight) {
 		double distance = 0;
 
+		double[] y0point = otherStraight.getPoint();
+		distance = getDistancePoint(y0point);
+
 		return distance;
+	}
+
+	public String getStringValue() {
+		return xValue + "x+" + yValue + "y=" + constantValue;
 	}
 }

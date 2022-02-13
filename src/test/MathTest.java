@@ -1,13 +1,15 @@
 package test;
 
-import tools.math.Fraction;
+import tools.math.EquationStraight;
 
 public class MathTest {
 
 	public static void main(String[] args) {
-		Fraction f1 = new Fraction(2, 3);
-		f1.division(new Fraction(2, 3));
-		System.out.println(f1.getStringValue());
+		double[] temp = {5, 2};
+		
+		EquationStraight equationStraight = new EquationStraight(temp, Math.PI / 4);
+		
+		System.out.println(equationStraight.getStringValue());
 	}
 
 }

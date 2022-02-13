@@ -42,9 +42,9 @@ public class MainFrame extends JFrame {
 	
 	JLabel accelDisplay, speedDisplay, distanceDisplay;
 	
-	ArrayList<Node> nodeGroup2, nodeGroup3;
+	ArrayList<Node> nodeGroup2, nodeGroup3, nodeGroup4;
 	
-	PassengerCar car1, car2;
+	PassengerCar car1, car2, car3;
 	
 	int militime = 40;
 	
@@ -59,12 +59,12 @@ public class MainFrame extends JFrame {
 		
 		//setting swing
 		setTitle("traffic sim");
-		setBounds(400, 400, 800, 800);
+		setBounds(400, 400, 1800, 1800);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//setting java3D
 		Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-		canvas.setBounds(0, 0, 599, 599);
+		canvas.setBounds(0, 0, 1600, 1600);
 		JPanel cp = new JPanel();
 		cp.setLayout(null);
 		cp.add(canvas);
@@ -85,33 +85,35 @@ public class MainFrame extends JFrame {
 		universe.addBranchGraph(createEnvironment());
 		
 		JButton accelButton = new JButton("加速");
-		accelButton.setBounds(20, 650, 100, 30);
+		accelButton.setBounds(20, 1650, 100, 30);
 		accelButton.addActionListener(car1);
 		accelButton.addActionListener(car2);
+		accelButton.addActionListener(car3);
 		accelButton.setActionCommand("accel");
 		cp.add(accelButton);
 		
 		accelDisplay = new JLabel("状態：" + car1.getAccel());
-		accelDisplay.setBounds(130, 650, 100, 30);
+		accelDisplay.setBounds(130, 1650, 100, 30);
 		cp.add(accelDisplay);
 		
 		JButton brakeButton = new JButton("ブレーキ");
-		brakeButton.setBounds(20, 720, 100, 30);
+		brakeButton.setBounds(20, 1720, 100, 30);
 		brakeButton.addActionListener(car1);
-		accelButton.addActionListener(car2);
+		brakeButton.addActionListener(car2);
+		brakeButton.addActionListener(car3);
 		brakeButton.setActionCommand("brake");
 		cp.add(brakeButton);
 		
 		speedDisplay = new JLabel("速度：" + car1.getSpeed());
-		speedDisplay.setBounds(250, 650, 100, 30);
+		speedDisplay.setBounds(250, 1650, 100, 30);
 		cp.add(speedDisplay);
 		
 		distanceDisplay = new JLabel("走行距離：" + car1.getTotalDistance());
-		distanceDisplay.setBounds(250, 700, 100, 30);
+		distanceDisplay.setBounds(250, 1700, 100, 30);
 		cp.add(distanceDisplay);
 		
 		JButton reflesh = new JButton("reload");
-		reflesh.setBounds(700, 200, 50, 50);
+		reflesh.setBounds(1700, 200, 50, 50);
 		reflesh.addActionListener(new RefleshButton());
 		cp.add(reflesh);
 		
@@ -166,10 +168,23 @@ public class MainFrame extends JFrame {
 		nodeGroup3.add(node11);
 		nodeGroup3.add(node12);
 		
+		StraightNode node13 = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.59f), 0);
+		StraightNode node14 = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.59f), 0);
+		StraightNode node15 = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.59f), 0);
+		StraightNode node16 = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.59f), 0);
+		
+		nodeGroup4 = new ArrayList<>();
+		nodeGroup4.add(node13);
+		nodeGroup4.add(node14);
+		nodeGroup4.add(node15);
+		nodeGroup4.add(node16);
+		
 		car1 = new PassengerCar(militime, nodeGroup3, new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2);
 		car2 = new PassengerCar(militime, nodeGroup2, new Point3f(0, 0, 0), Math.PI);
+		car3 = new PassengerCar(militime, nodeGroup4, new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2);
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
+		root.addChild(car3.carObjectGroup);
 		
 		return root;
 	}

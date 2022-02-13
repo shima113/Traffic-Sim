@@ -103,8 +103,10 @@ public class Car implements ActionListener {
 		@Override
 		public void run() {
 			moveCulculation();
+			
 			totalDistance += movedDistance;
 			carObjectGroup.setTransform(movedTransform3d);
+			
 			speed = Math.ceil(speed * 10) / 10;
 			totalDistanceDisplay = (float) (Math.ceil(totalDistance * 10) / 10);
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
@@ -115,6 +117,7 @@ public class Car implements ActionListener {
 			movedVector3f.x = movedVector[0];
 			movedVector3f.y = movedVector[1];
 			movedVector3f.z = movedVector[2];
+			
 			movedTransform3d.setIdentity();
 			movedTransform3d.setTranslation(movedVector3f);
 			//printtransform();
