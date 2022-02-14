@@ -7,8 +7,6 @@ public class CurveNode extends Node {
 
 	float radius;
 	float[] movedVector = new float[3];
-	double angle;
-	double movedAngle;
 	double wholeAngle;
 	double declination;
 	double slope;
@@ -23,7 +21,8 @@ public class CurveNode extends Node {
 		centrePoint3f = centre;
 		wholeAngle = angle;
 		movedVector[1] = nowHeight;
-		angleTransform3d.rotY(-declination);
+		
+		nowDirection -= declination;
 		
 		float lengthTemp = (float) (radius * 2 * Math.PI * (wholeAngle / (Math.PI * 2)));
 		slope = upHeight / lengthTemp;
@@ -32,6 +31,9 @@ public class CurveNode extends Node {
 
 	@Override
 	public float[] move(float movedDistance) {
+		double movedAngle;
+		double angle;
+		
 		float movedDistanceXZ = (float) (movedDistance / Math.sqrt(slope * slope / 10000 + 1));
 		float movedDistanceY = (float) (movedDistanceXZ * slope / 100);
 
@@ -42,8 +44,7 @@ public class CurveNode extends Node {
 		movedVector[1] += movedDistanceY;
 		movedVector[2] = (float) (Math.sin(angle) * radius) / 100 + centrePoint3f.z;
 
-		angleTempTransform3d.rotY(-movedAngle);
-		angleTransform3d.mul(angleTempTransform3d);
+		nowDirection -= movedAngle;
 
 		this.declination = angle;
 

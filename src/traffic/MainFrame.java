@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 		
 		//setting swing
 		setTitle("traffic sim");
-		setBounds(400, 400, 1800, 1800);
+		setBounds(500, 300, 1800, 1800);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//setting java3D
@@ -185,6 +185,9 @@ public class MainFrame extends JFrame {
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
 		root.addChild(car3.carObjectGroup);
+		
+		car2.setAtoNode(node16);
+		car2.setAtnodegroupArrayList(nodeGroup4);
 		
 		return root;
 	}

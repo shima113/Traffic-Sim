@@ -8,20 +8,16 @@ public class StraightNode extends Node {
 
 	double declination;
 	float[] movedVector = new float[3];
-	Point3f start;
 	double slope;
-	
-	EquationStraight equationStraight;
 
 	public StraightNode(float lenXZ, double decli, Point3f startPoint, float upHeight) {
 		declination = decli;
-		start = startPoint;
 		
-		movedVector[0] = start.x;
-		movedVector[1] = start.y;
-		movedVector[2] = start.z;
+		movedVector[0] = startPoint.x;
+		movedVector[1] = startPoint.y;
+		movedVector[2] = startPoint.z;
 		
-		angleTransform3d.rotY(-declination);
+		nowDirection -= declination;
 		
 		slope = upHeight / lenXZ;
 		length = (float) Math.sqrt(upHeight * upHeight + lenXZ * lenXZ);
