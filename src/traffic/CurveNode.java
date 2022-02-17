@@ -22,7 +22,7 @@ public class CurveNode extends Node {
 		wholeAngle = angle;
 		movedVector[1] = nowHeight;
 		
-		nowDirection -= declination;
+		nowDirection += declination;
 		
 		float lengthTemp = (float) (radius * 2 * Math.PI * (wholeAngle / (Math.PI * 2)));
 		slope = upHeight / lengthTemp;
@@ -44,7 +44,7 @@ public class CurveNode extends Node {
 		movedVector[1] += movedDistanceY;
 		movedVector[2] = (float) (Math.sin(angle) * radius) / 100 + centrePoint3f.z;
 
-		nowDirection -= movedAngle;
+		nowDirection += movedAngle;
 
 		this.declination = angle;
 

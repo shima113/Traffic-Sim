@@ -131,7 +131,7 @@ public class MainFrame extends JFrame {
 	private BranchGroup createScene() {
 		BranchGroup root = new BranchGroup();
 		
-		//StraightNode node1 = new StraightNode(5.0f, 0);
+		/*StraightNode node1 = new StraightNode(5.0f, 0);
 		CurveNode node2 = new CurveNode(1.5f, 0, Math.PI / 4, new Point3f(-1.5f, 0.0f, 2.0f), 0, 0);
 		StraightNode node = new StraightNode(2.0f, 0, new Point3f(0.0f, 0.0f, 0.0f), 0);
 		StraightNode node3 = new StraightNode
@@ -139,7 +139,7 @@ public class MainFrame extends JFrame {
 		ArrayList<Node> nodeGroup1 = new ArrayList<>();
 		nodeGroup1.add(node);
 		nodeGroup1.add(node2);
-		nodeGroup1.add(node3);
+		nodeGroup1.add(node3);*/
 		
 		StraightNode node4 = new StraightNode(2.2f, Math.PI, new Point3f(0, 0, 0), 0);
 		CurveNode node5 = new CurveNode(0.54f, Math.PI, Math.PI * 3 / 4, new Point3f(0.54f, 0.0f, -2.2f), 0.06f, 0);
@@ -188,6 +188,10 @@ public class MainFrame extends JFrame {
 		
 		car2.setAtoNode(node16);
 		car2.setAtnodegroupArrayList(nodeGroup4);
+		
+		car1.setCarnum(2);
+		car2.setCarnum(10);
+		car3.setCarnum(3);
 		
 		return root;
 	}

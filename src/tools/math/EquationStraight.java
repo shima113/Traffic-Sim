@@ -17,11 +17,21 @@ public class EquationStraight {
 	}
 
 	public EquationStraight(double[] startPoint, double angle) {
-		double slope = Math.tan(angle);
+		if(angle % Math.PI == Math.PI / 2) {
+			yValue = 0;
+			xValue = 1;
+			constantValue = startPoint[0];
+		}else if (angle % Math.PI == 0) {
+			xValue = 0;
+			yValue = 1;
+			constantValue = startPoint[1];
+		}else {
+			double slope = Math.tan(angle);
 
-		constantValue = startPoint[1] - slope * startPoint[0];
-		xValue = -slope;
-		yValue = 1;
+			constantValue = startPoint[1] - slope * startPoint[0];
+			xValue = -slope;
+			yValue = 1;
+		}
 	}
 
 	/**
@@ -60,7 +70,6 @@ public class EquationStraight {
 		}else {
 			double tempNume = xValue * point[0] + yValue * point[1] + constantValue;
 			tempNume = Math.abs(tempNume);
-			System.out.println(tempNume);
 
 			double tempDeno = Math.sqrt(xValue * xValue + yValue * yValue);
 

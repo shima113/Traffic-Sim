@@ -41,6 +41,7 @@ public class Car implements ActionListener {
 	
 	Node atoNode;
 	ArrayList<Node> atnodegroupArrayList;
+	int carnum;
 	
 	final Node STOPNODE = new StraightNode(0, 0, new Point3f(), 0);
 	
@@ -77,8 +78,13 @@ public class Car implements ActionListener {
 	}
 	
 	public void changeLane(Node targetNode, ArrayList<Node> targetNodeGroup) {
+		//値がおかしい　たしざん確認
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
+		
+		System.out.println(distance);
+		System.out.println(movedVector[0]);
+		System.out.println(movedVector[2]);
 		
 		final float CHANGELANE_INTERVAL = 0.10f;
 		
@@ -86,13 +92,19 @@ public class Car implements ActionListener {
 		double declination = nowNode.getNowDirection();
 		double angle = Math.acos((radius - distance) / radius);
 		Point3f centrePoint3f1 =
-				new Point3f((float)(-Math.cos(declination) * radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * radius + movedVector[2]);
+				new Point3f((float)(Math.cos(declination) * -radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * radius + movedVector[2]);
 		Point3f centrePoint3f2 = 
 				new Point3f((float)(-distance * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1], 
 						(float) (distance * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
 		
 		CurveNode changeLaneNode1 = new CurveNode(radius, declination, angle, centrePoint3f1, 0, movedVector[1]);
-		CurveNode changeLaneNode2 = new CurveNode(radius, declination + angle / 2, angle, centrePoint3f2, 0, movedVector[1]);
+		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
+		
+		System.out.println("radius" + radius);//atteru
+		System.out.println("declin" + declination);
+		System.out.println("angle " + angle);//atteru
+		System.out.println("centr1" + centrePoint3f1);
+		System.out.println("centr2" + centrePoint3f2);
 		
 		nodeGroup.add(changeLaneNode1);
 		nodeGroup.add(changeLaneNode2);
@@ -142,6 +154,8 @@ public class Car implements ActionListener {
 			speed = Math.ceil(speed * 10) / 10;
 			totalDistanceDisplay = (float) (Math.ceil(totalDistance * 10) / 10);
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
+			
+			//System.out.println(carnum + ": " + nowNode.getNowDirection());
 		}
 		
 		private void moveCulculation() {
@@ -153,7 +167,7 @@ public class Car implements ActionListener {
 			movedTransform3d.setIdentity();
 			movedTransform3d.setTranslation(movedVector3f);
 			//printtransform();
-			angleTransform3d.rotY(nowNode.getNowDirection());
+			angleTransform3d.rotY(-nowNode.getNowDirection());
 			movedTransform3d.mul(angleTransform3d);
 			updateNode();
 		}
@@ -172,14 +186,14 @@ public class Car implements ActionListener {
 		switch(command) {
 		case "accel":
 			accel++;
-			if(accel > 4) {
+			if(accel > 6) {
 				accel--;
 			}
-			setAcceralation(accel * 3);
+			setAcceralation(accel * 4);
 			break;
 		case "brake":
 			accel--;
-			if(accel < -4) {
+			if(accel < -6) {
 				accel++;
 			}
 			setAcceralation(accel * 6);
@@ -218,5 +232,9 @@ public class Car implements ActionListener {
 	
 	public void setAcceralation(double accel) {
 		acceralation = accel;
+	}
+
+	public void setCarnum(int carnum) {
+		this.carnum = carnum;
 	}
 }

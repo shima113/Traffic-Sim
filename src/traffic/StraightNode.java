@@ -17,13 +17,15 @@ public class StraightNode extends Node {
 		movedVector[1] = startPoint.y;
 		movedVector[2] = startPoint.z;
 		
-		nowDirection -= declination;
+		nowDirection += declination;
 		
 		slope = upHeight / lenXZ;
 		length = (float) Math.sqrt(upHeight * upHeight + lenXZ * lenXZ);
 		
 		double[] point = {startPoint.x, startPoint.z};
-		equationStraight = new EquationStraight(point, decli);
+		equationStraight = new EquationStraight(point, -decli - Math.PI / 2);
+		//System.out.println(point[0] + ", " + point[1] + ", " + (Math.PI * 2 - decli) / Math.PI * 180);
+		//System.out.println(equationStraight.getStringValue());
 	}
 
 	@Override
