@@ -26,7 +26,7 @@ public class Car implements ActionListener {
 	float totalDistance, totalDistanceDisplay = 0;
 	float[] movedVector;
 	double time;
-	double speed = 0;
+	double speed = 40;
 	double acceralation = 0;
 	double nowDirection = 0;
 	
@@ -78,7 +78,6 @@ public class Car implements ActionListener {
 	}
 	
 	public void changeLane(Node targetNode, ArrayList<Node> targetNodeGroup) {
-		//値がおかしい　たしざん確認
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
 		
@@ -86,19 +85,22 @@ public class Car implements ActionListener {
 		System.out.println(movedVector[0]);
 		System.out.println(movedVector[2]);
 		
+		
 		final float CHANGELANE_INTERVAL = 0.10f;
 		
 		float radius = (distance * distance + CHANGELANE_INTERVAL * CHANGELANE_INTERVAL) / (2 * distance);
 		double declination = nowNode.getNowDirection();
 		double angle = Math.acos((radius - distance) / radius);
+		
 		Point3f centrePoint3f1 =
-				new Point3f((float)(Math.cos(declination) * -radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * radius + movedVector[2]);
+				new Point3f((float)(Math.cos(declination) * radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * -radius + movedVector[2]);
 		Point3f centrePoint3f2 = 
-				new Point3f((float)(-distance * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1], 
-						(float) (distance * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
+				new Point3f((float)(-distance * 2 * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1], 
+						(float) (distance * 2 * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
 		
 		CurveNode changeLaneNode1 = new CurveNode(radius, declination, angle, centrePoint3f1, 0, movedVector[1]);
 		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
+		StraightNode straightNode = new StraightNode(10.0f, declination, new Point3f(movedVector[0] + CHANGELANE_INTERVAL * 2, movedVector[1], movedVector[2] + distance * 2), 0);
 		
 		System.out.println("radius" + radius);//atteru
 		System.out.println("declin" + declination);
@@ -108,6 +110,7 @@ public class Car implements ActionListener {
 		
 		nodeGroup.add(changeLaneNode1);
 		nodeGroup.add(changeLaneNode2);
+		nodeGroup.add(straightNode);
 	}
 	
 	public void setAtoNode(Node atoNode) {
