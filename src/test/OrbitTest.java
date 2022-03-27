@@ -25,76 +25,77 @@ import com.sun.j3d.utils.universe.SimpleUniverse;
 import tools.Colors;
 
 public class OrbitTest extends JFrame {
-	
+
 	private SimpleUniverse universe;
+	@SuppressWarnings("unused")
 	private BoundingSphere bounds = new BoundingSphere(new Point3d(), 100.0);
-	
+
 	TimerInput tInput;
-	
+
 	TransformGroup viewTransformGroup;
 	Transform3D viewTransform3d = new Transform3D();
-	
+
 	public static void main(String args[]) {
 		new OrbitTest();
 	}
-	
+
 	public OrbitTest() {
 		setTitle("traffic sim");
 		setBounds(400, 400, 600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		tInput = new TimerInput();
 		Timer timer = new Timer();
 		timer.schedule(tInput, 1000, 30);
-		
+
 		Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 		add(canvas);
 		canvas.addKeyListener(new KeyInput());
-		
+
 		universe = new SimpleUniverse(canvas);
 		universe.getViewingPlatform().setNominalViewingTransform();
-		
-		
+
+
 		viewTransformGroup = universe.getViewingPlatform().getViewPlatformTransform();
 		/*
 		Transform3D viewTransform3d2 = new Transform3D();
 		viewTransform3d2.rotX(-Math.PI / 6);
 		viewTransform3d.mul(viewTransform3d2);
 		viewTransformGroup.setTransform(viewTransform3d2);*/
-		
+
 		universe.addBranchGraph(createScene());
 		universe.addBranchGraph(createEnvironment());
-		
+
 		setVisible(true);
 	}
-	
+
 	public BranchGroup createScene() {
 		BranchGroup root = new BranchGroup();
-		
+
 		TransformGroup transformGroup = new TransformGroup();
 		transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		
+
 		Transform3D transform3d1 = new Transform3D();
 		Transform3D transform3d2 = new Transform3D();
-		
+
 		transform3d1.rotX(Math.PI / 6);
 		transform3d2.rotY(Math.PI / 6);
 		transform3d1.mul(transform3d2);
 		transformGroup.setTransform(transform3d1);
-		
+
 		ColorCube colorCube = new ColorCube(1.0f);
 		transformGroup.addChild(colorCube);
 		root.addChild(transformGroup);
-		
+
 		return root;
 	}
-	
+
 	public BranchGroup createEnvironment() {
 		BranchGroup root = new BranchGroup();
-		
+
 		Point3d[] vertices = {new Point3d(-10000.0, -3.0, -10000.0), new Point3d(-10000.0, -3.0, 10000.0),
 							  new Point3d(10000.0, -3.0, 10000.0), new Point3d(10000.0, -3.0, -10000.0)};
-		
+
 		QuadArray field = new QuadArray(vertices.length, GeometryArray.COORDINATES | GeometryArray.COLOR_3);
 		field.setCoordinates(0, vertices);
 		Color3f[] groundColors = {Colors.GRASS, Colors.GRASS, Colors.GRASS, Colors.GRASS};
@@ -104,16 +105,16 @@ public class OrbitTest extends JFrame {
 		Background background = new Background(Colors.SKY);
 		background.setApplicationBounds(boundingSphere);
 		root.addChild(background);
-		
+
 		Shape3D shape = new Shape3D(field);
 		root.addChild(shape);
-		
+
 		return root;
-		
+
 	}
-	
+
 	class KeyInput implements KeyListener{
-		
+
 
 		@Override
 		public void keyTyped(KeyEvent e) {}
@@ -127,9 +128,9 @@ public class OrbitTest extends JFrame {
 		public void keyReleased(KeyEvent e) {
 			tInput.released(e.getKeyCode());
 		}
-		
+
 	}
-	
+
 	class TimerInput extends TimerTask {
 
 		boolean left = false;
@@ -140,17 +141,17 @@ public class OrbitTest extends JFrame {
 		boolean pgdown = false;
 		boolean rotleft = false;
 		boolean rotright = false;
-		
+
 		float vecx = 0.0f;
 		float vecy = 0.0f;
 		float vecz = 5.0f;
-		
+
 		double rot = 0;
-		
+
 		Vector3f viewTransformVector3f = new Vector3f(vecx, vecy, vecz);
 		Transform3D viewTransform3d2 = new Transform3D();
-		
-		
+
+
 		@Override
 		public void run() {
 			if(left) {
@@ -177,8 +178,8 @@ public class OrbitTest extends JFrame {
 			if (rotright) {
 				viewTransform3d2.rotY(-Math.PI / 60);
 			}
-			
-			
+
+
 			viewTransformVector3f.x = vecx;
 			viewTransformVector3f.y=  vecy;
 			viewTransformVector3f.z = vecz;
@@ -186,14 +187,14 @@ public class OrbitTest extends JFrame {
 			viewTransform3d.setTranslation(viewTransformVector3f);
 			viewTransformGroup.setTransform(viewTransform3d);
 		}
-		
+
 		public void pressed(int keyCode) {
 			switch(keyCode) {
 			case KeyEvent.VK_LEFT:
 				left = true;
 				break;
 			case KeyEvent.VK_RIGHT:
-				
+
 				right = true;
 				break;
 			case KeyEvent.VK_UP:
@@ -216,7 +217,7 @@ public class OrbitTest extends JFrame {
 				break;
 			}
 		}
-		
+
 		public void released(int keyCode) {
 			switch(keyCode) {
 			case KeyEvent.VK_LEFT:

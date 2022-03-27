@@ -17,11 +17,15 @@ import traffic.Node;
 
 public class PassengerCar extends Car {
 	
-	public PassengerCar(int load, ArrayList<Node> nodes, Point3f startPoint, double direction) {
-		super(load, nodes, startPoint, direction);
+	public PassengerCar(int load, ArrayList<Node> nodes, Point3f startPoint, double direction, double speed) {
+		super(load, nodes, startPoint, direction, speed);
 		
 		carObjectGroup = createObject();
 		init(startPoint, direction);
+	}
+	
+	public PassengerCar() {
+		
 	}
 	
 	private TransformGroup createObject() {

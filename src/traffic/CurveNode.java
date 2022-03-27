@@ -6,7 +6,6 @@ import javax.vecmath.Point3f;
 public class CurveNode extends Node {
 
 	float radius;
-	float[] movedVector = new float[3];
 	double wholeAngle;
 	double declination;
 	double slope;
@@ -17,23 +16,36 @@ public class CurveNode extends Node {
 	public CurveNode(float radius, double declination, double angle, Point3f centre, float upHeight, float nowHeight) {
 		this.radius = radius * 100;
 		this.declination = declination;
-		
+
 		centrePoint3f = centre;
 		wholeAngle = angle;
-		movedVector[1] = nowHeight;
-		
+
 		nowDirection += declination;
-		
+
 		float lengthTemp = (float) (radius * 2 * Math.PI * (wholeAngle / (Math.PI * 2)));
 		slope = upHeight / lengthTemp;
 		length = (float) Math.sqrt(upHeight * upHeight + lengthTemp * lengthTemp);
+
+		if (this.radius < 75) {
+			limitSpeed = 40;
+		}else if (this.radius < 200) {
+			limitSpeed = 50;
+		}else if (this.radius < 300) {
+			limitSpeed = 60;
+		}else if (this.radius < 400) {
+			limitSpeed = 70;
+		}else if (this.radius < 600) {
+			limitSpeed = 80;
+		}else {
+			limitSpeed = 100;
+		}
 	}
 
 	@Override
-	public float[] move(float movedDistance) {
+	public float[] move(float movedDistance, float[] movedVector) {
 		double movedAngle;
 		double angle;
-		
+
 		float movedDistanceXZ = (float) (movedDistance / Math.sqrt(slope * slope / 10000 + 1));
 		float movedDistanceY = (float) (movedDistanceXZ * slope / 100);
 

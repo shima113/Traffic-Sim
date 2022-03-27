@@ -28,7 +28,7 @@ public class ViewChange {
 	float cameraX, cameraY, cameraZ = 0;
 	float movedCameraX, movedCameraY, movedCameraZ = 0;
 
-	public final float DEFAULT_SENSE = 0.01f;
+	public final float DEFAULT_SENSE = 0.001f;
 
 	Vector3f cameraPositionVector;
 
