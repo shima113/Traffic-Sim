@@ -8,8 +8,8 @@ public class CarList {
 
 	ArrayList<Car> cars;
 	ArrayList<Float> carMovedList;
-	
-	public static final Car NOTHING_INFRONT = new Car(200000);
+
+	public static final Car NOTHING_INFRONT = new Car(1000);
 	
 	public CarList() {
 		cars = new ArrayList<>();

@@ -18,7 +18,7 @@ public abstract class Node {
 	double nowDirection;
 	double limitSpeed;
 
-	ArrayList<Car> nowOnCars;
+	CarList nowOnCars;
 
 	EquationStraight equationStraight;
 
@@ -42,15 +42,19 @@ public abstract class Node {
 		return nowDirection;
 	}
 
-	public void setNowOnCars(ArrayList<Car> nowOnCars) {
+	public void setNowOnCars(CarList nowOnCars) {
 		this.nowOnCars = nowOnCars;
 	}
 
-	public ArrayList<Car> getNowOnCars() {
+	public CarList getNowOnCars() {
 		return nowOnCars;
 	}
 
 	public double getLimitSpeed() {
 		return limitSpeed;
+	}
+
+	public void setLimitSpeed(double limitSpeed) {
+		this.limitSpeed = limitSpeed;
 	}
 }

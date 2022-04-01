@@ -11,6 +11,7 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
+import traffic.CarList;
 import traffic.CurveNode;
 import traffic.Node;
 import traffic.StraightNode;
@@ -54,7 +55,7 @@ public class Car implements ActionListener {
 		movedVector[1] = startPoint.y;
 		movedVector[2] = startPoint.z;
 		
-		nowNode.getNowOnCars().add(this);
+		nowNode.getNowOnCars().addCar(this);
 		
 		this.speed = speed;
 
@@ -63,7 +64,7 @@ public class Car implements ActionListener {
 	}
 
 	public Car() {}
-	public Car(double speed) {this.speed = speed;} //NOTHING_INFRONT用
+	public Car(float totalDistance) {this.totalDistance = totalDistance;} //NOTHING_INFRONT用
 
 	public void move() {
 		movedDistance = movedDistanceRimainder;
@@ -85,7 +86,6 @@ public class Car implements ActionListener {
 
 		movedDistanceForCheckNode += movedDistance;
 
-		return;
 	}
 
 	public void changeLane(Node targetNode, ArrayList<Node> targetNodeGroup) {
@@ -131,62 +131,53 @@ public class Car implements ActionListener {
 	public void setAtnodegroupArrayList(ArrayList<Node> atnodegroupArrayList) {
 		this.atnodegroupArrayList = atnodegroupArrayList;
 	}
-	
+
 	public Car checkInFrontCar() {
-		int index = nowNode.getNowOnCars().indexOf(this);
-		Car inFrontCar;
-		
-		if (index != 0) {
-			inFrontCar = nowNode.getNowOnCars().get(index - 1);
-		}else {
-			inFrontCar = new Car();
-			inFrontCar.setTotalDistance(1000);
-		}
-		
-		return inFrontCar;
+		return nowNode.getNowOnCars().getInFrontCar(this);
 	}
 	
 	public void accelByDistance(Car inFrontCar, int time) {
 		float distanceInFront = inFrontCar.getTotalDistance() - this.totalDistance;
+		double speedPerHour = speed * 3.6;
 
 		if (time == 25) {
 			distanceInFront *= 100;
-			if (distanceInFront > (speed * 2) && speed < nowNode.getLimitSpeed()) {
-				acceralation = 8;
-			}else if (distanceInFront < (speed * 0.8)) {
-				acceralation = -12;
+			if (distanceInFront > (speedPerHour * 2) && speed < nowNode.getLimitSpeed()) {
+				acceralation = 4;
+			}else if (distanceInFront < (speedPerHour * 0.8)) {
+				acceralation = -6;
 			}else {
 				acceralation = 0;
 			}
 			
-			if (distanceInFront < speed) {
-				if (inFrontCar.getSpeed() < (speed - 40)) {
-					acceralation = -12;
-				}else if (inFrontCar.getSpeed() < (speed - 20)) {
-					acceralation = -8;
+			if (distanceInFront < speedPerHour) {
+				if (inFrontCar.getSpeed() < (speed - 11.11111)) {
+					acceralation = -6;
+				}else if (inFrontCar.getSpeed() < (speed - 5.55556)) {
+					acceralation = -3;
 				}
 			}else {
-				if (inFrontCar.getSpeed() > (speed + 20)) {
+				if (inFrontCar.getSpeed() > (speed + 5.55556)) {
+					acceralation = 3;
+				}else if (inFrontCar.getSpeed() < (speed + 11.11111)) {
 					acceralation = 6;
-				}else if (inFrontCar.getSpeed() < (speed + 40)) {
-					acceralation = 12;
 				}
 			}
 		}
 		
-		//emaegency stop
+		//emergency stop
 		if (inFrontCar.getAccel() <= -20) {
 			if (distanceInFront < speed) {
-				acceralation = -20;
+				acceralation = -10;
 			}
 		}
 		
-		if (distanceInFront < (speed / 4)) {
-			acceralation = -50;
-		}else if (distanceInFront < (speed / 3)) {
-			acceralation = -30;
-		}else if (distanceInFront < (speed / 2)) {
+		if (distanceInFront < (speedPerHour / 4)) {
 			acceralation = -20;
+		}else if (distanceInFront < (speedPerHour / 3)) {
+			acceralation = -12;
+		}else if (distanceInFront < (speedPerHour / 2)) {
+			acceralation = -8;
 		}
 		
 		//crash
@@ -197,9 +188,9 @@ public class Car implements ActionListener {
 	
 	public void checkLimitSpeed() {
 		if (speed > nowNode.getLimitSpeed() + 20) {
-			acceralation = -20;
+			acceralation = -10;
 		}else if (speed > nowNode.getLimitSpeed() + 5) {
-			acceralation = -8;
+			acceralation = -4;
 		}
 	}
 
