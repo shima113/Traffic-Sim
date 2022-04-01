@@ -35,7 +35,7 @@ public class StraightNode extends Node {
 		//System.out.println(point[0] + ", " + point[1] + ", " + (Math.PI * 2 - decli) / Math.PI * 180);
 		//System.out.println(equationStraight.getStringValue());
 
-		limitSpeed = 100;
+		limitSpeed = 27.77778;
 	}
 
 	@Override

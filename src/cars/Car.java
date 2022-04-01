@@ -26,7 +26,7 @@ public class Car implements ActionListener {
 	float totalDistance, totalDistanceDisplay = 0;
 	float[] movedVector = new float[3];
 	double time;
-	double speed = 70;
+	double speed = 20; //秒速！！！！！！（m/s）
 	double acceralation = 0;
 	double nowDirection = 0;
 
@@ -63,6 +63,7 @@ public class Car implements ActionListener {
 	}
 
 	public Car() {}
+	public Car(double speed) {this.speed = speed;} //NOTHING_INFRONT用
 
 	public void move() {
 		movedDistance = movedDistanceRimainder;

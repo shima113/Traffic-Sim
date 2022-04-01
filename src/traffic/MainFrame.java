@@ -94,7 +94,7 @@ public class MainFrame extends JFrame {
 		universe.addBranchGraph(carBranchGroup);
 		universe.addBranchGraph(createEnvironment());
 		
-		createExcel();
+		//createExcel();
 
 		/*JButton accelButton = new JButton("加速");
 		accelButton.setBounds(20, 1650, 100, 30);
@@ -130,7 +130,7 @@ public class MainFrame extends JFrame {
 		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 300);
+		carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
 		carTime2r.schedule(new carTime2r(), 8000);
@@ -139,6 +139,7 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 	
+	@SuppressWarnings("unused")
 	private void createExcel() {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
