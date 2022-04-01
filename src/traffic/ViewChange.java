@@ -153,6 +153,12 @@ public class ViewChange {
 			case KeyEvent.VK_PAGE_DOWN:
 				movedCameraY -= 0.2f;
 				break;
+			case KeyEvent.VK_SEMICOLON:
+				cameraDistance -= 1;
+				break;
+			case KeyEvent.VK_MINUS:
+				cameraDistance += 1;
+				break;
 			}
 			
 			setValue();

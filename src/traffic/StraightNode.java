@@ -6,9 +6,22 @@ import tools.math.EquationStraight;
 
 public class StraightNode extends Node {
 
+	/**
+	 * 偏角(ラジアン)
+	 */
 	double declination;
+
+	/**
+	 * 勾配(tanθ)
+	 */
 	double slope;
 
+	/**
+	 * @param lenXZ 高さや勾配を無視したときの長さ（高さを考えたNodeの長さをLとすると lenXZ = Lcosθ）
+	 * @param decli 偏角
+	 * @param startPoint 開始地点
+	 * @param upHeight このNodeにいる間に上昇する高さ
+	 */
 	public StraightNode(float lenXZ, double decli, Point3f startPoint, float upHeight) {
 		declination = decli;
 

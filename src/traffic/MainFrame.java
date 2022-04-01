@@ -5,6 +5,11 @@ package traffic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,13 +23,16 @@ import javax.media.j3d.QuadArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
@@ -40,12 +48,12 @@ public class MainFrame extends JFrame {
 	TransformGroup viewTransformGroup;
 	Transform3D viewTransform3d = new Transform3D();
 	BranchGroup carBranchGroup;
-	
+
 	ArrayList<ArrayList<Car>> nodeLists = new ArrayList<>();
-	
+
 	JLabel accelDisplay, speedDisplay, distanceDisplay;
 
-	PassengerCar car1, car2, car3;
+	//PassengerCar car1, car2, car3;
 
 	int militime = 40;
 
@@ -60,12 +68,12 @@ public class MainFrame extends JFrame {
 
 		//setting swing
 		setTitle("traffic sim");
-		setBounds(500, 300, 1800, 1800);
+		setBounds(0, 0, 1800, 1000);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		//setting java3D
 		Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-		canvas.setBounds(0, 0, 1600, 1600);
+		canvas.setBounds(0, 0, 1600, 900);
 		JPanel cp = new JPanel();
 		cp.setLayout(null);
 		cp.add(canvas);
@@ -85,19 +93,21 @@ public class MainFrame extends JFrame {
 
 		universe.addBranchGraph(carBranchGroup);
 		universe.addBranchGraph(createEnvironment());
+		
+		createExcel();
 
-		JButton accelButton = new JButton("加速");
+		/*JButton accelButton = new JButton("加速");
 		accelButton.setBounds(20, 1650, 100, 30);
 		accelButton.addActionListener(car1);
 		accelButton.addActionListener(car2);
 		accelButton.addActionListener(car3);
 		accelButton.setActionCommand("accel");
 		cp.add(accelButton);
-
+		
 		accelDisplay = new JLabel("状態：" + car1.getAccel());
 		accelDisplay.setBounds(130, 1650, 100, 30);
 		cp.add(accelDisplay);
-
+		
 		JButton brakeButton = new JButton("ブレーキ");
 		brakeButton.setBounds(20, 1720, 100, 30);
 		brakeButton.addActionListener(car1);
@@ -105,31 +115,54 @@ public class MainFrame extends JFrame {
 		brakeButton.addActionListener(car3);
 		brakeButton.setActionCommand("brake");
 		cp.add(brakeButton);
-
+		
 		speedDisplay = new JLabel("速度：" + car1.getSpeed());
 		speedDisplay.setBounds(250, 1650, 100, 30);
 		cp.add(speedDisplay);
-
+		
 		distanceDisplay = new JLabel("走行距離：" + car1.getTotalDistance());
 		distanceDisplay.setBounds(250, 1700, 100, 30);
 		cp.add(distanceDisplay);
-
+		
 		JButton reflesh = new JButton("reload");
 		reflesh.setBounds(1700, 200, 50, 50);
 		reflesh.addActionListener(new RefleshButton());
-		cp.add(reflesh);
-
-		Timer timer = new Timer();
-		timer.schedule(new TimerReculc(), 0, militime);
+		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 5000, 700);
+		carTimer.schedule(new carTimer(), 2000, 300);
 
 		Timer carTime2r = new Timer();
 		carTime2r.schedule(new carTime2r(), 8000);
 
 		loading.setVisible(false);
 		setVisible(true);
+	}
+	
+	private void createExcel() {
+		LocalDateTime localDateTime = LocalDateTime.now();
+		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+		String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
+		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
+
+		Workbook workbook = new HSSFWorkbook();
+		FileOutputStream fStream = null;
+		try {
+			fStream = new FileOutputStream(filepath);
+			workbook.write(fStream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Sheet sheet1 = workbook.createSheet();
 	}
 
 	//add cars to universe and create nodes
@@ -146,34 +179,34 @@ public class MainFrame extends JFrame {
 		nodeGroup1.add(node2);
 		nodeGroup1.add(node3);*/
 
-		car1 = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2, 50);
+		/*car1 = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2, 50);
 		car2 = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 50);
 		car3 = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2, 100);
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
 		root.addChild(car3.carObjectGroup);
-
+		
 		//car2.setAtoNode(node16);
 		//car2.setAtnodegroupArrayList(nodeGroup4);
-
+		
 		car1.setCarnum(2);
 		car2.setCarnum(10);
-		car3.setCarnum(3);
+		car3.setCarnum(3);*/
 
 		return root;
 	}
-	
+
 	private void createCarList() {
-		for(int i = 0; i < 21; i++) {
+		for(int i = 0; i < 5; i++) {
 		    nodeLists.add(new ArrayList<Car>());
 		}
 	}
-	
+
 	private ArrayList<Node> createNodeGroup2() {
 		ArrayList<Node> nodeGroup2 = new ArrayList<>();
-		
+
 		Node[] nodes = new Node[5];
- 		
+
 		nodes[0] = new StraightNode(2.2f, Math.PI, new Point3f(0, 0, 0), 0);
 		nodes[1] = new CurveNode(0.54f, Math.PI, Math.PI * 3 / 4, new Point3f(0.54f, 0.0f, -2.2f), 0.06f, 0);
 		nodes[2] = new StraightNode
@@ -185,17 +218,17 @@ public class MainFrame extends JFrame {
 
 		for(int i = 0; i < nodes.length; i++) {
 			nodeGroup2.add(nodes[i]);
-			nodes[i].setNowOnCars(nodeLists.get(i));
+			nodes[i].setNowOnCars(nodeLists.get(0));
 		}
-		
+
 		return nodeGroup2;
 	}
-	
+
 	private ArrayList<Node> createNodeGroup3() {
 		ArrayList<Node> nodeGroup3 = new ArrayList<>();
-		
+
 		Node[] nodes = new Node[4];
-		
+
 		nodes[0] = new StraightNode(2.07f, Math.PI * 3 / 2, new Point3f(-1.6f, 0.08f, -1.67f), 0);
 		nodes[1] = new CurveNode(-0.53f, Math.PI * 3 / 2, -Math.PI / 2, new Point3f(0.47f, 0, -2.2f), 0, 0.08f);
 		nodes[2] = new CurveNode(-0.46f, Math.PI, -Math.PI, new Point3f(0.54f, 0, -2.2f), -0.08f, 0.08f);
@@ -203,17 +236,17 @@ public class MainFrame extends JFrame {
 
 		for(int i = 0; i < nodes.length; i++) {
 			nodeGroup3.add(nodes[i]);
-			nodes[i].setNowOnCars(nodeLists.get(i + 5));
+			nodes[i].setNowOnCars(nodeLists.get(1));
 		}
-		
+
 		return nodeGroup3;
 	}
-	
+
 	private ArrayList<Node> createNodeGroup4() {
 		ArrayList<Node> nodeGroup4 = new ArrayList<>();
-		
+
 		Node[] nodes = new Node[4];
-		
+
 		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.59f), 0);
 		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.59f), 0);
 		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.59f), 0);
@@ -221,17 +254,17 @@ public class MainFrame extends JFrame {
 
 		for(int i = 0; i < nodes.length; i++) {
 			nodeGroup4.add(nodes[i]);
-			nodes[i].setNowOnCars(nodeLists.get(i + 9));
+			nodes[i].setNowOnCars(nodeLists.get(2));
 		}
-		
+
 		return nodeGroup4;
 	}
-	
+
 	private ArrayList<Node> createNodeGroup5() {
 		ArrayList<Node> nodeGroup5 = new ArrayList<>();
-		
+
 		Node[] nodes = new Node[4];
-		
+
 		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.55f), 0);
 		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.55f), 0);
 		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.55f), 0);
@@ -239,17 +272,17 @@ public class MainFrame extends JFrame {
 
 		for(int i = 0; i < nodes.length; i++) {
 			nodeGroup5.add(nodes[i]);
-			nodes[i].setNowOnCars(nodeLists.get(i + 13));
+			nodes[i].setNowOnCars(nodeLists.get(3));
 		}
-		
+
 		return nodeGroup5;
 	}
-	
+
 	private ArrayList<Node> createNodeGroup6() {
 		ArrayList<Node> nodeGroup6 = new ArrayList<>();
-		
+
 		Node[] nodes = new Node[4];
-		
+
 		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.51f), 0);
 		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.51f), 0);
 		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.51f), 0);
@@ -257,9 +290,9 @@ public class MainFrame extends JFrame {
 
 		for(int i = 0; i < nodes.length; i++) {
 			nodeGroup6.add(nodes[i]);
-			nodes[i].setNowOnCars(nodeLists.get(i + 17));
+			nodes[i].setNowOnCars(nodeLists.get(4));
 		}
-		
+
 		return nodeGroup6;
 	}
 
@@ -296,24 +329,13 @@ public class MainFrame extends JFrame {
 
 	}
 
-	class TimerReculc extends TimerTask{
-
-		@Override
-		public void run() {
-			speedDisplay.setText("速度：" + car1.getSpeed() + "km/h");
-			distanceDisplay.setText("走行距離" + car1.getTotalDistanceDisplay() + "m");
-			accelDisplay.setText("状態：" + car1.getAccel());
-		}
-
-	}
-
 	class carTimer extends TimerTask{
 
 		@Override
-		public void run() {			
+		public void run() {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			PassengerCar car;
-			
+
 			int rand = (int) (Math.random() * 5);
 			switch(rand) {
 			case 0:
@@ -336,40 +358,40 @@ public class MainFrame extends JFrame {
 			}
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
-			
+
 		}
 
 	}
-	
+
 	class carTime2r extends TimerTask{
-		
+
 		PassengerCar car;
-		
+
 		public carTime2r() {
 			Timer timer = new Timer();
 			timer.schedule(new tm2(), 8050, 50);
 		}
 
 		@Override
-		public void run() {			
+		public void run() {
 			BranchGroup tempBranchGroup = new BranchGroup();
-			
-			System.out.println("yo");
+
+			//System.out.println("yo");
 
 			car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 50);
-			
+
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
-			
+
 		}
-		
+
 		class tm2 extends TimerTask{
 
 			@Override
 			public void run() {
-				System.out.println(car.getSpeed());
+				//System.out.println(car.getSpeed());
 			}
-			
+
 		}
 
 	}

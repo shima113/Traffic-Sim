@@ -1,18 +1,42 @@
 package traffic;
 
-import javax.media.j3d.Transform3D;
 import javax.vecmath.Point3f;
 
+/**
+ *ここでの曲線はすべて円弧です。
+ */
 public class CurveNode extends Node {
 
+	/**
+	 * 曲線半径
+	 */
 	float radius;
+	/**
+	 * 曲線の角度
+	 */
 	double wholeAngle;
+	/**
+	 * 偏角
+	 */
 	double declination;
+	/**
+	 * 勾配
+	 */
 	double slope;
 
+	/**
+	 * 曲線の中心
+	 */
 	Point3f centrePoint3f;
-	Transform3D angleTempTransform3d = new Transform3D();
 
+	/**
+	 * @param radius 曲線半径
+	 * @param declination 偏角
+	 * @param angle 曲線の円弧の角度
+	 * @param centre 曲線の中心
+	 * @param upHeight このNodeで上昇する高さ
+	 * @param nowHeight 現在(Nodeの一番最初)での高さ
+	 */
 	public CurveNode(float radius, double declination, double angle, Point3f centre, float upHeight, float nowHeight) {
 		this.radius = radius * 100;
 		this.declination = declination;

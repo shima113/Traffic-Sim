@@ -26,7 +26,7 @@ public class Car implements ActionListener {
 	float totalDistance, totalDistanceDisplay = 0;
 	float[] movedVector = new float[3];
 	double time;
-	double speed = 50;
+	double speed = 70;
 	double acceralation = 0;
 	double nowDirection = 0;
 
@@ -131,25 +131,22 @@ public class Car implements ActionListener {
 		this.atnodegroupArrayList = atnodegroupArrayList;
 	}
 	
-	public float checkInFrontCar() {
+	public Car checkInFrontCar() {
 		int index = nowNode.getNowOnCars().indexOf(this);
-		float distance = 0;
+		Car inFrontCar;
 		
 		if (index != 0) {
-			if(index >= nowNode.getNowOnCars().size()) {
-				
-			}else {
-				Car inFrontCar = nowNode.getNowOnCars().get(index - 1);
-				distance = inFrontCar.getMovedDistanceForCheckNode() - this.movedDistanceForCheckNode;
-			}
+			inFrontCar = nowNode.getNowOnCars().get(index - 1);
 		}else {
-			distance = 100;
+			inFrontCar = new Car();
+			inFrontCar.setTotalDistance(1000);
 		}
 		
-		return distance;
+		return inFrontCar;
 	}
 	
-	public void accelByDistance(float distanceInFront, int time) {
+	public void accelByDistance(Car inFrontCar, int time) {
+		float distanceInFront = inFrontCar.getTotalDistance() - this.totalDistance;
 
 		if (time == 25) {
 			distanceInFront *= 100;
@@ -160,16 +157,38 @@ public class Car implements ActionListener {
 			}else {
 				acceralation = 0;
 			}
+			
+			if (distanceInFront < speed) {
+				if (inFrontCar.getSpeed() < (speed - 40)) {
+					acceralation = -12;
+				}else if (inFrontCar.getSpeed() < (speed - 20)) {
+					acceralation = -8;
+				}
+			}else {
+				if (inFrontCar.getSpeed() > (speed + 20)) {
+					acceralation = 6;
+				}else if (inFrontCar.getSpeed() < (speed + 40)) {
+					acceralation = 12;
+				}
+			}
+		}
+		
+		//emaegency stop
+		if (inFrontCar.getAccel() <= -20) {
+			if (distanceInFront < speed) {
+				acceralation = -20;
+			}
 		}
 		
 		if (distanceInFront < (speed / 4)) {
-			acceralation = -100;
+			acceralation = -50;
 		}else if (distanceInFront < (speed / 3)) {
-			acceralation = -60;
+			acceralation = -30;
 		}else if (distanceInFront < (speed / 2)) {
-			acceralation = -40;
+			acceralation = -20;
 		}
 		
+		//crash
 		if (distanceInFront <= 0.05) {
 			speed = 0;
 		}
@@ -200,11 +219,11 @@ public class Car implements ActionListener {
 			movedDistanceRimainder = movedDistanceForCheckNode - nowNode.getLength() * 100;
 			movedDistanceForCheckNode -= nowNode.getLength() * 100;
 			
-			nowNode.getNowOnCars().remove(nowNode.getNowOnCars().indexOf(this));
+			//nowNode.getNowOnCars().remove(nowNode.getNowOnCars().indexOf(this));
 			
 			nowNode = nodeGroup.get(nowNodeIndex);
 			
-			nowNode.getNowOnCars().add(this);
+			//nowNode.getNowOnCars().add(this);
 		}
 	}
 
@@ -306,6 +325,10 @@ public class Car implements ActionListener {
 
 	public float getTotalDistance() {
 		return totalDistance;
+	}
+
+	public void setTotalDistance(float totalDistance) {
+		this.totalDistance = totalDistance;
 	}
 
 	public float getTotalDistanceDisplay() {
