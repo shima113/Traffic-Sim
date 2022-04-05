@@ -11,35 +11,89 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import traffic.CarList;
 import traffic.CurveNode;
 import traffic.Node;
 import traffic.StraightNode;
 
+/**
+ * 車クラス<br>
+ * 車の加減速、座標移動などを行います
+ */
 public class Car implements ActionListener {
 
+	/**
+	 * いまnodeGroupの何番目のNodeにいるのかを表す
+	 */
 	int nowNodeIndex = 0;
+	/**
+	 * ボタンで加減速していた時に使っていた
+	 */
 	int accel = 0;
 
+	/**
+	 * Excel出力用　開始時刻
+	 */
+	long startTime = 0;
+
+	/**
+	 * 1フレーム（デフォルトは0.04秒）に動いた距離
+	 */
 	float movedDistance;
+	/**
+	 * 今いるNodeに入ってから動いた距離の総量
+	 */
 	float movedDistanceForCheckNode = 0;
+	/**
+	 * 1フレーム経過するあいだに今のNodeが終わってしまったため、このフレームから次のNodeに入るときにいろいろつじつまを合わせるやつ
+	 */
 	float movedDistanceRimainder = 0;
+	/**
+	 * これまでに動いた距離の合計
+	 */
 	float totalDistance, totalDistanceDisplay = 0;
+
+	/**
+	 * 現在地の座標{x, y, z}
+	 */
 	float[] movedVector = new float[3];
+	/**
+	 * 1フレームの間隔
+	 */
 	double time;
+	/**
+	 * 速度（m/s）秒速！！！！！！！！
+	 */
 	double speed = 20; //秒速！！！！！！（m/s）
+	/**
+	 * 加速度（たぶんm/s^2）
+	 */
 	double acceralation = 0;
 	double nowDirection = 0;
 
-	Point3f frontCoord;
-	Point3f backCoord;
+	/**
+	 * 車のオブジェクト　車の種類ごと（PassengerCar, Busなど）に生成される
+	 */
 	public TransformGroup carObjectGroup;
+	/**
+	 * 車の方向のTransform3D
+	 */
 	Transform3D angleTransform3d = new Transform3D();
 
+	/**
+	 * これからこの車がたどるであろうNodeのリスト
+	 */
 	ArrayList<Node> nodeGroup = new ArrayList<>();
 	Node nowNode;
+	/**
+	 * 移動計算用　1フレームごとに計算する
+	 */
 	Timer timer;
 
+	Sheet expSheet;
 
 	Node atoNode;
 	ArrayList<Node> atnodegroupArrayList;
@@ -61,6 +115,8 @@ public class Car implements ActionListener {
 
 		timer = new Timer();
 		timer.schedule(new TimerMove(), 1000, loadingTime);
+
+		startTime = System.currentTimeMillis() + 1000;
 	}
 
 	public Car() {}
@@ -194,28 +250,34 @@ public class Car implements ActionListener {
 		}
 	}
 
+	long endTime = 0;
+
 	public void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 			nowNodeIndex++;
 			
 			if (nowNodeIndex >= nodeGroup.size()) {
+				endTime = System.currentTimeMillis();
 				nowNode.getNowOnCars().removeCar(this);
+				System.out.println(nodegroupIndex + ", owatta");
 				nowNode = STOPNODE;
 				nowNodeIndex--;
 				nodeGroup = null;
 				timer.cancel();
 				timer = null;
 				//changeLane(atoNode, atnodegroupArrayList);
+
+				exportExcel();
 				return;
 			}
-			
+
 			movedDistanceRimainder = movedDistanceForCheckNode - nowNode.getLength() * 100;
 			movedDistanceForCheckNode -= nowNode.getLength() * 100;
-			
+
 			//nowNode.getNowOnCars().remove(nowNode.getNowOnCars().indexOf(this));
-			
+
 			nowNode = nodeGroup.get(nowNodeIndex);
-			
+
 			//nowNode.getNowOnCars().add(this);
 		}
 	}
@@ -245,6 +307,7 @@ public class Car implements ActionListener {
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
+			System.out.println(nodegroupIndex + ", " + acceralation);
 		}
 
 		private void moveCulculation() {
@@ -299,6 +362,25 @@ public class Car implements ActionListener {
 		}
 	}
 
+	int sheetIndex = 0;
+	int nodegroupIndex = 1000;
+
+	private void exportExcel(){
+		Row row = expSheet.createRow(sheetIndex);
+		Cell time = row.createCell(0);
+		Cell length = row.createCell(1);
+		Cell speed = row.createCell(2);
+		Cell nodegrop = row.createCell(4);
+
+		String rowIndex = String.valueOf(sheetIndex + 1);
+
+		time.setCellValue(endTime - startTime);
+		length.setCellValue(totalDistance);
+		speed.setCellFormula("B" + rowIndex + "/" + "A" + rowIndex + "*3600");
+		nodegrop.setCellValue(nodegroupIndex);
+
+	}
+
 	public void stop() {
 		speed = 0;
 		acceralation = 0;
@@ -342,5 +424,17 @@ public class Car implements ActionListener {
 
 	public void setCarnum(int carnum) {
 		this.carnum = carnum;
+	}
+
+	public void setSheetIndex(int sheetIndex) {
+		this.sheetIndex = sheetIndex;
+	}
+
+	public void setExpSheet(Sheet expSheet) {
+		this.expSheet = expSheet;
+	}
+
+	public void setNodegroupIndex(int nodegroupIndex) {
+		this.nodegroupIndex = nodegroupIndex;
 	}
 }

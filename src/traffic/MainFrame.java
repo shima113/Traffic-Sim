@@ -5,6 +5,8 @@ package traffic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -42,8 +44,6 @@ import tools.NowLoading;
 
 public class MainFrame extends JFrame {
 
-	private SimpleUniverse universe;
-
 	TransformGroup viewTransformGroup;
 	Transform3D viewTransform3d = new Transform3D();
 	BranchGroup carBranchGroup;
@@ -60,6 +60,16 @@ public class MainFrame extends JFrame {
 		new MainFrame();
 	}
 
+	/**
+	 * 行っていること
+	 * <ul>
+	 *     <li>ロード画面の作成</li>
+	 *     <li>フレームの初期設定</li>
+	 *     <li>Java3Dの設定（Universeの生成など）</li>
+	 *     <li>ViewChangeクラスの設定</li>
+	 *     <li>出力するExcelファイルの作成</li>
+	 * </ul>
+	 */
 	public MainFrame() {
 		//setting loading gamen
 		NowLoading loading = new NowLoading();
@@ -78,7 +88,7 @@ public class MainFrame extends JFrame {
 		cp.add(canvas);
 		add(cp);
 
-		universe = new SimpleUniverse(canvas);
+		SimpleUniverse universe = new SimpleUniverse(canvas);
 
 		ViewChange viewChange = new ViewChange(canvas, universe, 15.0f);
 		viewChange.setSensitivity(0.01f);
@@ -93,7 +103,14 @@ public class MainFrame extends JFrame {
 		universe.addBranchGraph(carBranchGroup);
 		universe.addBranchGraph(createEnvironment());
 		
-		//createExcel();
+		createExcel();
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				exportSheet();
+			}
+		});
 
 		/*JButton accelButton = new JButton("加速");
 		accelButton.setBounds(20, 1650, 100, 30);
@@ -129,23 +146,31 @@ public class MainFrame extends JFrame {
 		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 1000);
+		//carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
-		carTime2r.schedule(new carTime2r(), 1000);
+		//carTime2r.schedule(new carTime2r(), 1000);
 
 		loading.setVisible(false);
 		setVisible(true);
 	}
-	
-	@SuppressWarnings("unused")
+
+	Workbook workbook = new HSSFWorkbook();
+	Sheet sheet1;
+
+	//作るだけ
 	private void createExcel() {
+		sheet1 = workbook.createSheet();
+		workbook.setSheetName(0,"yahhhhh");
+	}
+
+	//ウィンドウ閉じたときに呼ばれる
+	private void exportSheet(){
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 		String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
 		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
 
-		Workbook workbook = new HSSFWorkbook();
 		FileOutputStream fStream = null;
 		try {
 			fStream = new FileOutputStream(filepath);
@@ -155,13 +180,13 @@ public class MainFrame extends JFrame {
 		} finally {
 			try {
 				fStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		}
-		
-		Sheet sheet1 = workbook.createSheet();
 	}
+
+
 
 	//add cars to universe and create nodes
 	private BranchGroup createScene() {
@@ -212,6 +237,11 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	/*　＿
+	　／　 ＼＿→
+	　│　
+	　↑　　
+	 */
 	private ArrayList<Node> createNodeGroup2() {
 		ArrayList<Node> nodeGroup2 = new ArrayList<>();
 
@@ -238,6 +268,13 @@ public class MainFrame extends JFrame {
 		return nodeGroup2;
 	}
 
+	/*　　 ＿
+	　　 ／ 　＼
+	　　│　　　│
+　　→＿＿＿＿＿／
+	　　│
+	　　↓
+	 */
 	private ArrayList<Node> createNodeGroup3() {
 		ArrayList<Node> nodeGroup3 = new ArrayList<>();
 
@@ -348,7 +385,12 @@ public class MainFrame extends JFrame {
 
 	}
 
+	/**
+	 * 車を生成するクラス
+	 */
 	class carTimer extends TimerTask{
+
+		int rowIndex = 1;
 
 		@Override
 		public void run() {
@@ -359,18 +401,23 @@ public class MainFrame extends JFrame {
 			switch(rand) {
 			case 0:
 				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, nodeLists.get(0).getCar(0).getSpeed());
+				car.setNodegroupIndex(2);
 				break;
 			case 1:
 				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, nodeLists.get(1).getCar(0).getSpeed());
+				car.setNodegroupIndex(3);
 				break;
 			case 2:
 				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, nodeLists.get(2).getCar(0).getSpeed());
+				car.setNodegroupIndex(4);
 				break;
 			case 3:
 				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, nodeLists.get(3).getCar(0).getSpeed());
+				car.setNodegroupIndex(5);
 				break;
 			case 4:
 				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, nodeLists.get(4).getCar(0).getSpeed());
+				car.setNodegroupIndex(6);
 				break;
 			default:
 				car = new PassengerCar();
@@ -378,10 +425,16 @@ public class MainFrame extends JFrame {
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
 
+			car.setExpSheet(sheet1);
+			car.setSheetIndex(rowIndex);
+			rowIndex++;
 		}
 
 	}
 
+	/**
+	 * 確認用
+	 */
 	class carTime2r extends TimerTask{
 
 		PassengerCar car;
