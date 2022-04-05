@@ -32,4 +32,12 @@ public class CarList {
 		
 		return inFrontCar;
 	}
+
+	public Car getCar(int index){
+		return cars.get(index);
+	}
+
+	public void removeCar(Car thiscar){
+		cars.remove(thiscar);
+	}
 }

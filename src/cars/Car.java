@@ -199,6 +199,7 @@ public class Car implements ActionListener {
 			nowNodeIndex++;
 			
 			if (nowNodeIndex >= nodeGroup.size()) {
+				nowNode.getNowOnCars().removeCar(this);
 				nowNode = STOPNODE;
 				nowNodeIndex--;
 				nodeGroup = null;

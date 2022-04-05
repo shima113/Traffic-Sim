@@ -5,7 +5,6 @@ package traffic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -130,7 +129,7 @@ public class MainFrame extends JFrame {
 		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 500);
+		carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
 		carTime2r.schedule(new carTime2r(), 1000);
@@ -151,16 +150,14 @@ public class MainFrame extends JFrame {
 		try {
 			fStream = new FileOutputStream(filepath);
 			workbook.write(fStream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				fStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		}
 		
 		Sheet sheet1 = workbook.createSheet();
@@ -193,6 +190,18 @@ public class MainFrame extends JFrame {
 		car1.setCarnum(2);
 		car2.setCarnum(10);
 		car3.setCarnum(3);*/
+
+		PassengerCar car1 = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
+		PassengerCar car2 = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
+		PassengerCar car3 = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
+		PassengerCar car4 = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
+		PassengerCar car5 = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, 27.77778);
+
+		root.addChild(car1.carObjectGroup);
+		root.addChild(car2.carObjectGroup);
+		root.addChild(car3.carObjectGroup);
+		root.addChild(car4.carObjectGroup);
+		root.addChild(car5.carObjectGroup);
 
 		return root;
 	}
@@ -328,6 +337,8 @@ public class MainFrame extends JFrame {
 
 	}
 
+
+
 	class RefleshButton implements ActionListener{
 
 		@Override
@@ -347,19 +358,19 @@ public class MainFrame extends JFrame {
 			int rand = (int) (Math.random() * 5);
 			switch(rand) {
 			case 0:
-				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
+				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, nodeLists.get(0).getCar(0).getSpeed());
 				break;
 			case 1:
-				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
+				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, nodeLists.get(1).getCar(0).getSpeed());
 				break;
 			case 2:
-				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
+				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, nodeLists.get(2).getCar(0).getSpeed());
 				break;
 			case 3:
-				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
+				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, nodeLists.get(3).getCar(0).getSpeed());
 				break;
 			case 4:
-				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, 27.77778);
+				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, nodeLists.get(4).getCar(0).getSpeed());
 				break;
 			default:
 				car = new PassengerCar();
