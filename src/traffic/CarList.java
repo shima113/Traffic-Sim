@@ -19,7 +19,7 @@ public class CarList {
 	 */
 	ArrayList<Float> carMovedList;
 
-	public static final Car NOTHING_INFRONT = new Car(1000);
+	public static final Car NOTHING_INFRONT = new Car(100000);
 	
 	public CarList() {
 		cars = new ArrayList<>();
@@ -50,6 +50,10 @@ public class CarList {
 
 	public Car getCar(int index){
 		return cars.get(index);
+	}
+
+	public int getCarSize(){
+		return cars.size();
 	}
 
 	public void removeCar(Car thiscar){

@@ -1,23 +1,22 @@
 package cars;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.openxmlformats.schemas.presentationml.x2006.main.impl.OleObjDocumentImpl;
+import traffic.CurveNode;
+import traffic.Node;
+import traffic.StraightNode;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import traffic.CarList;
-import traffic.CurveNode;
-import traffic.Node;
-import traffic.StraightNode;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 車クラス<br>
@@ -52,12 +51,12 @@ public class Car implements ActionListener {
 	 */
 	float movedDistanceRimainder = 0;
 	/**
-	 * これまでに動いた距離の合計
+	 * これまでに動いた距離の合計　1=1m
 	 */
 	float totalDistance, totalDistanceDisplay = 0;
 
 	/**
-	 * 現在地の座標{x, y, z}
+	 * 現在地の座標{x, y, z}　1=100m
 	 */
 	float[] movedVector = new float[3];
 	/**
@@ -191,13 +190,12 @@ public class Car implements ActionListener {
 	public Car checkInFrontCar() {
 		return nowNode.getNowOnCars().getInFrontCar(this);
 	}
-	
+
 	public void accelByDistance(Car inFrontCar, int time) {
 		float distanceInFront = inFrontCar.getTotalDistance() - this.totalDistance;
 		double speedPerHour = speed * 3.6;
 
 		if (time == 25) {
-			distanceInFront *= 100;
 			if (distanceInFront > (speedPerHour * 2) && speed < nowNode.getLimitSpeed()) {
 				acceralation = 4;
 			}else if (distanceInFront < (speedPerHour * 0.8)) {
@@ -222,8 +220,8 @@ public class Car implements ActionListener {
 		}
 		
 		//emergency stop
-		if (inFrontCar.getAccel() <= -20) {
-			if (distanceInFront < speed) {
+		if (inFrontCar.getAcceralation() <= -20) {
+			if (distanceInFront < speedPerHour) {
 				acceralation = -10;
 			}
 		}
@@ -237,7 +235,7 @@ public class Car implements ActionListener {
 		}
 		
 		//crash
-		if (distanceInFront <= 0.05) {
+		if (distanceInFront <= 5) {
 			speed = 0;
 		}
 	}
@@ -259,7 +257,6 @@ public class Car implements ActionListener {
 			if (nowNodeIndex >= nodeGroup.size()) {
 				endTime = System.currentTimeMillis();
 				nowNode.getNowOnCars().removeCar(this);
-				System.out.println(nodegroupIndex + ", owatta");
 				nowNode = STOPNODE;
 				nowNodeIndex--;
 				nodeGroup = null;
@@ -307,7 +304,6 @@ public class Car implements ActionListener {
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
-			System.out.println(nodegroupIndex + ", " + acceralation);
 		}
 
 		private void moveCulculation() {
@@ -370,7 +366,7 @@ public class Car implements ActionListener {
 		Cell time = row.createCell(0);
 		Cell length = row.createCell(1);
 		Cell speed = row.createCell(2);
-		Cell nodegrop = row.createCell(4);
+		Cell nodegrop = row.createCell(3);
 
 		String rowIndex = String.valueOf(sheetIndex + 1);
 
@@ -420,6 +416,10 @@ public class Car implements ActionListener {
 
 	public void setAcceralation(double accel) {
 		acceralation = accel;
+	}
+
+	public double getAcceralation() {
+		return acceralation;
 	}
 
 	public void setCarnum(int carnum) {

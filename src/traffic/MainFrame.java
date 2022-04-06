@@ -3,8 +3,6 @@
  */
 package traffic;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
@@ -61,7 +59,7 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * 行っていること
+	 * 行っていること<br>
 	 * <ul>
 	 *     <li>ロード画面の作成</li>
 	 *     <li>フレームの初期設定</li>
@@ -146,7 +144,7 @@ public class MainFrame extends JFrame {
 		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		//carTimer.schedule(new carTimer(), 2000, 1000);
+		carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -221,6 +219,12 @@ public class MainFrame extends JFrame {
 		PassengerCar car3 = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
 		PassengerCar car4 = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
 		PassengerCar car5 = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, 27.77778);
+
+		car1.setNodegroupIndex(2);
+		car2.setNodegroupIndex(3);
+		car3.setNodegroupIndex(4);
+		car4.setNodegroupIndex(5);
+		car5.setNodegroupIndex(6);
 
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
@@ -374,17 +378,6 @@ public class MainFrame extends JFrame {
 
 	}
 
-
-
-	class RefleshButton implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			new MainFrame();
-		}
-
-	}
-
 	/**
 	 * 車を生成するクラス
 	 */
@@ -400,23 +393,23 @@ public class MainFrame extends JFrame {
 			int rand = (int) (Math.random() * 5);
 			switch(rand) {
 			case 0:
-				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, nodeLists.get(0).getCar(0).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, nodeLists.get(0).getCar(nodeLists.get(0).getCarSize() - 1).getSpeed());
 				car.setNodegroupIndex(2);
 				break;
 			case 1:
-				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, nodeLists.get(1).getCar(0).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, nodeLists.get(1).getCar(nodeLists.get(1).getCarSize() - 1).getSpeed());
 				car.setNodegroupIndex(3);
 				break;
 			case 2:
-				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, nodeLists.get(2).getCar(0).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, nodeLists.get(2).getCar(nodeLists.get(2).getCarSize() - 1).getSpeed());
 				car.setNodegroupIndex(4);
 				break;
 			case 3:
-				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, nodeLists.get(3).getCar(0).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, nodeLists.get(3).getCar(nodeLists.get(3).getCarSize() - 1).getSpeed());
 				car.setNodegroupIndex(5);
 				break;
 			case 4:
-				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, nodeLists.get(4).getCar(0).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(-3.30f, 0.08f, -1.51f), Math.PI, nodeLists.get(4).getCar(nodeLists.get(4).getCarSize() - 1).getSpeed());
 				car.setNodegroupIndex(6);
 				break;
 			default:

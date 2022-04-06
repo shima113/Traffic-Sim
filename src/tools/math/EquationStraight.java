@@ -81,7 +81,7 @@ public class EquationStraight {
 
 	/**
 	 * 2つの直線の距離を求めます。
-	 * @param もう1つの直線
+	 * @param otherStraight もう1つの直線
 	 * @return 2直線の距離
 	 */
 	public double getDistanceLine(EquationStraight otherStraight) {
