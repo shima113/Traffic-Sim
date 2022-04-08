@@ -166,7 +166,8 @@ public class MainFrame extends JFrame {
 	private void exportSheet(){
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-		String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
+		//String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
+		String folderpath = "C:\\Users\\kouhe\\Documents\\program files\\traffic\\TrafficSim_";
 		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
 
 		FileOutputStream fStream = null;
