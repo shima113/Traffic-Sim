@@ -133,11 +133,11 @@ public class MainFrame extends JFrame {
 		speedDisplay = new JLabel("速度：" + car1.getSpeed());
 		speedDisplay.setBounds(250, 1650, 100, 30);
 		cp.add(speedDisplay);
-		
+
 		distanceDisplay = new JLabel("走行距離：" + car1.getTotalDistance());
 		distanceDisplay.setBounds(250, 1700, 100, 30);
 		cp.add(distanceDisplay);
-		
+
 		JButton reflesh = new JButton("reload");
 		reflesh.setBounds(1700, 200, 50, 50);
 		reflesh.addActionListener(new RefleshButton());
@@ -167,7 +167,7 @@ public class MainFrame extends JFrame {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 		//String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
-		String folderpath = "C:\\Users\\kouhe\\Documents\\program files\\traffic\\TrafficSim_";
+		String folderpath = "C:\\Users\\kohei\\Documents\\program files\\traffic\\TrafficSim_";
 		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
 
 		FileOutputStream fStream = null;
