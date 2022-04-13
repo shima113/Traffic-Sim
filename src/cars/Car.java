@@ -144,13 +144,12 @@ public class Car implements ActionListener {
 	}
 
 	public void changeLane(Node targetNode, ArrayList<Node> targetNodeGroup) {
+		createChangeLaneNode(targetNode);
+	}
+
+	private void createChangeLaneNode(Node targetNode){
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
-
-		System.out.println(distance);
-		System.out.println(movedVector[0]);
-		System.out.println(movedVector[2]);
-
 
 		final float CHANGELANE_INTERVAL = 0.10f;
 
@@ -174,8 +173,8 @@ public class Car implements ActionListener {
 		System.out.println("centr1" + centrePoint3f1);
 		System.out.println("centr2" + centrePoint3f2);*/
 
-		nodeGroup.add(changeLaneNode1);
-		nodeGroup.add(changeLaneNode2);
+		nodeGroup.add(nodeGroup.indexOf(nowNode) + 1, changeLaneNode1);
+		nodeGroup.add(nodeGroup.indexOf(changeLaneNode1) + 1, changeLaneNode2);
 		//nodeGroup.add(straightNode);
 	}
 
@@ -253,7 +252,8 @@ public class Car implements ActionListener {
 	public void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 			nowNodeIndex++;
-			
+
+			//NodeGroupがすべて終了
 			if (nowNodeIndex >= nodeGroup.size()) {
 				endTime = System.currentTimeMillis();
 				nowNode.getNowOnCars().removeCar(this);

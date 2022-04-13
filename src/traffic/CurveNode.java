@@ -30,6 +30,8 @@ public class CurveNode extends Node {
 	Point3f centrePoint3f;
 
 	/**
+	 * 進行方向左側に曲がる場合は、angleとともにradiusもマイナス値に設定する必要があります。
+	 *
 	 * @param radius 曲線半径
 	 * @param declination 偏角
 	 * @param angle 曲線の円弧の角度
