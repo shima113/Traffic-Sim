@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.openxmlformats.schemas.presentationml.x2006.main.impl.OleObjDocumentImpl;
 import traffic.CurveNode;
 import traffic.Node;
+import traffic.NodeList;
 import traffic.StraightNode;
 
 import javax.media.j3d.Transform3D;
@@ -85,7 +86,7 @@ public class Car implements ActionListener {
 	/**
 	 * これからこの車がたどるであろうNodeのリスト
 	 */
-	ArrayList<Node> nodeGroup = new ArrayList<>();
+	NodeList nodeGroup = new NodeList();
 	Node nowNode;
 	/**
 	 * 移動計算用　1フレームごとに計算する
@@ -95,12 +96,12 @@ public class Car implements ActionListener {
 	Sheet expSheet;
 
 	Node atoNode;
-	ArrayList<Node> atnodegroupArrayList;
+	NodeList atnodegroupArrayList;
 	int carnum;
 
 	final Node STOPNODE = new StraightNode(100, 0, new Point3f(), 0);
 
-	public Car(int loadingTime, ArrayList<Node> nodes, Point3f startPoint, double direction, double speed) {
+	public Car(int loadingTime, NodeList nodes, Point3f startPoint, double direction, double speed) {
 		time = loadingTime / 1000.0; //ミリ秒 → 秒
 		nodeGroup = nodes;
 		nowNode = nodeGroup.get(nowNodeIndex);
@@ -143,8 +144,12 @@ public class Car implements ActionListener {
 
 	}
 
-	public void changeLane(Node targetNode, ArrayList<Node> targetNodeGroup) {
-		createChangeLaneNode(targetNode);
+	public void changeLane(NodeList targetNodeGroup) {
+		Node no = targetNodeGroup.searchByDistance(totalDistance);
+		createChangeLaneNode(no);
+		if (no == null) {
+			System.out.println("yo");
+		}
 	}
 
 	private void createChangeLaneNode(Node targetNode){
@@ -182,7 +187,7 @@ public class Car implements ActionListener {
 		this.atoNode = atoNode;
 	}
 
-	public void setAtnodegroupArrayList(ArrayList<Node> atnodegroupArrayList) {
+	public void setAtnodegroupArrayList(NodeList atnodegroupArrayList) {
 		this.atnodegroupArrayList = atnodegroupArrayList;
 	}
 
@@ -338,24 +343,7 @@ public class Car implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-
-		switch(command) {
-		case "accel":
-			accel++;
-			if(accel > 6) {
-				accel--;
-			}
-			setAcceralation(accel * 4);
-			break;
-		case "brake":
-			accel--;
-			if(accel < -6) {
-				accel++;
-			}
-			setAcceralation(accel * 6);
-			break;
-		}
+		changeLane(atnodegroupArrayList);
 	}
 
 	int sheetIndex = 0;

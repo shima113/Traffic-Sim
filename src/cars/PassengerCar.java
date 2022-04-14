@@ -1,7 +1,5 @@
 package cars;
 
-import java.util.ArrayList;
-
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedQuadArray;
 import javax.media.j3d.Shape3D;
@@ -13,11 +11,11 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import tools.Colors;
-import traffic.Node;
+import traffic.NodeList;
 
 public class PassengerCar extends Car {
 	
-	public PassengerCar(int load, ArrayList<Node> nodes, Point3f startPoint, double direction, double speed) {
+	public PassengerCar(int load, NodeList nodes, Point3f startPoint, double direction, double speed) {
 		super(load, nodes, startPoint, direction, speed);
 		
 		carObjectGroup = createObject();

@@ -22,6 +22,7 @@ import javax.media.j3d.QuadArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,6 +37,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import cars.PassengerCar;
+import test.traftest.ChangeLane;
 import tools.Colors;
 import tools.NowLoading;
 
@@ -44,6 +46,7 @@ public class MainFrame extends JFrame {
 	TransformGroup viewTransformGroup;
 	Transform3D viewTransform3d = new Transform3D();
 	BranchGroup carBranchGroup;
+	PassengerCar[] cars;
 
 	ArrayList<CarList> nodeLists = new ArrayList<>();
 
@@ -99,7 +102,7 @@ public class MainFrame extends JFrame {
 
 		universe.addBranchGraph(carBranchGroup);
 		universe.addBranchGraph(createEnvironment());
-		
+
 		createExcel();
 
 		this.addWindowListener(new WindowAdapter() {
@@ -109,6 +112,13 @@ public class MainFrame extends JFrame {
 			}
 		});
 
+		JButton change = new JButton("車線変更");
+		change.setBounds(1650, 100, 100, 50);
+		change.addActionListener(cars[2]);
+		cp.add(change);
+
+
+
 		/*JButton accelButton = new JButton("加速");
 		accelButton.setBounds(20, 1650, 100, 30);
 		accelButton.addActionListener(car1);
@@ -116,11 +126,11 @@ public class MainFrame extends JFrame {
 		accelButton.addActionListener(car3);
 		accelButton.setActionCommand("accel");
 		cp.add(accelButton);
-		
+
 		accelDisplay = new JLabel("状態：" + car1.getAccel());
 		accelDisplay.setBounds(130, 1650, 100, 30);
 		cp.add(accelDisplay);
-		
+
 		JButton brakeButton = new JButton("ブレーキ");
 		brakeButton.setBounds(20, 1720, 100, 30);
 		brakeButton.addActionListener(car1);
@@ -128,7 +138,7 @@ public class MainFrame extends JFrame {
 		brakeButton.addActionListener(car3);
 		brakeButton.setActionCommand("brake");
 		cp.add(brakeButton);
-		
+
 		speedDisplay = new JLabel("速度：" + car1.getSpeed());
 		speedDisplay.setBounds(250, 1650, 100, 30);
 		cp.add(speedDisplay);
@@ -143,7 +153,7 @@ public class MainFrame extends JFrame {
 		cp.add(reflesh);*/
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 500);
+		//carTimer.schedule(new carTimer(), 2000, 500);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -195,7 +205,7 @@ public class MainFrame extends JFrame {
 		StraightNode node = new StraightNode(2.0f, 0, new Point3f(0.0f, 0.0f, 0.0f), 0);
 		StraightNode node3 = new StraightNode
 				(3.0f, Math.PI / 4, new Point3f((float) (-(1.5 - 1.5 / Math.sqrt(2.0))), 0.0f, (float) (2.0f + 1.5 / Math.sqrt(2.0))), 1.0f);
-		ArrayList<Node> nodeGroup1 = new ArrayList<>();
+		NodeList nodeGroup1 = new NodeList();
 		nodeGroup1.add(node);
 		nodeGroup1.add(node2);
 		nodeGroup1.add(node3);*/
@@ -206,40 +216,33 @@ public class MainFrame extends JFrame {
 		root.addChild(car1.carObjectGroup);
 		root.addChild(car2.carObjectGroup);
 		root.addChild(car3.carObjectGroup);
-		
+
 		//car2.setAtoNode(node16);
 		//car2.setAtnodegroupArrayList(nodeGroup4);
-		
+
 		car1.setCarnum(2);
 		car2.setCarnum(10);
 		car3.setCarnum(3);*/
 
-		PassengerCar car1 = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
-		PassengerCar car2 = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
-		PassengerCar car3 = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
-		PassengerCar car4 = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
-		PassengerCar car5 = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI, 27.77778);
-		PassengerCar car6 = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI, 27.77778);
-		PassengerCar car7 = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 0), Math.PI, 27.77778);
-		PassengerCar car8 = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI, 27.77778);
+		cars = new PassengerCar[8];
 
-		car1.setNodegroupIndex(2);
-		car2.setNodegroupIndex(3);
-		car3.setNodegroupIndex(4);
-		car4.setNodegroupIndex(5);
-		car5.setNodegroupIndex(6);
-		car6.setNodegroupIndex(7);
-		car7.setNodegroupIndex(8);
-		car8.setNodegroupIndex(9);
+		NodeList nodeList = createNodeGroup4();
 
-		root.addChild(car1.carObjectGroup);
-		root.addChild(car2.carObjectGroup);
-		root.addChild(car3.carObjectGroup);
-		root.addChild(car4.carObjectGroup);
-		root.addChild(car5.carObjectGroup);
-		root.addChild(car6.carObjectGroup);
-		root.addChild(car7.carObjectGroup);
-		root.addChild(car8.carObjectGroup);
+		cars[0] = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
+		cars[1] = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
+		cars[2] = new PassengerCar(militime, nodeList, new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
+		cars[3] = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
+		cars[4] = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI, 27.77778);
+		cars[5] = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI, 27.77778);
+		cars[6] = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 0), Math.PI, 27.77778);
+		cars[7] = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI, 27.77778);
+
+		cars[2].setAtnodegroupArrayList(nodeList);
+
+		for (int i = 0; i < cars.length; i++) {
+			cars[i].setNodegroupIndex(i + 2);
+			root.addChild(cars[i].carObjectGroup);
+		}
 
 		return root;
 	}
@@ -255,8 +258,8 @@ public class MainFrame extends JFrame {
 	　│　
 	　↑　　
 	 */
-	private ArrayList<Node> createNodeGroup2() {
-		ArrayList<Node> nodeGroup2 = new ArrayList<>();
+	private NodeList createNodeGroup2() {
+		NodeList nodeGroup2 = new NodeList();
 
 		Node[] nodes = new Node[5];
 
@@ -288,8 +291,8 @@ public class MainFrame extends JFrame {
 	　　│
 	　　↓
 	 */
-	private ArrayList<Node> createNodeGroup3() {
-		ArrayList<Node> nodeGroup3 = new ArrayList<>();
+	private NodeList createNodeGroup3() {
+		NodeList nodeGroup3 = new NodeList();
 
 		Node[] nodes = new Node[4];
 
@@ -309,8 +312,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup3;
 	}
 
-	private ArrayList<Node> createNodeGroup4() {
-		ArrayList<Node> nodeGroup4 = new ArrayList<>();
+	private NodeList createNodeGroup4() {
+		NodeList nodeGroup4 = new NodeList();
 
 		Node[] nodes = new Node[4];
 
@@ -327,8 +330,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup4;
 	}
 
-	private ArrayList<Node> createNodeGroup5() {
-		ArrayList<Node> nodeGroup5 = new ArrayList<>();
+	private NodeList createNodeGroup5() {
+		NodeList nodeGroup5 = new NodeList();
 
 		Node[] nodes = new Node[4];
 
@@ -345,8 +348,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup5;
 	}
 
-	private ArrayList<Node> createNodeGroup6() {
-		ArrayList<Node> nodeGroup6 = new ArrayList<>();
+	private NodeList createNodeGroup6() {
+		NodeList nodeGroup6 = new NodeList();
 
 		Node[] nodes = new Node[4];
 
@@ -363,8 +366,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup6;
 	}
 
-	private ArrayList<Node> createNodeGroup7() {
-		ArrayList<Node> nodeGroup7 = new ArrayList<>();
+	private NodeList createNodeGroup7() {
+		NodeList nodeGroup7 = new NodeList();
 
 		Node[] nodes = new Node[4];
 
@@ -381,8 +384,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup7;
 	}
 
-	private ArrayList<Node> createNodeGroup8(){
-		ArrayList<Node> nodeGroup8 = new ArrayList<>();
+	private NodeList createNodeGroup8(){
+		NodeList nodeGroup8 = new NodeList();
 
 		Node[] nodes = new Node[2];
 
@@ -397,8 +400,8 @@ public class MainFrame extends JFrame {
 		return nodeGroup8;
 	}
 
-	private ArrayList<Node> createNodeGroup9(){
-		ArrayList<Node> nodeGroup9 = new ArrayList<>();
+	private NodeList createNodeGroup9(){
+		NodeList nodeGroup9 = new NodeList();
 
 		Node[] nodes = new Node[2];
 
