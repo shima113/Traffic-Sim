@@ -145,14 +145,11 @@ public class Car implements ActionListener {
 	}
 
 	public void changeLane(NodeList targetNodeGroup) {
-		Node no = targetNodeGroup.searchByDistance(totalDistance);
+		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 		createChangeLaneNode(no);
-		if (no == null) {
-			System.out.println("yo");
-		}
 	}
 
-	private void createChangeLaneNode(Node targetNode){
+	private void createChangeLaneNode(Node targetNode/*null*/){
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
 
