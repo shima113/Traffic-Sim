@@ -7,6 +7,7 @@ import org.openxmlformats.schemas.presentationml.x2006.main.impl.OleObjDocumentI
 import traffic.CurveNode;
 import traffic.Node;
 import traffic.NodeList;
+import traffic.NodeType;
 import traffic.StraightNode;
 
 import javax.media.j3d.Transform3D;
@@ -16,6 +17,7 @@ import javax.vecmath.Vector3f;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -175,6 +177,9 @@ public class Car implements ActionListener {
 		System.out.println("centr1" + centrePoint3f1);
 		System.out.println("centr2" + centrePoint3f2);*/
 
+		changeLaneNode1.setType(NodeType.CHANGE_LANE);
+		changeLaneNode2.setType(NodeType.CHANGE_LANE);
+
 		nodeGroup.add(nodeGroup.indexOf(nowNode) + 1, changeLaneNode1);
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode1) + 1, changeLaneNode2);
 		//nodeGroup.add(straightNode);
@@ -313,15 +318,18 @@ public class Car implements ActionListener {
 			movedVector3f.x = movedVector[0];
 			movedVector3f.y = movedVector[1];
 			movedVector3f.z = movedVector[2];
+			if (nodegroupIndex == 4){
+				System.out.println(Arrays.toString(movedVector));
+			}
 
 			movedTransform3d.setIdentity();
 			movedTransform3d.setTranslation(movedVector3f);
-			//printtransform();
+
 			angleTransform3d.rotY(-nowNode.getNowDirection());
 			movedTransform3d.mul(angleTransform3d);
 			updateNode();
 			temp++;
-			if (!nowNode.equals(STOPNODE)) {
+			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE)) {
 				accelByDistance(checkInFrontCar(), temp);
 				checkLimitSpeed();
 			}
@@ -333,7 +341,7 @@ public class Car implements ActionListener {
 
 		@SuppressWarnings("unused")
 		private void printtransform() {
-			System.out.println(movedTransform3d.toString());
+			System.out.println(nodegroupIndex + "\n" + movedTransform3d.toString());
 		}
 
 	}

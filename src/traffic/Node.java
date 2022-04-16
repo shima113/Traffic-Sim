@@ -20,13 +20,22 @@ public abstract class Node {
 
 	CarList nowOnCars;
 
+	/**
+	 * （直線Nodeで）このNodeを含む直線の方程式
+	 */
 	EquationStraight equationStraight;
+
+	/**
+	 * このNodeの種類
+	 * デフォルト：MAIN
+	 */
+	NodeType type = NodeType.MAIN;
 
 	/**
 	 * 移動時の座標計算をするメソッド
 	 * @param movedDistance Carから渡された移動量
-	 * @param movedVector Carから渡された現在地
-	 * @return
+	 * @param movedVector Carから渡された現在地（座標）
+	 * @return 移動した後の座標
 	 */
 	abstract public float[] move(float movedDistance, float[] movedVector);
 
@@ -56,5 +65,13 @@ public abstract class Node {
 
 	public void setLimitSpeed(double limitSpeed) {
 		this.limitSpeed = limitSpeed;
+	}
+
+	public void setType(NodeType type) {
+		this.type = type;
+	}
+
+	public NodeType getType() {
+		return type;
 	}
 }
