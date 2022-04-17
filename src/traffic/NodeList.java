@@ -18,4 +18,9 @@ public class NodeList extends ArrayList<Node> {
 
         return resultNode;
     }
+
+    @Override
+    public void removeRange(int fromIndex, int toIndex) {
+        super.removeRange(fromIndex, toIndex);
+    }
 }

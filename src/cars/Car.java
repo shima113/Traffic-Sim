@@ -149,11 +149,17 @@ public class Car implements ActionListener {
 	public void changeLane(NodeList targetNodeGroup) {
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 		createChangeLaneNode(no);
+
+		for (int i = targetNodeGroup.indexOf(no) + 1; i < targetNodeGroup.size(); i++) {
+			nodeGroup.add(targetNodeGroup.get(i));
+		}
 	}
 
-	private void createChangeLaneNode(Node targetNode/*null*/){
+	private void createChangeLaneNode(Node targetNode){
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
+
+		//System.out.println("distance = " + distance);
 
 		final float CHANGELANE_INTERVAL = 0.10f;
 
@@ -163,25 +169,40 @@ public class Car implements ActionListener {
 
 		Point3f centrePoint3f1 =
 				new Point3f((float)(Math.cos(declination) * radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * -radius + movedVector[2]);
-		Point3f centrePoint3f2 =
-				new Point3f((float)(-distance * 2 * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1],
-						(float) (distance * 2 * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
+		Point3f centrePoint3f2;
+
+		if (declination <= Math.PI){
+			centrePoint3f2 =
+					new Point3f((float)(-distance * 2 * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1],
+							(float) (distance * 2 * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
+		}else {
+			centrePoint3f2 =
+					new Point3f((float) (-(CHANGELANE_INTERVAL * 2 * Math.sin(declination) + (radius - 2 * distance) * Math.cos(declination)) + movedVector[0]), movedVector[1],
+							(float) (CHANGELANE_INTERVAL* 2 * Math.cos(declination) + (radius - 2 * distance) * Math.sin(declination) + movedVector[2]));
+		}
 
 		CurveNode changeLaneNode1 = new CurveNode(radius, declination, angle, centrePoint3f1, 0, movedVector[1]);
 		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
 		//StraightNode straightNode = new StraightNode(10.0f, declination, new Point3f(movedVector[0] + CHANGELANE_INTERVAL * 2, movedVector[1], movedVector[2] + distance * 2), 0);
 
-		/*System.out.println("radius" + radius);//atteru
-		System.out.println("declin" + declination);
-		System.out.println("angle " + angle);//atteru
-		System.out.println("centr1" + centrePoint3f1);
-		System.out.println("centr2" + centrePoint3f2);*/
+		/*System.out.println("radius = " + radius);
+		System.out.println("declination(deg) = " + declination * (180 / Math.PI));
+		System.out.println("angle(deg) = " + angle * (180 / Math.PI));
+		System.out.println("centrePoint3f1 = " + centrePoint3f1);
+		System.out.println("centrePoint3f2 = " + centrePoint3f2);*/
 
 		changeLaneNode1.setType(NodeType.CHANGE_LANE);
 		changeLaneNode2.setType(NodeType.CHANGE_LANE);
 
+		StraightNode residueNode =
+				new StraightNode(nowNode.getLength() - movedDistanceForCheckNode, nowNode.getDeclination(),
+						new Point3f((float) (movedVector[0] - Math.sin(declination)), movedVector[1], (float) (movedVector[2] + Math.cos(declination))), 0);
+		residueNode.setNowOnCars(targetNode.getNowOnCars());
+
 		nodeGroup.add(nodeGroup.indexOf(nowNode) + 1, changeLaneNode1);
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode1) + 1, changeLaneNode2);
+		nodeGroup.add(nodeGroup.indexOf(changeLaneNode2) + 1, residueNode);
+		nodeGroup.removeRange(nodeGroup.indexOf(residueNode) + 1, nodeGroup.size());
 		//nodeGroup.add(straightNode);
 	}
 
@@ -318,9 +339,6 @@ public class Car implements ActionListener {
 			movedVector3f.x = movedVector[0];
 			movedVector3f.y = movedVector[1];
 			movedVector3f.z = movedVector[2];
-			if (nodegroupIndex == 4){
-				System.out.println(Arrays.toString(movedVector));
-			}
 
 			movedTransform3d.setIdentity();
 			movedTransform3d.setTranslation(movedVector3f);
@@ -348,25 +366,37 @@ public class Car implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		long l = System.nanoTime();
+
+		//System.out.println(Arrays.toString(movedVector));
 		changeLane(atnodegroupArrayList);
+		nowNodeIndex++;
+		nowNode = nodeGroup.get(nowNodeIndex);
+		movedDistanceForCheckNode = 0;
+
+		System.out.println(System.nanoTime() - l);
 	}
 
 	int sheetIndex = 0;
 	int nodegroupIndex = 1000;
 
 	private void exportExcel(){
-		Row row = expSheet.createRow(sheetIndex);
-		Cell time = row.createCell(0);
-		Cell length = row.createCell(1);
-		Cell speed = row.createCell(2);
-		Cell nodegrop = row.createCell(3);
+		try {//はずす
+			Row row = expSheet.createRow(sheetIndex);
+			Cell time = row.createCell(0);
+			Cell length = row.createCell(1);
+			Cell speed = row.createCell(2);
+			Cell nodegrop = row.createCell(3);
 
-		String rowIndex = String.valueOf(sheetIndex + 1);
+			String rowIndex = String.valueOf(sheetIndex + 1);
 
-		time.setCellValue(endTime - startTime);
-		length.setCellValue(totalDistance);
-		speed.setCellFormula("B" + rowIndex + "/" + "A" + rowIndex + "*3600");
-		nodegrop.setCellValue(nodegroupIndex);
+			time.setCellValue(endTime - startTime);
+			length.setCellValue(totalDistance);
+			speed.setCellFormula("B" + rowIndex + "/" + "A" + rowIndex + "*3600");
+			nodegrop.setCellValue(nodegroupIndex);
+		}catch (NullPointerException e){
+			System.out.println("nullデス");
+		}
 
 	}
 

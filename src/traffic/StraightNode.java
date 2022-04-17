@@ -7,11 +7,6 @@ import tools.math.EquationStraight;
 public class StraightNode extends Node {
 
 	/**
-	 * 偏角(ラジアン)
-	 */
-	double declination;
-
-	/**
 	 * 勾配(tanθ)
 	 */
 	double slope;

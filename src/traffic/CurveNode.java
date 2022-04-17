@@ -16,10 +16,6 @@ public class CurveNode extends Node {
 	 */
 	double wholeAngle;
 	/**
-	 * 偏角
-	 */
-	double declination;
-	/**
 	 * 勾配
 	 */
 	double slope;

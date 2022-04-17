@@ -226,18 +226,16 @@ public class MainFrame extends JFrame {
 
 		cars = new PassengerCar[8];
 
-		NodeList nodeList = createNodeGroup4();
-
 		cars[0] = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
 		cars[1] = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
-		cars[2] = new PassengerCar(militime, nodeList, new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
+		cars[2] = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
 		cars[3] = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
 		cars[4] = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI, 27.77778);
 		cars[5] = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI, 27.77778);
 		cars[6] = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 0), Math.PI, 27.77778);
 		cars[7] = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI, 27.77778);
 
-		cars[2].setAtnodegroupArrayList(nodeList);
+		cars[2].setAtnodegroupArrayList(createNodeGroup5());
 
 		for (int i = 0; i < cars.length; i++) {
 			cars[i].setNodegroupIndex(i + 2);

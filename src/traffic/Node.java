@@ -18,6 +18,11 @@ public abstract class Node {
 	double nowDirection;
 	double limitSpeed;
 
+	/**
+	 * 偏角(ラジアン)
+	 */
+	double declination;
+
 	CarList nowOnCars;
 
 	/**
@@ -73,5 +78,9 @@ public abstract class Node {
 
 	public NodeType getType() {
 		return type;
+	}
+
+	public double getDeclination() {
+		return declination;
 	}
 }
