@@ -204,6 +204,9 @@ public class Car implements ActionListener {
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode2) + 1, residueNode);
 		nodeGroup.removeRange(nodeGroup.indexOf(residueNode) + 1, nodeGroup.size());
 		//nodeGroup.add(straightNode);
+
+		totalDistance = totalDistance - ( changeLaneNode1.getLength() + changeLaneNode2.getLength() );
+		totalDistance += CHANGELANE_INTERVAL * 2;
 	}
 
 	public void setAtoNode(Node atoNode) {
