@@ -28,7 +28,13 @@ public class CarList {
 
 	public void addCar(Car car) {
 		cars.add(car);
-		carMovedList.add(car.getTotalDistance());
+		carMovedList.add(car.totalDistance);
+	}
+	
+	public void addCarChanged(Car myCar){
+		int index = searchDistance(myCar.totalDistance);
+		cars.add(index, myCar);
+		carMovedList.add(index, myCar.totalDistance);
 	}
 
 	/**
@@ -49,10 +55,14 @@ public class CarList {
 		return inFrontCar;
 	}
 
-	public int searchDistance(Car myCar){
-		for (int i = 0; i < carMovedList.size(); i++) {
-			//車線変更でtotalDistanceがびみょうに増えたからその分の調整が必要
+	public int searchDistance(float distance){
+		int ret = carMovedList.size() - 1;
+		for (Float aFloat : carMovedList) {
+			if (aFloat < distance){
+				ret = carMovedList.indexOf(aFloat) + 1;
+			}
 		}
+		return ret;
 	}
 
 	public Car getCar(int index){
@@ -65,6 +75,6 @@ public class CarList {
 
 	public void removeCar(Car thiscar){
 		cars.remove(thiscar);
-		carMovedList.remove(thiscar.getTotalDistance());
+		carMovedList.remove(thiscar.totalDistance);
 	}
 }

@@ -54,9 +54,9 @@ public class Car implements ActionListener {
 	 */
 	float movedDistanceRimainder = 0;
 	/**
-	 * これまでに動いた距離の合計　1=1m
+	 * これまでに動いた距離の合計　1=1m　CarListから参照できるようにするためpublic
 	 */
-	float totalDistance, totalDistanceDisplay = 0;
+	public float totalDistance = 0;
 
 	/**
 	 * 現在地の座標{x, y, z}　1=100m
@@ -153,6 +153,8 @@ public class Car implements ActionListener {
 		for (int i = targetNodeGroup.indexOf(no) + 1; i < targetNodeGroup.size(); i++) {
 			nodeGroup.add(targetNodeGroup.get(i));
 		}
+
+		nowNode.getNowOnCars().removeCar(this);
 	}
 
 	private void createChangeLaneNode(Node targetNode){
@@ -191,8 +193,8 @@ public class Car implements ActionListener {
 		System.out.println("centrePoint3f1 = " + centrePoint3f1);
 		System.out.println("centrePoint3f2 = " + centrePoint3f2);*/
 
-		changeLaneNode1.setType(NodeType.CHANGE_LANE);
-		changeLaneNode2.setType(NodeType.CHANGE_LANE);
+		changeLaneNode1.setType(NodeType.CHANGE_LANE_FIRST);
+		changeLaneNode2.setType(NodeType.CHANGE_LANE_SECOND);
 
 		StraightNode residueNode =
 				new StraightNode(nowNode.getLength() - movedDistanceForCheckNode, nowNode.getDeclination(),
@@ -234,7 +236,7 @@ public class Car implements ActionListener {
 				acceralation = 0;
 			}
 			
-			if (distanceInFront < speedPerHour) {
+			if (distanceInFront < (speedPerHour / 3)) {
 				if (inFrontCar.getSpeed() < (speed - 11.11111)) {
 					acceralation = -6;
 				}else if (inFrontCar.getSpeed() < (speed - 5.55556)) {
@@ -256,11 +258,11 @@ public class Car implements ActionListener {
 			}
 		}
 		
-		if (distanceInFront < (speedPerHour / 4)) {
+		if (distanceInFront < (speedPerHour / 8)) {
 			acceralation = -20;
-		}else if (distanceInFront < (speedPerHour / 3)) {
+		}else if (distanceInFront < (speedPerHour / 6)) {
 			acceralation = -12;
-		}else if (distanceInFront < (speedPerHour / 2)) {
+		}else if (distanceInFront < (speedPerHour / 4)) {
 			acceralation = -8;
 		}
 		
@@ -282,6 +284,11 @@ public class Car implements ActionListener {
 
 	public void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
+
+			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
+				nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+			}
+
 			nowNodeIndex++;
 
 			//NodeGroupがすべて終了
@@ -331,7 +338,6 @@ public class Car implements ActionListener {
 			carObjectGroup.setTransform(movedTransform3d);
 
 			speed = Math.ceil(speed * 10) / 10;
-			totalDistanceDisplay = (float) (Math.ceil(totalDistance * 10) / 10);
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
@@ -350,7 +356,7 @@ public class Car implements ActionListener {
 			movedTransform3d.mul(angleTransform3d);
 			updateNode();
 			temp++;
-			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE)) {
+			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
 				accelByDistance(checkInFrontCar(), temp);
 				checkLimitSpeed();
 			}
@@ -426,10 +432,6 @@ public class Car implements ActionListener {
 
 	public void setTotalDistance(float totalDistance) {
 		this.totalDistance = totalDistance;
-	}
-
-	public float getTotalDistanceDisplay() {
-		return totalDistanceDisplay;
 	}
 
 	public float getMovedDistance() {
