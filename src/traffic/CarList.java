@@ -19,6 +19,8 @@ public class CarList {
 	 */
 	ArrayList<Float> carMovedList;
 
+	Road road;
+
 	public static final Car NOTHING_INFRONT = new Car(100000);
 	
 	public CarList() {
@@ -76,5 +78,13 @@ public class CarList {
 	public void removeCar(Car thiscar){
 		cars.remove(thiscar);
 		carMovedList.remove(thiscar.totalDistance);
+	}
+
+	public Road getRoad() {
+		return road;
+	}
+
+	public void setRoad(Road road) {
+		this.road = road;
 	}
 }

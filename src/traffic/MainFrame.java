@@ -98,6 +98,8 @@ public class MainFrame extends JFrame {
 		createCarList();
 		carBranchGroup = createScene();
 
+		createRoad();
+
 		carBranchGroup.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
 
 		universe.addBranchGraph(carBranchGroup);
@@ -114,46 +116,11 @@ public class MainFrame extends JFrame {
 
 		JButton change = new JButton("車線変更");
 		change.setBounds(1650, 100, 100, 50);
-		change.addActionListener(cars[2]);
+		change.addActionListener(cars[5]);
 		cp.add(change);
 
-
-
-		/*JButton accelButton = new JButton("加速");
-		accelButton.setBounds(20, 1650, 100, 30);
-		accelButton.addActionListener(car1);
-		accelButton.addActionListener(car2);
-		accelButton.addActionListener(car3);
-		accelButton.setActionCommand("accel");
-		cp.add(accelButton);
-
-		accelDisplay = new JLabel("状態：" + car1.getAccel());
-		accelDisplay.setBounds(130, 1650, 100, 30);
-		cp.add(accelDisplay);
-
-		JButton brakeButton = new JButton("ブレーキ");
-		brakeButton.setBounds(20, 1720, 100, 30);
-		brakeButton.addActionListener(car1);
-		brakeButton.addActionListener(car2);
-		brakeButton.addActionListener(car3);
-		brakeButton.setActionCommand("brake");
-		cp.add(brakeButton);
-
-		speedDisplay = new JLabel("速度：" + car1.getSpeed());
-		speedDisplay.setBounds(250, 1650, 100, 30);
-		cp.add(speedDisplay);
-
-		distanceDisplay = new JLabel("走行距離：" + car1.getTotalDistance());
-		distanceDisplay.setBounds(250, 1700, 100, 30);
-		cp.add(distanceDisplay);
-
-		JButton reflesh = new JButton("reload");
-		reflesh.setBounds(1700, 200, 50, 50);
-		reflesh.addActionListener(new RefleshButton());
-		cp.add(reflesh);*/
-
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 500);
+		//carTimer.schedule(new carTimer(), 2000, 500);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -200,30 +167,6 @@ public class MainFrame extends JFrame {
 	private BranchGroup createScene() {
 		BranchGroup root = new BranchGroup();
 
-		/*StraightNode node1 = new StraightNode(5.0f, 0);
-		CurveNode node2 = new CurveNode(1.5f, 0, Math.PI / 4, new Point3f(-1.5f, 0.0f, 2.0f), 0, 0);
-		StraightNode node = new StraightNode(2.0f, 0, new Point3f(0.0f, 0.0f, 0.0f), 0);
-		StraightNode node3 = new StraightNode
-				(3.0f, Math.PI / 4, new Point3f((float) (-(1.5 - 1.5 / Math.sqrt(2.0))), 0.0f, (float) (2.0f + 1.5 / Math.sqrt(2.0))), 1.0f);
-		NodeList nodeGroup1 = new NodeList();
-		nodeGroup1.add(node);
-		nodeGroup1.add(node2);
-		nodeGroup1.add(node3);*/
-
-		/*car1 = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2, 50);
-		car2 = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 50);
-		car3 = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2, 100);
-		root.addChild(car1.carObjectGroup);
-		root.addChild(car2.carObjectGroup);
-		root.addChild(car3.carObjectGroup);
-
-		//car2.setAtoNode(node16);
-		//car2.setAtnodegroupArrayList(nodeGroup4);
-
-		car1.setCarnum(2);
-		car2.setCarnum(10);
-		car3.setCarnum(3);*/
-
 		cars = new PassengerCar[9];
 
 		cars[0] = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, 13.88889);
@@ -236,10 +179,14 @@ public class MainFrame extends JFrame {
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 0), Math.PI, 27.77778);
 		cars[8] = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI, 27.77778);
 
-		cars[2].setAtnodegroupArrayList(createNodeGroup5());
+		cars[5].setAtnodegroupArrayList(createNodeGroup7());
 
 		for (int i = 0; i < cars.length; i++) {
-			cars[i].setNodegroupIndex(i + 2);
+			if (i < 2){
+				cars[i].setNodegroupIndex(i + 2);
+			}else {
+				cars[i].setNodegroupIndex(i + 1);
+			}
 			root.addChild(cars[i].carObjectGroup);
 		}
 
@@ -250,6 +197,23 @@ public class MainFrame extends JFrame {
 		for(int i = 0; i < 8; i++) {
 		    nodeLists.add(new CarList());
 		}
+	}
+
+	private void createRoad(){
+		Road[] roads = new Road[2];
+
+		roads[0] = new Road();
+		roads[1] = new Road();
+
+		roads[0].add(nodeLists.get(2));
+		roads[0].add(nodeLists.get(3));
+		roads[1].add(nodeLists.get(5));
+		roads[1].add(nodeLists.get(4));
+
+		nodeLists.get(2).setRoad(roads[0]);
+		nodeLists.get(3).setRoad(roads[0]);
+		nodeLists.get(4).setRoad(roads[1]);
+		nodeLists.get(5).setRoad(roads[1]);
 	}
 
 	/*　＿

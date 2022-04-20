@@ -169,19 +169,17 @@ public class Car implements ActionListener {
 		double declination = nowNode.getNowDirection();
 		double angle = Math.acos((radius - distance) / radius);
 
+		if(!nowNode.getNowOnCars().getRoad().changeLaneDirection(nowNode.getNowOnCars(), targetNode.getNowOnCars())) {
+			radius = -radius;
+			angle = -angle;
+			distance = -distance;
+		}
+
 		Point3f centrePoint3f1 =
 				new Point3f((float)(Math.cos(declination) * radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * -radius + movedVector[2]);
-		Point3f centrePoint3f2;
 
-		if (declination <= Math.PI){
-			centrePoint3f2 =
-					new Point3f((float)(-distance * 2 * Math.cos(declination) - CHANGELANE_INTERVAL * 2 * Math.cos(Math.PI / 2 - declination)) + movedVector[0], movedVector[1],
-							(float) (distance * 2 * Math.sin(declination) + CHANGELANE_INTERVAL * 2 * Math.sin(Math.PI / 2 - declination) + movedVector[2]));
-		}else {
-			centrePoint3f2 =
-					new Point3f((float) (-(CHANGELANE_INTERVAL * 2 * Math.sin(declination) + (radius - 2 * distance) * Math.cos(declination)) + movedVector[0]), movedVector[1],
-							(float) (CHANGELANE_INTERVAL* 2 * Math.cos(declination) + (radius - 2 * distance) * Math.sin(declination) + movedVector[2]));
-		}
+		Point3f centrePoint3f2 = new Point3f((float) (-(CHANGELANE_INTERVAL * 2 * Math.sin(declination) + (radius - 2 * distance) * Math.cos(declination)) + movedVector[0]), movedVector[1],
+				(float) (CHANGELANE_INTERVAL * 2 * Math.cos(declination) + (radius - 2 * distance) * Math.sin(declination) + movedVector[2]));
 
 		CurveNode changeLaneNode1 = new CurveNode(radius, declination, angle, centrePoint3f1, 0, movedVector[1]);
 		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
