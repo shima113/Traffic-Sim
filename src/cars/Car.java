@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.openxmlformats.schemas.presentationml.x2006.main.impl.OleObjDocumentImpl;
+import traffic.CarList;
 import traffic.CurveNode;
 import traffic.Node;
 import traffic.NodeList;
@@ -155,6 +156,7 @@ public class Car implements ActionListener {
 		}
 
 		nowNode.getNowOnCars().removeCar(this);
+		nowNode = nodeGroup.get(nowNodeIndex);
 	}
 
 	private void createChangeLaneNode(Node targetNode){
@@ -221,7 +223,7 @@ public class Car implements ActionListener {
 		return nowNode.getNowOnCars().getInFrontCar(this);
 	}
 
-	public void accelByDistance(Car inFrontCar, int time) {
+	private void accelByDistance(Car inFrontCar, int time) {
 		float distanceInFront = inFrontCar.getTotalDistance() - this.totalDistance;
 		double speedPerHour = speed * 3.6;
 
@@ -270,17 +272,29 @@ public class Car implements ActionListener {
 		}
 	}
 	
-	public void checkLimitSpeed() {
+	private void checkLimitSpeed() {
 		if (speed > nowNode.getLimitSpeed() + 20) {
-			acceralation = -10;
-		}else if (speed > nowNode.getLimitSpeed() + 5) {
 			acceralation = -4;
+		}
+	}
+
+	private void checkChangeLane(){
+		switch (nodegroupIndex){
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				int ran = (int) (Math.random() * 1000);
+				if (ran == 1){
+					System.out.println("yous");
+					changeLane(nowNode.getNowOnCars().getToChangeLane());
+				}
 		}
 	}
 
 	long endTime = 0;
 
-	public void updateNode() {
+	private void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 
 			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
@@ -357,6 +371,7 @@ public class Car implements ActionListener {
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
 				accelByDistance(checkInFrontCar(), temp);
 				checkLimitSpeed();
+				checkChangeLane();
 			}
 			
 			if (temp == 25) {
@@ -376,7 +391,7 @@ public class Car implements ActionListener {
 		long l = System.nanoTime();
 
 		//System.out.println(Arrays.toString(movedVector));
-		changeLane(atnodegroupArrayList);
+		changeLane(nowNode.getNowOnCars().getToChangeLane());
 		nowNodeIndex++;
 		nowNode = nodeGroup.get(nowNodeIndex);
 		movedDistanceForCheckNode = 0;

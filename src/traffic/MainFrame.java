@@ -116,11 +116,11 @@ public class MainFrame extends JFrame {
 
 		JButton change = new JButton("車線変更");
 		change.setBounds(1650, 100, 100, 50);
-		change.addActionListener(cars[5]);
+		change.addActionListener(cars[6]);
 		cp.add(change);
 
 		Timer carTimer = new Timer();
-		//carTimer.schedule(new carTimer(), 2000, 500);
+		carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -179,8 +179,6 @@ public class MainFrame extends JFrame {
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 0), Math.PI, 27.77778);
 		cars[8] = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI, 27.77778);
 
-		cars[5].setAtnodegroupArrayList(createNodeGroup7());
-
 		for (int i = 0; i < cars.length; i++) {
 			if (i < 2){
 				cars[i].setNodegroupIndex(i + 2);
@@ -197,6 +195,11 @@ public class MainFrame extends JFrame {
 		for(int i = 0; i < 8; i++) {
 		    nodeLists.add(new CarList());
 		}
+
+		nodeLists.get(2).setToChangeLane(createNodeGroup5());
+		nodeLists.get(3).setToChangeLane(createNodeGroup4());
+		nodeLists.get(4).setToChangeLane(createNodeGroup7());
+		nodeLists.get(5).setToChangeLane(createNodeGroup6());
 	}
 
 	private void createRoad(){

@@ -20,6 +20,7 @@ public class CarList {
 	ArrayList<Float> carMovedList;
 
 	Road road;
+	NodeList toChangeLane;
 
 	public static final Car NOTHING_INFRONT = new Car(100000);
 	
@@ -86,5 +87,13 @@ public class CarList {
 
 	public void setRoad(Road road) {
 		this.road = road;
+	}
+
+	public NodeList getToChangeLane() {
+		return toChangeLane;
+	}
+
+	public void setToChangeLane(NodeList toChangeLane) {
+		this.toChangeLane = toChangeLane;
 	}
 }
