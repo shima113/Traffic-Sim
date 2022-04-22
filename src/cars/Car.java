@@ -156,7 +156,7 @@ public class Car implements ActionListener {
 		}
 
 		nowNode.getNowOnCars().removeCar(this);
-		nowNode = nodeGroup.get(nowNodeIndex);
+		nowNode = nodeGroup.get(++nowNodeIndex);
 	}
 
 	private void createChangeLaneNode(Node targetNode){
@@ -284,7 +284,7 @@ public class Car implements ActionListener {
 			case 5:
 			case 6:
 			case 7:
-				int ran = (int) (Math.random() * 1000);
+				int ran = (int) (Math.random() * 100);
 				if (ran == 1){
 					System.out.println("yous");
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
