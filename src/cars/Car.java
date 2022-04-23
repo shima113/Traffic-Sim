@@ -11,6 +11,7 @@ import traffic.NodeList;
 import traffic.NodeType;
 import traffic.StraightNode;
 
+import javax.media.j3d.BadTransformException;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
@@ -347,7 +348,13 @@ public class Car implements ActionListener {
 			moveCulculation();
 
 			totalDistance += movedDistance;
-			carObjectGroup.setTransform(movedTransform3d);
+
+			try {
+				carObjectGroup.setTransform(movedTransform3d);
+			}catch (BadTransformException e){
+				System.out.println(Arrays.toString(movedVector));
+				e.printStackTrace();
+			}
 
 			speed = Math.ceil(speed * 10) / 10;
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);

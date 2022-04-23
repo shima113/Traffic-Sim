@@ -418,38 +418,50 @@ public class MainFrame extends JFrame {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			PassengerCar car;
 
-			int rand = (int) (Math.random() * 8);
+			//int rand = (int) (Math.random() * 8);
+			int rand = 2;
+			int startIndex = nodeLists.get(rand).getCarSize() - 1;
+			double startSpeed;
+			if (startIndex >= 0) {
+				startSpeed = nodeLists.get(rand).getCar(startIndex).getSpeed();
+			}else {
+				if (rand >= 2 && rand <= 5) {
+					startSpeed = 27.77778;
+				}else {
+					startSpeed = 11.11111;
+				}
+			}
 			switch(rand) {
 			case 0:
-				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, nodeLists.get(0).getCar(nodeLists.get(0).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 0), Math.PI, startSpeed);
 				car.setNodegroupIndex(2);
 				break;
 			case 1:
-				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2, nodeLists.get(1).getCar(nodeLists.get(1).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(3);
 				break;
 			case 2:
-				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2, nodeLists.get(2).getCar(nodeLists.get(2).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(4);
 				break;
 			case 3:
-				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI * 3 / 2, nodeLists.get(3).getCar(nodeLists.get(3).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(5);
 				break;
 			case 4:
-				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI / 2, nodeLists.get(4).getCar(nodeLists.get(4).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(6);
 				break;
 			case 5:
-				car = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, nodeLists.get(5).getCar(nodeLists.get(5).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(7);
 				break;
 			case 6:
-				car = new PassengerCar(militime, createNodeGroup8(), new Point3f(0.0f, 0.0f, 0.0f), Math.PI, nodeLists.get(6).getCar(nodeLists.get(6).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup8(), new Point3f(0.0f, 0.0f, 0.0f), Math.PI, startSpeed);
 				car.setNodegroupIndex(8);
 				break;
 			case 7:
-				car = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI / 2, nodeLists.get(7).getCar(nodeLists.get(7).getCarSize() - 1).getSpeed());
+				car = new PassengerCar(militime, createNodeGroup9(), new Point3f(3.23f, 0.08f, -1.35f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(9);
 				break;
 			default:
