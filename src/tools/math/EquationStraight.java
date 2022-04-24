@@ -93,7 +93,8 @@ public class EquationStraight {
 		return distance;
 	}
 
-	public String getStringValue() {
+	@Override
+	public String toString() {
 		return xValue + "x+" + yValue + "y=" + constantValue;
 	}
 }

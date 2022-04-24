@@ -37,7 +37,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import cars.PassengerCar;
-import test.traftest.ChangeLane;
 import tools.Colors;
 import tools.NowLoading;
 
@@ -48,7 +47,7 @@ public class MainFrame extends JFrame {
 	BranchGroup carBranchGroup;
 	PassengerCar[] cars;
 
-	ArrayList<CarList> nodeLists = new ArrayList<>();
+	ArrayList<CarList> carLists = new ArrayList<>();
 
 	JLabel accelDisplay, speedDisplay, distanceDisplay;
 
@@ -116,11 +115,11 @@ public class MainFrame extends JFrame {
 
 		JButton change = new JButton("車線変更");
 		change.setBounds(1650, 100, 100, 50);
-		change.addActionListener(cars[6]);
+		change.addActionListener(cars[2]);
 		cp.add(change);
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 1000);
+		//carTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -193,13 +192,13 @@ public class MainFrame extends JFrame {
 
 	private void createCarList() {
 		for(int i = 0; i < 8; i++) {
-		    nodeLists.add(new CarList());
+		    carLists.add(new CarList());
 		}
 
-		nodeLists.get(2).setToChangeLane(createNodeGroup5());
-		nodeLists.get(3).setToChangeLane(createNodeGroup4());
-		nodeLists.get(4).setToChangeLane(createNodeGroup7());
-		nodeLists.get(5).setToChangeLane(createNodeGroup6());
+		carLists.get(2).setToChangeLane(createNodeGroup5());
+		carLists.get(3).setToChangeLane(createNodeGroup4());
+		carLists.get(4).setToChangeLane(createNodeGroup7());
+		carLists.get(5).setToChangeLane(createNodeGroup6());
 	}
 
 	private void createRoad(){
@@ -208,15 +207,15 @@ public class MainFrame extends JFrame {
 		roads[0] = new Road();
 		roads[1] = new Road();
 
-		roads[0].add(nodeLists.get(2));
-		roads[0].add(nodeLists.get(3));
-		roads[1].add(nodeLists.get(5));
-		roads[1].add(nodeLists.get(4));
+		roads[0].add(carLists.get(2));
+		roads[0].add(carLists.get(3));
+		roads[1].add(carLists.get(5));
+		roads[1].add(carLists.get(4));
 
-		nodeLists.get(2).setRoad(roads[0]);
-		nodeLists.get(3).setRoad(roads[0]);
-		nodeLists.get(4).setRoad(roads[1]);
-		nodeLists.get(5).setRoad(roads[1]);
+		carLists.get(2).setRoad(roads[0]);
+		carLists.get(3).setRoad(roads[0]);
+		carLists.get(4).setRoad(roads[1]);
+		carLists.get(5).setRoad(roads[1]);
 	}
 
 	/*　＿
@@ -244,7 +243,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup2.add(node);
-			node.setNowOnCars(nodeLists.get(0));
+			node.setNowOnCars(carLists.get(0));
 		}
 
 		return nodeGroup2;
@@ -272,7 +271,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup3.add(node);
-			node.setNowOnCars(nodeLists.get(1));
+			node.setNowOnCars(carLists.get(1));
 		}
 
 		return nodeGroup3;
@@ -290,7 +289,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup4.add(node);
-			node.setNowOnCars(nodeLists.get(2));
+			node.setNowOnCars(carLists.get(2));
 		}
 
 		return nodeGroup4;
@@ -308,7 +307,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup5.add(node);
-			node.setNowOnCars(nodeLists.get(3));
+			node.setNowOnCars(carLists.get(3));
 		}
 
 		return nodeGroup5;
@@ -326,7 +325,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup6.add(node);
-			node.setNowOnCars(nodeLists.get(4));
+			node.setNowOnCars(carLists.get(4));
 		}
 
 		return nodeGroup6;
@@ -344,7 +343,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes) {
 			nodeGroup7.add(node);
-			node.setNowOnCars(nodeLists.get(5));
+			node.setNowOnCars(carLists.get(5));
 		}
 
 		return nodeGroup7;
@@ -360,7 +359,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes){
 			nodeGroup8.add(node);
-			node.setNowOnCars(nodeLists.get(6));
+			node.setNowOnCars(carLists.get(6));
 		}
 
 		return nodeGroup8;
@@ -376,7 +375,7 @@ public class MainFrame extends JFrame {
 
 		for (Node node : nodes){
 			nodeGroup9.add(node);
-			node.setNowOnCars(nodeLists.get(7));
+			node.setNowOnCars(carLists.get(7));
 		}
 
 		return nodeGroup9;
@@ -420,10 +419,10 @@ public class MainFrame extends JFrame {
 
 			//int rand = (int) (Math.random() * 8);
 			int rand = 2;
-			int startIndex = nodeLists.get(rand).getCarSize() - 1;
+			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
 			if (startIndex >= 0) {
-				startSpeed = nodeLists.get(rand).getCar(startIndex).getSpeed();
+				startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
 			}else {
 				if (rand >= 2 && rand <= 5) {
 					startSpeed = 27.77778;

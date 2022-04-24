@@ -149,6 +149,14 @@ public class Car implements ActionListener {
 	}
 
 	public void changeLane(NodeList targetNodeGroup) {
+		for (int i = 0; i < nodeGroup.size(); i++) {
+			if (i == nowNodeIndex){
+				System.out.println(nodeGroup.get(i).getType() + "now");
+			}else {
+				System.out.println(nodeGroup.get(i).getType());
+			}
+		}
+		System.out.println("\n");
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 		createChangeLaneNode(no);
 
@@ -158,13 +166,24 @@ public class Car implements ActionListener {
 
 		nowNode.getNowOnCars().removeCar(this);
 		nowNode = nodeGroup.get(++nowNodeIndex);
+		movedDistanceForCheckNode = 0;
+
+		for (int i = 0; i < nodeGroup.size(); i++) {
+			if (i == nowNodeIndex){
+				System.out.println(nodeGroup.get(i).getType() + "now");
+			}else {
+				System.out.println(nodeGroup.get(i).getType());
+			}
+		}
+		System.out.println("---------------");
 	}
 
 	private void createChangeLaneNode(Node targetNode){
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
 
-		//System.out.println("distance = " + distance);
+		System.out.println(nowNode.getEquationStraight());
+		System.out.println(targetNode.getEquationStraight());
 
 		final float CHANGELANE_INTERVAL = 0.10f;
 
@@ -199,8 +218,11 @@ public class Car implements ActionListener {
 
 		StraightNode residueNode =
 				new StraightNode(nowNode.getLength() - movedDistanceForCheckNode, nowNode.getDeclination(),
-						new Point3f((float) (movedVector[0] - Math.sin(declination)), movedVector[1], (float) (movedVector[2] + Math.cos(declination))), 0);
+						new Point3f((float) (movedVector[0] - CHANGELANE_INTERVAL * 2 * Math.sin(declination) - distance * 2 * Math.cos(declination)), movedVector[1], (float) (movedVector[2] + CHANGELANE_INTERVAL * 2 * Math.cos(declination) + distance * 2 * Math.sin(declination))), 0);
 		residueNode.setNowOnCars(targetNode.getNowOnCars());
+		System.out.println(residueNode.getEquationStraight().toString());
+		System.out.println(Arrays.toString(movedVector));
+		System.out.println(new Point3f((float) (movedVector[0] - distance * 2 * Math.sin(declination)), movedVector[1], (float) (movedVector[2] + CHANGELANE_INTERVAL * 2 * Math.cos(declination))));
 
 		nodeGroup.add(nodeGroup.indexOf(nowNode) + 1, changeLaneNode1);
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode1) + 1, changeLaneNode2);
@@ -378,7 +400,7 @@ public class Car implements ActionListener {
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
 				accelByDistance(checkInFrontCar(), temp);
 				checkLimitSpeed();
-				checkChangeLane();
+				//checkChangeLane();
 			}
 			
 			if (temp == 25) {

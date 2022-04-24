@@ -10,7 +10,7 @@ public class MathTest {
 		
 		EquationStraight equationStraight = new EquationStraight(temp, Math.PI);
 		
-		System.out.println(equationStraight.getStringValue());
+		System.out.println(equationStraight.toString());
 		System.out.println(angle / Math.PI * 180);
 	}
 

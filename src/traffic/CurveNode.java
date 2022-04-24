@@ -84,4 +84,19 @@ public class CurveNode extends Node {
 
 		return movedVector;
 	}
+
+	@Override
+	public String toString() {
+		return "CurveNode{" +
+				"radius=" + radius +
+				", wholeAngle=" + wholeAngle +
+				", slope=" + slope +
+				", centrePoint3f=" + centrePoint3f +
+				", length=" + length +
+				", nowDirection=" + nowDirection +
+				", limitSpeed=" + limitSpeed +
+				", declination=" + declination +
+				", type=" + type +
+				'}';
+	}
 }
