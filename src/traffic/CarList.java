@@ -14,11 +14,6 @@ public class CarList {
 	 */
 	ArrayList<Car> cars;
 
-	/**
-	 * 道路にいる車がどこにいるのかを表すリスト
-	 */
-	ArrayList<Float> carMovedList;
-
 	Road road;
 	NodeList toChangeLane;
 
@@ -26,18 +21,15 @@ public class CarList {
 	
 	public CarList() {
 		cars = new ArrayList<>();
-		carMovedList = new ArrayList<>();
 	}
 
 	public void addCar(Car car) {
 		cars.add(car);
-		carMovedList.add(car.totalDistance);
 	}
 	
 	public void addCarChanged(Car myCar){
 		int index = searchDistance(myCar.totalDistance);
 		cars.add(index, myCar);
-		carMovedList.add(index, myCar.totalDistance);
 	}
 
 	/**
@@ -59,12 +51,18 @@ public class CarList {
 	}
 
 	public int searchDistance(float distance){
-		int ret = carMovedList.size() - 1;
-		for (Float aFloat : carMovedList) {
-			if (aFloat < distance){
-				ret = carMovedList.indexOf(aFloat) + 1;
+		int ret = cars.size() - 1;
+		for (int i = 0; i < cars.size(); i++) {
+			if (cars.get(i).getTotalDistance() < distance){
+				ret = i + 1;
+				break;
 			}
 		}
+
+		if (cars.size() == 0){
+			ret = 0;
+		}
+
 		return ret;
 	}
 
@@ -78,7 +76,6 @@ public class CarList {
 
 	public void removeCar(Car thiscar){
 		cars.remove(thiscar);
-		carMovedList.remove(thiscar.totalDistance);
 	}
 
 	public Road getRoad() {
