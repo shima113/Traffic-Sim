@@ -152,9 +152,7 @@ public class Car implements ActionListener {
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 		createChangeLaneNode(no);
 
-		for (int i = targetNodeGroup.indexOf(no) + 1; i < targetNodeGroup.size(); i++) {
-			nodeGroup.add(targetNodeGroup.get(i));
-		}
+		nodeGroup.addAll(targetNodeGroup.subList(targetNodeGroup.indexOf(no) + 1, targetNodeGroup.size()));
 
 		nowNode.getNowOnCars().removeCar(this);
 		nowNode = nodeGroup.get(++nowNodeIndex);
@@ -164,9 +162,6 @@ public class Car implements ActionListener {
 	private void createChangeLaneNode(Node targetNode){
 		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		distance /= 2;
-
-		System.out.println(nowNode.getEquationStraight());
-		System.out.println(targetNode.getEquationStraight());
 
 		final float CHANGELANE_INTERVAL = 0.10f;
 
@@ -200,17 +195,21 @@ public class Car implements ActionListener {
 		changeLaneNode2.setType(NodeType.CHANGE_LANE_SECOND);
 
 		StraightNode residueNode =
-				new StraightNode(nowNode.getLength() - movedDistanceForCheckNode, nowNode.getDeclination(),
+				new StraightNode(nowNode.getLength() - movedDistanceForCheckNode / 100, nowNode.getDeclination(),
 						new Point3f((float) (movedVector[0] - CHANGELANE_INTERVAL * 2 * Math.sin(declination) - distance * 2 * Math.cos(declination)), movedVector[1], (float) (movedVector[2] - CHANGELANE_INTERVAL * 2 * Math.cos(declination) - distance * 2 * Math.sin(declination))), 0);
 		residueNode.setNowOnCars(targetNode.getNowOnCars());
-		System.out.println(residueNode.getEquationStraight().toString());
+		/*System.out.println(residueNode.getEquationStraight().toString());
 		System.out.println(Arrays.toString(movedVector));
 		System.out.println(new Point3f((float) (movedVector[0] - CHANGELANE_INTERVAL * 2 * Math.sin(declination) - distance * 2 * Math.cos(declination)), movedVector[1], (float) (movedVector[2] - CHANGELANE_INTERVAL * 2 * Math.cos(declination) - distance * 2 * Math.sin(declination))));
+*/
+
+		if (nodeGroup.size() > nowNodeIndex + 1) {
+			nodeGroup.subList(nowNodeIndex + 1, nodeGroup.size()).clear();
+		}
 
 		nodeGroup.add(nodeGroup.indexOf(nowNode) + 1, changeLaneNode1);
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode1) + 1, changeLaneNode2);
 		nodeGroup.add(nodeGroup.indexOf(changeLaneNode2) + 1, residueNode);
-		nodeGroup.removeRange(nodeGroup.indexOf(residueNode) + 1, nodeGroup.size());
 		//nodeGroup.add(straightNode);
 
 		totalDistance = totalDistance - ( changeLaneNode1.getLength() + changeLaneNode2.getLength() );
@@ -365,6 +364,11 @@ public class Car implements ActionListener {
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
+			if (totalDistance > 1000 && nodegroupIndex == 4){
+				System.out.println(totalDistance);
+				System.out.println(nodeGroup.getLength());
+				System.out.println(nowNode.getLength());
+			}
 		}
 
 		private void moveCulculation() {

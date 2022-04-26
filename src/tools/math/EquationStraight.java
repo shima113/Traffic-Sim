@@ -61,7 +61,7 @@ public class EquationStraight {
 	 * @param point 点の座標（Fraction型の長さ2の配列、要素の1つ目がx座標、2つ目がy座標）
 	 */
 	public double getDistancePoint(double[] point) {
-		double distance = 0;
+		double distance;
 
 		if(xValue == 0) {
 			distance = Math.abs(constantValue / yValue - point[1]);

@@ -16,7 +16,18 @@ public class NodeList extends ArrayList<Node> {
             }
         }
 
+        System.out.println(totalDistance);
+        System.out.println(distance);
         return resultNode;
+    }
+
+    public float getLength(){
+        float totalDistance = 0;
+
+        for (Node node : this) {
+            totalDistance += node.getLength();
+        }
+        return totalDistance;
     }
 
     @Override

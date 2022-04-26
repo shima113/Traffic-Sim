@@ -54,7 +54,7 @@ public class CarList {
 		int ret = cars.size() - 1;
 		for (int i = 0; i < cars.size(); i++) {
 			if (cars.get(i).getTotalDistance() < distance){
-				ret = i + 1;
+				ret = i;
 				break;
 			}
 		}
