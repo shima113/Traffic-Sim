@@ -149,6 +149,7 @@ public class Car implements ActionListener {
 	}
 
 	public void changeLane(NodeList targetNodeGroup) {
+
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 		createChangeLaneNode(no);
 
@@ -295,6 +296,7 @@ public class Car implements ActionListener {
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
 				}
 		}
+		//targetNodegroupの状況に応じてやる
 	}
 
 	long endTime = 0;
@@ -364,11 +366,6 @@ public class Car implements ActionListener {
 			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
-			if (totalDistance > 1000 && nodegroupIndex == 4){
-				System.out.println(totalDistance);
-				System.out.println(nodeGroup.getLength());
-				System.out.println(nowNode.getLength());
-			}
 		}
 
 		private void moveCulculation() {

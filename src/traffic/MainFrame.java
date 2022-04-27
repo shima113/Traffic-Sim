@@ -119,7 +119,7 @@ public class MainFrame extends JFrame {
 		cp.add(change);
 
 		Timer carTimer = new Timer();
-		//carTimer.schedule(new carTimer(), 2000, 500000);
+		carTimer.schedule(new carTimer(), 2000, 2000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);

@@ -30,6 +30,8 @@ public class CarList {
 	public void addCarChanged(Car myCar){
 		int index = searchDistance(myCar.totalDistance);
 		cars.add(index, myCar);
+
+		sort();
 	}
 
 	/**
@@ -64,6 +66,24 @@ public class CarList {
 		}
 
 		return ret;
+	}
+
+	public void sort(){
+		int length = cars.size();
+
+		int num;
+		int pos;
+		Car temp;
+
+		for (num = 0; num < length; num++){
+			for (pos = length - 1; pos >= num + 1; pos--){
+				if (cars.get(pos).getTotalDistance() > cars.get(pos - 1).getTotalDistance()){
+					temp = cars.get(pos);
+					cars.set(pos, cars.get(pos - 1));
+					cars.set(pos - 1, temp);
+				}
+			}
+		}
 	}
 
 	public Car getCar(int index){
