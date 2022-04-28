@@ -290,11 +290,13 @@ public class Car implements ActionListener {
 			case 5:
 			case 6:
 			case 7:
-				int ran = (int) (Math.random() * 500);
+				/*int ran = (int) (Math.random() * 500);
 				if (ran == 1){
 					System.out.println("yous");
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
-				}
+				}*/
+
+
 		}
 		//targetNodegroupの状況に応じてやる
 	}

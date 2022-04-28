@@ -417,8 +417,7 @@ public class MainFrame extends JFrame {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			PassengerCar car;
 
-			//int rand = (int) (Math.random() * 8);
-			int rand = 2;
+			int rand = (int) (Math.random() * 8);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
 			if (startIndex >= 0) {
