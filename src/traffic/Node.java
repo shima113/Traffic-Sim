@@ -1,9 +1,9 @@
 package traffic;
 
-import java.util.ArrayList;
-
-import cars.Car;
 import tools.math.EquationStraight;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**

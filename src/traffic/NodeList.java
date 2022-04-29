@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class NodeList extends ArrayList<Node> {
 
+    CarList carList;
+
     public Node searchByDistance(float distance){
         Node resultNode = null;
         float totalDistance = 0;
@@ -35,4 +37,11 @@ public class NodeList extends ArrayList<Node> {
         super.removeRange(fromIndex, toIndex);
     }
 
+    public CarList getCarList() {
+        return carList;
+    }
+
+    public void setCarList(CarList carList) {
+        this.carList = carList;
+    }
 }

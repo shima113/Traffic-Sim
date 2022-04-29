@@ -68,7 +68,24 @@ public class CarList {
 		return ret;
 	}
 
-	public void sort(){
+	public float getInFrontDistance(float distance){
+		float retDistance;
+		Car infrontCar = new Car(10000000);
+
+		for (int i = 0; i < cars.size(); i++) {
+			if (cars.get(i).getTotalDistance() < distance){
+				if (i != 0){
+					infrontCar = cars.get(i - 1);
+				}
+				break;
+			}
+		}
+
+		retDistance = infrontCar.getTotalDistance() - distance;
+		return  retDistance;
+	}
+
+	private void sort(){
 		int length = cars.size();
 
 		int num;

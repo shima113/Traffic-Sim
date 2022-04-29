@@ -279,7 +279,7 @@ public class Car implements ActionListener {
 	}
 	
 	private void checkLimitSpeed() {
-		if (speed > nowNode.getLimitSpeed() + 20) {
+		if (speed > nowNode.getLimitSpeed() + 5.55556) {
 			acceralation = -4;
 		}
 	}
@@ -290,13 +290,13 @@ public class Car implements ActionListener {
 			case 5:
 			case 6:
 			case 7:
-				/*int ran = (int) (Math.random() * 500);
-				if (ran == 1){
-					System.out.println("yous");
+				CarList toChangeList = nowNode.getNowOnCars().getToChangeLane().getCarList();
+				float infrontDistance = toChangeList.getInFrontDistance(totalDistance);
+				int param = (int) (Math.random() * 500);
+
+				if (infrontDistance > 100 && param == 2){
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
-				}*/
-
-
+				}
 		}
 		//targetNodegroupの状況に応じてやる
 	}

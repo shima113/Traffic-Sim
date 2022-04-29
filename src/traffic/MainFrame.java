@@ -119,7 +119,7 @@ public class MainFrame extends JFrame {
 		cp.add(change);
 
 		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 2000);
+		carTimer.schedule(new carTimer(), 2000, 600);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -291,6 +291,7 @@ public class MainFrame extends JFrame {
 			nodeGroup4.add(node);
 			node.setNowOnCars(carLists.get(2));
 		}
+		nodeGroup4.setCarList(carLists.get(2));
 
 		return nodeGroup4;
 	}
@@ -309,6 +310,7 @@ public class MainFrame extends JFrame {
 			nodeGroup5.add(node);
 			node.setNowOnCars(carLists.get(3));
 		}
+		nodeGroup5.setCarList(carLists.get(3));
 
 		return nodeGroup5;
 	}
@@ -327,6 +329,7 @@ public class MainFrame extends JFrame {
 			nodeGroup6.add(node);
 			node.setNowOnCars(carLists.get(4));
 		}
+		nodeGroup6.setCarList(carLists.get(4));
 
 		return nodeGroup6;
 	}
@@ -345,6 +348,7 @@ public class MainFrame extends JFrame {
 			nodeGroup7.add(node);
 			node.setNowOnCars(carLists.get(5));
 		}
+		nodeGroup7.setCarList(carLists.get(5));
 
 		return nodeGroup7;
 	}
