@@ -308,6 +308,12 @@ public class Car implements ActionListener {
 
 			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
 				nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+
+				//ランプの合流or分岐
+				if (nowNodeIndex == 8){
+					nowNode.getNowOnCars().removeCar(this);
+					nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+				}
 			}
 
 			nowNodeIndex++;

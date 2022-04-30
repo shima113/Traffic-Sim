@@ -17,9 +17,6 @@ public class NodeList extends ArrayList<Node> {
                 break;
             }
         }
-
-        System.out.println(totalDistance);
-        System.out.println(distance);
         return resultNode;
     }
 

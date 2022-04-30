@@ -15,6 +15,7 @@ public class CarList {
 	ArrayList<Car> cars;
 
 	Road road;
+	CarList bunkiCarList, gouryuCarList;
 	NodeList toChangeLane;
 
 	public static final Car NOTHING_INFRONT = new Car(100000);
@@ -129,5 +130,21 @@ public class CarList {
 
 	public void setToChangeLane(NodeList toChangeLane) {
 		this.toChangeLane = toChangeLane;
+	}
+
+	public CarList getBunkiCarList() {
+		return bunkiCarList;
+	}
+
+	public void setBunkiCarList(CarList bunkiCarList) {
+		this.bunkiCarList = bunkiCarList;
+	}
+
+	public CarList getGouryuCarList() {
+		return gouryuCarList;
+	}
+
+	public void setGouryuCarList(CarList gouryuCarList) {
+		this.gouryuCarList = gouryuCarList;
 	}
 }
