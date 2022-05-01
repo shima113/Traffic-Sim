@@ -9,6 +9,8 @@ import cars.Car;
  */
 public class CarList {
 
+	int nodegroupIndex;
+
 	/**
 	 * 道路にいる車のリスト
 	 */
@@ -146,5 +148,13 @@ public class CarList {
 
 	public void setGouryuCarList(CarList gouryuCarList) {
 		this.gouryuCarList = gouryuCarList;
+	}
+
+	public int getNodegroupIndex() {
+		return nodegroupIndex;
+	}
+
+	public void setNodegroupIndex(int nodegroupIndex) {
+		this.nodegroupIndex = nodegroupIndex;
 	}
 }

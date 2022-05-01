@@ -170,9 +170,9 @@ public class MainFrame extends JFrame {
 
 		cars[0] = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 2.5f), Math.PI, 13.88889);
 		cars[1] = new PassengerCar(militime, createNodeGroup3(), new Point3f(-1.6f, 0.08f, -1.67f), Math.PI, 13.88889);
-		cars[2] = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
-		cars[3] = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI, 27.77778);
-		cars[4] = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI, 27.77778);
+		cars[2] = new PassengerCar(militime, createNodeGroup4(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI, 27.77778);
+		cars[3] = new PassengerCar(militime, createNodeGroup4(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI, 27.77778);
+		cars[4] = new PassengerCar(militime, createNodeGroup5(), new Point3f(-5.80f, 0.08f, -1.55f), Math.PI, 27.77778);
 		cars[5] = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI, 27.77778);
 		cars[6] = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI, 27.77778);
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(0, 0, 2.5f), Math.PI, 27.77778);
@@ -201,6 +201,8 @@ public class MainFrame extends JFrame {
 		carLists.get(5).setToChangeLane(createNodeGroup6());
 
 		carLists.get(0).setBunkiCarList(carLists.get(6));
+
+		carLists.get(7).setGouryuCarList(carLists.get(1));
 	}
 
 	private void createRoad(){
@@ -219,6 +221,8 @@ public class MainFrame extends JFrame {
 		carLists.get(4).setRoad(roads[1]);
 		carLists.get(5).setRoad(roads[1]);
 	}
+
+	private final double CHANGELANE_ANGLE = Math.asin(10.0 / 26.0);
 
 	/*　＿
 	　／　 ＼＿→
@@ -286,12 +290,13 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup4() {
 		NodeList nodeGroup4 = new NodeList();
 
-		Node[] nodes = new Node[4];
+		Node[] nodes = new Node[5];
 
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.59f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.59f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.59f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.59f), 0);
+		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-5.80f, 0.08f, -1.59f), 0);
+		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.59f), 0);
+		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.59f), 0);
+		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.59f), 0);
+		nodes[4] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.59f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup4.add(node);
@@ -305,12 +310,13 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup5() {
 		NodeList nodeGroup5 = new NodeList();
 
-		Node[] nodes = new Node[4];
+		Node[] nodes = new Node[5];
 
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.55f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.55f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.55f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.55f), 0);
+		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-5.80f, 0.08f, -1.59f), 0);
+		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.55f), 0);
+		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.55f), 0);
+		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.55f), 0);
+		nodes[4] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.55f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup5.add(node);
@@ -324,12 +330,13 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup6() {
 		NodeList nodeGroup6 = new NodeList();
 
-		Node[] nodes = new Node[4];
+		Node[] nodes = new Node[5];
 
 		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(6.70f, 0.08f, -1.47f), 0);
 		nodes[1] = new StraightNode(2.5f, Math.PI / 2, new Point3f(4.20f, 0.08f, -1.47f), 0);
 		nodes[2] = new StraightNode(2.5f, Math.PI / 2, new Point3f(1.70f, 0.08f, -1.47f), 0);
 		nodes[3] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-0.80f, 0.08f, -1.47f), 0);
+		nodes[4] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-3.30f, 0.08f, -1.47f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup6.add(node);
@@ -343,12 +350,13 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup7() {
 		NodeList nodeGroup7 = new NodeList();
 
-		Node[] nodes = new Node[4];
+		Node[] nodes = new Node[5];
 
 		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(6.70f, 0.08f, -1.43f), 0);
 		nodes[1] = new StraightNode(2.5f, Math.PI / 2, new Point3f(4.20f, 0.08f, -1.43f), 0);
 		nodes[2] = new StraightNode(2.5f, Math.PI / 2, new Point3f(1.70f, 0.08f, -1.43f), 0);
 		nodes[3] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-0.80f, 0.08f, -1.43f), 0);
+		nodes[4] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-3.30f, 0.08f, -1.47f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup7.add(node);
@@ -362,17 +370,22 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup8(){
 		NodeList nodeGroup8 = new NodeList();
 
-		Node[] nodes = new Node[5];
+		Node[] nodes = new Node[8];
 
 		nodes[0] = new StraightNode(2.30f, Math.PI, new Point3f(0, 0, 2.5f), 0);
-		nodes[1] = new CurveNode(-0.26f, Math.PI, -Math.asin(10.0 / 26.0), new Point3f(-0.26f, 0, 0.20f), 0, 0);
-		nodes[2] = new CurveNode(0.26f, Math.PI - Math.asin(10.0 / 26.0), Math.asin(10.0 / 26.0), new Point3f(0.22f, 0, 0), 0, 0);
+		nodes[1] = new CurveNode(-0.26f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.26f, 0, 0.20f), 0, 0);
+		nodes[2] = new CurveNode(0.26f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.22f, 0, 0), 0, 0);
 		nodes[3] = new CurveNode(-1.35f, Math.PI, -Math.PI / 2, new Point3f(-1.39f, 0.0f, 0.0f), 0.08f, 0);
 		nodes[4] = new StraightNode(1.80f, Math.PI / 2, new Point3f(-1.39f, 0.08f, -1.35f), 0);
+		nodes[5] = new CurveNode(0.26f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-3.19f, 0, -1.61f), 0, 0.08f);
+		nodes[6] = new CurveNode(-0.26f,Math.PI / 2 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-3.39f, 0, -1.13f), 0, 0.08f);
+		nodes[7] = new StraightNode(2.41f, Math.PI, new Point3f(-3.39f, 0.08f, -1.39f), 0);
 
 		nodes[0].setLimitSpeed(11.11111);
 		nodes[1].setType(NodeType.CHANGE_LANE_FIRST);
 		nodes[2].setType(NodeType.CHANGE_LANE_SECOND);
+		nodes[5].setType(NodeType.CHANGE_LANE_FIRST);
+		nodes[6].setType(NodeType.CHANGE_LANE_SECOND);
 
 		for (Node node : nodes){
 			nodeGroup8.add(node);
@@ -389,10 +402,15 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup9(){
 		NodeList nodeGroup9 = new NodeList();
 
-		Node[] nodes = new Node[2];
+		Node[] nodes = new Node[4];
 
 		nodes[0] = new StraightNode(1.80f, Math.PI / 2, new Point3f(3.27f, 0.08f, -1.35f), 0);
 		nodes[1] = new CurveNode(-1.35f, Math.PI / 2, -Math.PI / 2, new Point3f(1.47f, 0.0f, 0.0f), -0.08f, 0.08f);
+		nodes[2] = new CurveNode(0.26f, 0, CHANGELANE_ANGLE, new Point3f(-0.14f, 0, 0), 0, 0);
+		nodes[3] = new CurveNode(-0.26f, CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(0.34f, 0, 0.20f), 0, 0);
+
+		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
+		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
 
 		for (Node node : nodes){
 			nodeGroup9.add(node);
@@ -460,11 +478,11 @@ public class MainFrame extends JFrame {
 				car.setNodegroupIndex(3);
 				break;
 			case 2:
-				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-3.30f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
+				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(4);
 				break;
 			case 3:
-				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-3.30f, 0.08f, -1.55f), Math.PI * 3 / 2, startSpeed);
+				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-5.80f, 0.08f, -1.55f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(5);
 				break;
 			case 4:

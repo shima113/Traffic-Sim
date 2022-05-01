@@ -151,6 +151,10 @@ public class Car implements ActionListener {
 	public void changeLane(NodeList targetNodeGroup) {
 
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
+
+		System.out.println(nowNode.getEquationStraight().toString());
+		System.out.println(no.getEquationStraight().toString());
+		
 		createChangeLaneNode(no);
 
 		nodeGroup.addAll(targetNodeGroup.subList(targetNodeGroup.indexOf(no) + 1, targetNodeGroup.size()));
@@ -366,7 +370,7 @@ public class Car implements ActionListener {
 			try {
 				carObjectGroup.setTransform(movedTransform3d);
 			}catch (BadTransformException e){
-				System.out.println(Arrays.toString(movedVector));
+				System.out.println(Arrays.toString(movedVector) + ", " + nodegroupIndex);
 				e.printStackTrace();
 			}
 
