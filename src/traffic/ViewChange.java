@@ -22,7 +22,7 @@ public class ViewChange {
 
 	float cameraDistance;
 	float sense;
-	float angleY = (float)Math.PI / 3;
+	float angleY = (float)Math.PI / 2;
 	float angleXZ = 0;
 
 	float cameraX, cameraY, cameraZ = 0;

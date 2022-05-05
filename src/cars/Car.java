@@ -3,7 +3,6 @@ package cars;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.openxmlformats.schemas.presentationml.x2006.main.impl.OleObjDocumentImpl;
 import traffic.CarList;
 import traffic.CurveNode;
 import traffic.Node;
@@ -18,7 +17,6 @@ import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -99,9 +97,12 @@ public class Car implements ActionListener {
 
 	Sheet expSheet;
 
+	int[] jumpStatus = new int[8];
+
 	Node atoNode;
 	NodeList atnodegroupArrayList;
 	int carnum;
+	float totalDistanceForExcel = 0;
 
 	final Node STOPNODE = new StraightNode(100, 0, new Point3f(), 0);
 
@@ -152,8 +153,8 @@ public class Car implements ActionListener {
 
 		Node no = targetNodeGroup.searchByDistance(totalDistance / 100);
 
-		System.out.println(nowNode.getEquationStraight().toString());
-		System.out.println(no.getEquationStraight().toString());
+		/*System.out.println(nowNode.getEquationStraight().toString() + "  ," + nowNode.getNowOnCars().getNodegroupIndex());
+		System.out.println(no.getEquationStraight().toString() + "  ," + no.getNowOnCars().getNodegroupIndex());*/
 		
 		createChangeLaneNode(no);
 
@@ -219,6 +220,9 @@ public class Car implements ActionListener {
 
 		totalDistance = totalDistance - ( changeLaneNode1.getLength() + changeLaneNode2.getLength() );
 		totalDistance += CHANGELANE_INTERVAL * 2;
+
+		totalDistanceForExcel = totalDistanceForExcel - ( changeLaneNode1.getLength() + changeLaneNode2.getLength() );
+		totalDistanceForExcel += CHANGELANE_INTERVAL * 2;
 	}
 
 	public void setAtoNode(Node atoNode) {
@@ -251,12 +255,16 @@ public class Car implements ActionListener {
 					acceralation = -6;
 				}else if (inFrontCar.getSpeed() < (speed - 5.55556)) {
 					acceralation = -3;
+				}else {
+					acceralation = 0;
 				}
 			}else {
 				if (inFrontCar.getSpeed() > (speed + 5.55556)) {
-					acceralation = 3;
+					acceralation = 2;
 				}else if (inFrontCar.getSpeed() < (speed + 11.11111)) {
-					acceralation = 6;
+					acceralation = 4;
+				}else {
+					acceralation = 0;
 				}
 			}
 		}
@@ -307,16 +315,38 @@ public class Car implements ActionListener {
 
 	long endTime = 0;
 
+	private void checkJumpLump(int nodegroupIndex, float margeDistance){
+		switch (jumpStatus[nodegroupIndex]) {
+			case 0:
+				nowNode.getNowOnCars().removeCar(this);
+				nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+				break;
+			case 1:
+				totalDistance = margeDistance;
+
+				nowNode.getNowOnCars().removeCar(this);
+				nowNode.getNowOnCars().getGouryuCarList().addCarChanged(this, margeDistance);
+				break;
+		}
+		jumpStatus[nodegroupIndex]++;
+	}
+
 	private void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 
 			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
-				nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 
+				try {
+					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+				}catch (IndexOutOfBoundsException e){
+					System.out.println(nodegroupIndex);
+					e.printStackTrace();
+				}
 				//ランプの合流or分岐
-				if (nowNodeIndex == 8){
-					nowNode.getNowOnCars().removeCar(this);
-					nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+				if (nodegroupIndex == 8){
+					checkJumpLump(6, 1029);
+				} else if (nodegroupIndex == 9) {
+					checkJumpLump(7, 654.969482421875f);
 				}
 			}
 
@@ -366,6 +396,7 @@ public class Car implements ActionListener {
 			moveCulculation();
 
 			totalDistance += movedDistance;
+			totalDistanceForExcel += movedDistance;
 
 			try {
 				carObjectGroup.setTransform(movedTransform3d);
@@ -375,7 +406,10 @@ public class Car implements ActionListener {
 			}
 
 			speed = Math.ceil(speed * 10) / 10;
-			//System.out.println(movedVector[0] + ",  " +  movedVector[1] + ",  " + movedVector[2]);
+			if (nodegroupIndex == 7){
+				//System.out.println(Arrays.toString(movedVector) + ", " + nodegroupIndex);
+				//System.out.println(speed + ", " + acceralation);
+			}
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());
 		}
@@ -438,7 +472,7 @@ public class Car implements ActionListener {
 			String rowIndex = String.valueOf(sheetIndex + 1);
 
 			time.setCellValue(endTime - startTime);
-			length.setCellValue(totalDistance);
+			length.setCellValue(totalDistanceForExcel);
 			speed.setCellFormula("B" + rowIndex + "/" + "A" + rowIndex + "*3600");
 			nodegrop.setCellValue(nodegroupIndex);
 		}catch (NullPointerException e){
