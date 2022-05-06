@@ -37,6 +37,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import cars.PassengerCar;
+import test.traftest.TimerTest;
 import tools.Colors;
 import tools.NowLoading;
 
@@ -124,6 +125,18 @@ public class MainFrame extends JFrame {
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
 
+		Timer logTimer = new Timer();
+		logTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				for (int i = 0; i < carLists.get(1).getCarSize(); i++) {
+					System.out.print(carLists.get(1).getCar(i).getTotalDistance());
+					System.out.print("[" + carLists.get(1).getCar(i).getNodegroupIndex() + "]" + ", ");
+				}
+				System.out.println("");
+			}
+		}, 0, 40);
+
 		loading.setVisible(false);
 		setVisible(true);
 	}
@@ -185,9 +198,8 @@ public class MainFrame extends JFrame {
 			}else {
 				cars[i].setNodegroupIndex(i + 1);
 			}
-			//root.addChild(cars[i].carObjectGroup);
+			root.addChild(cars[i].carObjectGroup);
 		}
-		root.addChild(cars[7].carObjectGroup);
 
 		return root;
 	}

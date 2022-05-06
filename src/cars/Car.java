@@ -11,6 +11,7 @@ import traffic.NodeType;
 import traffic.StraightNode;
 
 import javax.media.j3d.BadTransformException;
+import javax.media.j3d.Sound;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
@@ -320,12 +321,16 @@ public class Car implements ActionListener {
 			case 0:
 				nowNode.getNowOnCars().removeCar(this);
 				nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+
+				System.out.println("bunk");
 				break;
 			case 1:
 				totalDistance = margeDistance;
 
 				nowNode.getNowOnCars().removeCar(this);
-				nowNode.getNowOnCars().getGouryuCarList().addCarChanged(this, margeDistance);
+				//nowNode.getNowOnCars().getGouryuCarList().addCarChanged(this, margeDistance);
+
+				System.out.println("gor");
 				break;
 		}
 		jumpStatus[nodegroupIndex]++;
@@ -336,17 +341,18 @@ public class Car implements ActionListener {
 
 			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
 
-				try {
-					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
-				}catch (IndexOutOfBoundsException e){
-					System.out.println(nodegroupIndex);
-					e.printStackTrace();
-				}
 				//ランプの合流or分岐
 				if (nodegroupIndex == 8){
 					checkJumpLump(6, 1029);
 				} else if (nodegroupIndex == 9) {
 					checkJumpLump(7, 654.969482421875f);
+				}
+
+				try {
+					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+				}catch (IndexOutOfBoundsException e){
+					System.out.println(nodegroupIndex);
+					e.printStackTrace();
 				}
 			}
 
@@ -536,5 +542,9 @@ public class Car implements ActionListener {
 
 	public void setNodegroupIndex(int nodegroupIndex) {
 		this.nodegroupIndex = nodegroupIndex;
+	}
+
+	public int getNodegroupIndex() {
+		return nodegroupIndex;
 	}
 }
