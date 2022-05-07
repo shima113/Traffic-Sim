@@ -126,16 +126,16 @@ public class MainFrame extends JFrame {
 		//carTime2r.schedule(new carTime2r(), 1000);
 
 		Timer logTimer = new Timer();
-		logTimer.schedule(new TimerTask() {
+		/*logTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				for (int i = 0; i < carLists.get(1).getCarSize(); i++) {
-					System.out.print(carLists.get(1).getCar(i).getTotalDistance());
-					System.out.print("[" + carLists.get(1).getCar(i).getNodegroupIndex() + "]" + ", ");
+				for (int i = 0; i < carLists.get(7).getCarSize(); i++) {
+					System.out.print(carLists.get(7).getCar(i).getTotalDistance());
+					System.out.print("[" + carLists.get(7).getCar(i).getNodegroupIndex() + "]" + ", ");
 				}
 				System.out.println("");
 			}
-		}, 0, 40);
+		}, 0, 40);*/
 
 		loading.setVisible(false);
 		setVisible(true);

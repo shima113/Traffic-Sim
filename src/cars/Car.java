@@ -320,9 +320,9 @@ public class Car implements ActionListener {
 		switch (jumpStatus[nodegroupIndex]) {
 			case 0:
 				nowNode.getNowOnCars().removeCar(this);
-				nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+				//nowNode.getNowOnCars().getBunkiCarList().addCar(this);
 
-				System.out.println("bunk");
+				//System.out.println("bunk");
 				break;
 			case 1:
 				totalDistance = margeDistance;
@@ -330,7 +330,7 @@ public class Car implements ActionListener {
 				nowNode.getNowOnCars().removeCar(this);
 				//nowNode.getNowOnCars().getGouryuCarList().addCarChanged(this, margeDistance);
 
-				System.out.println("gor");
+				//System.out.println("gor");
 				break;
 		}
 		jumpStatus[nodegroupIndex]++;
@@ -345,7 +345,7 @@ public class Car implements ActionListener {
 				if (nodegroupIndex == 8){
 					checkJumpLump(6, 1029);
 				} else if (nodegroupIndex == 9) {
-					checkJumpLump(7, 654.969482421875f);
+					checkJumpLump(7, 674.765467383f);
 				}
 
 				try {
