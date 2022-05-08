@@ -316,6 +316,10 @@ public class Car implements ActionListener {
 
 	long endTime = 0;
 
+	/**
+	 * @param nodegroupIndex 始まりが0のやつ 分岐前後は関係なし
+	 * @param margeDistance 合流するときの相手のdistaaance
+	 */
 	private void checkJumpLump(int nodegroupIndex, float margeDistance){
 		switch (jumpStatus[nodegroupIndex]) {
 			case 0:
@@ -342,10 +346,16 @@ public class Car implements ActionListener {
 			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
 
 				//ランプの合流or分岐
-				if (nodegroupIndex == 8){
-					checkJumpLump(6, 1029);
-				} else if (nodegroupIndex == 9) {
-					checkJumpLump(7, 674.765467383f);
+				switch (nodegroupIndex) {
+					case 8:
+						checkJumpLump(6, 1029);
+						break;
+					case 9:
+						checkJumpLump(7, 674.765467383f);
+						break;
+					case 3:
+						checkJumpLump(1, 0);
+						break;
 				}
 
 				try {
@@ -412,9 +422,10 @@ public class Car implements ActionListener {
 			}
 
 			speed = Math.ceil(speed * 10) / 10;
-			if (nodegroupIndex == 7){
+			if (nodegroupIndex == 3){
 				//System.out.println(Arrays.toString(movedVector) + ", " + nodegroupIndex);
 				//System.out.println(speed + ", " + acceralation);
+				//System.out.println(nowNode.getNowOnCars().getNodegroupIndex());
 			}
 
 			//System.out.println(carnum + ": " + nowNode.getNowDirection());

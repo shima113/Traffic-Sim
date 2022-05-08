@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="apache-log4j-2.17">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+      <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/index.html" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+      <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" type="SOURCES" />
+  </library>
+</component>

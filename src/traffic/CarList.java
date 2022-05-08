@@ -36,7 +36,12 @@ public class CarList {
 
 	public void addCarChanged(Car myCar, float distance){
 		int index = searchDistance(distance);
-		cars.add(index, myCar);
+
+		if (index == 0){
+			cars.add(myCar);
+		}else {
+			cars.add(index, myCar);
+		}
 
 		sort();
 	}
