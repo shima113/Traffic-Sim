@@ -31,11 +31,11 @@ public class PassengerCar extends Car {
 		object.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		
 		//create body
-		Point3d[] vertices = {new Point3d(0.0, 0.0, 0.0), new Point3d(0.0175, 0.0, 0.0), new Point3d(0.0, -0.0075, 0.0), 
-				new Point3d(0.0175, -0.0075, 0.0), new Point3d(0.0175, -0.0075, -0.015), new Point3d(0.0, -0.0075, -0.015), 
-				new Point3d(0.0, 0.0, -0.015), new Point3d(0.0175, 0, -0.015), new Point3d(0.0, 0.0075, -0.015), 
-				new Point3d(0.0175, 0.0075, -0.015), new Point3d(0.0, 0.0075, -0.05), new Point3d(0.0175, 0.0075, -0.05), 
-				new Point3d(0.0, -0.0075, -0.05), new Point3d(0.0175, -0.0075, -0.05)};
+		Point3d[] vertices = {new Point3d(0.0, 0.0, 0.0), new Point3d(0.017, 0.0, 0.0), new Point3d(0.0, -0.01, 0.0),
+				new Point3d(0.017, -0.01, 0.0), new Point3d(0.017, -0.01, -0.015), new Point3d(0.0, -0.01, -0.015),
+				new Point3d(0.0, 0.0, -0.015), new Point3d(0.017, 0, -0.015), new Point3d(0.0, 0.01, -0.015),
+				new Point3d(0.017, 0.01, -0.015), new Point3d(0.0, 0.01, -0.047), new Point3d(0.017, 0.01, -0.047),
+				new Point3d(0.0, -0.01, -0.047), new Point3d(0.017, -0.01, -0.047)};
 		
 		int[] indices = {0, 1, 3, 2,   0, 1, 7, 6,   1, 3, 4, 7,   0, 2, 5, 6, 
 				4, 9, 11, 13,   5, 8, 10, 12,   6, 7, 9, 8,   10, 11, 13, 12,   2, 3, 13, 12};
@@ -71,6 +71,8 @@ public class PassengerCar extends Car {
 		
 		pointTransform3d.mul(angleTransform3d);
 		carObjectGroup.setTransform(pointTransform3d);
+
+		size = 5;
 	}
 
 }

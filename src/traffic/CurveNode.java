@@ -48,15 +48,13 @@ public class CurveNode extends Node {
 		slope = upHeight / lengthTemp;
 		length = (float) Math.sqrt(upHeight * upHeight + lengthTemp * lengthTemp);
 
-		if (this.radius < 75) {
+		if (this.radius < 100) { //kouzourei15
 			limitSpeed = 11.11111;
-		}else if (this.radius < 200) {
+		}else if (this.radius < 150) {
 			limitSpeed = 13.88889;
-		}else if (this.radius < 300) {
+		}else if (this.radius < 280) {
 			limitSpeed = 16.66667;
-		}else if (this.radius < 400) {
-			limitSpeed = 19.44444;
-		}else if (this.radius < 600) {
+		}else if (this.radius < 460) {
 			limitSpeed = 22.22222;
 		}else {
 			limitSpeed = 27.77778;

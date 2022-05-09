@@ -77,6 +77,8 @@ public class Car implements ActionListener {
 	double acceralation = 0;
 	double nowDirection = 0;
 
+	float size;
+
 	/**
 	 * 車のオブジェクト　車の種類ごと（PassengerCar, Busなど）に生成される
 	 */
@@ -286,7 +288,7 @@ public class Car implements ActionListener {
 		}
 		
 		//crash
-		if (distanceInFront <= 5) {
+		if (distanceInFront <= inFrontCar.getSize()) {
 			speed = 0;
 		}
 	}
@@ -557,5 +559,9 @@ public class Car implements ActionListener {
 
 	public int getNodegroupIndex() {
 		return nodegroupIndex;
+	}
+
+	public float getSize() {
+		return size;
 	}
 }

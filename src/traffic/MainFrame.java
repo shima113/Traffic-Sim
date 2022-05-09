@@ -516,47 +516,38 @@ public class MainFrame extends JFrame {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			PassengerCar car;
 
-			int rand = (int) (Math.random() * 8);
+			int rand = (int) (Math.random() * 100);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
 
 			if (startIndex >= 0) startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
 			else startSpeed = rand >= 2 && rand <= 5 ? 27.77778 : 11.11111;
 
-			switch(rand) {
-			case 0:
+			if (rand == 0) {
 				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 2.5f), Math.PI, startSpeed);
 				car.setNodegroupIndex(2);
-				break;
-			case 1:
+			} else if (rand == 1) {
 				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(3);
-				break;
-			case 2:
+			} else if (rand == 2) {
 				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(4);
-				break;
-			case 3:
+			} else if (rand == 3) {
 				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-5.80f, 0.08f, -1.55f), Math.PI * 3 / 2, startSpeed);
 				car.setNodegroupIndex(5);
-				break;
-			case 4:
+			} else if (rand == 4) {
 				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(6);
-				break;
-			case 5:
+			} else if (rand == 5) {
 				car = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(7);
-				break;
-			case 6:
+			} else if (rand == 6) {
 				car = new PassengerCar(militime, createNodeGroup8(), new Point3f(0.0f, 0.0f, 2.5f), Math.PI, startSpeed);
 				car.setNodegroupIndex(8);
-				break;
-			case 7:
+			} else if (rand == 7) {
 				car = new PassengerCar(militime, createNodeGroup9(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, startSpeed);
 				car.setNodegroupIndex(9);
-				break;
-			default:
+			} else {
 				car = new PassengerCar();
 			}
 			tempBranchGroup.addChild(car.carObjectGroup);
