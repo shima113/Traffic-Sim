@@ -30,6 +30,8 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 
+import cars.Car;
+import cars.Track;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -37,7 +39,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import cars.PassengerCar;
-import test.traftest.TimerTest;
 import tools.Colors;
 import tools.NowLoading;
 
@@ -119,8 +120,11 @@ public class MainFrame extends JFrame {
 		change.addActionListener(cars[2]);
 		cp.add(change);;
 
-		Timer carTimer = new Timer();
-		carTimer.schedule(new carTimer(), 2000, 800);
+		Timer mainTimer = new Timer();
+		mainTimer.schedule(new carTimer(), 2000, 1066);
+
+		Timer lampTimer = new Timer();
+		lampTimer.schedule(new LampTimer(), 2800, 3200);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -504,52 +508,56 @@ public class MainFrame extends JFrame {
 
 	}
 
+	int rowIndex = 1;
+
 	/**
 	 * 車を生成するクラス
 	 */
 	class carTimer extends TimerTask{
 
-		int rowIndex = 1;
-
 		@Override
 		public void run() {
 			BranchGroup tempBranchGroup = new BranchGroup();
-			PassengerCar car;
+			Car car;
 
-			int rand = (int) (Math.random() * 100);
+			int rand = (int) (Math.random() * 4);
+			int carType = (int) (Math.random() * 4);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
 
 			if (startIndex >= 0) startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
 			else startSpeed = rand >= 2 && rand <= 5 ? 27.77778 : 11.11111;
 
+			NodeList nodeList = null;
+			Point3f start = null;
+			double direction = 0;
+
 			if (rand == 0) {
-				car = new PassengerCar(militime, createNodeGroup2(), new Point3f(0, 0, 2.5f), Math.PI, startSpeed);
-				car.setNodegroupIndex(2);
+				nodeList = createNodeGroup4();
+				start = new Point3f(-5.80f, 0.08f, -1.59f);
+				direction = Math.PI * 3 / 2;
 			} else if (rand == 1) {
-				car = new PassengerCar(militime, createNodeGroup3(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
-				car.setNodegroupIndex(3);
+				nodeList = createNodeGroup5();
+				start = new Point3f(-5.80f, 0.08f, -1.55f);
+				direction = Math.PI * 3 / 2;
 			} else if (rand == 2) {
-				car = new PassengerCar(militime, createNodeGroup4(), new Point3f(-5.80f, 0.08f, -1.59f), Math.PI * 3 / 2, startSpeed);
-				car.setNodegroupIndex(4);
+				nodeList = createNodeGroup6();
+				start = new Point3f(6.70f, 0.08f, -1.47f);
+				direction = Math.PI / 2;
 			} else if (rand == 3) {
-				car = new PassengerCar(militime, createNodeGroup5(), new Point3f(-5.80f, 0.08f, -1.55f), Math.PI * 3 / 2, startSpeed);
-				car.setNodegroupIndex(5);
-			} else if (rand == 4) {
-				car = new PassengerCar(militime, createNodeGroup6(), new Point3f(6.70f, 0.08f, -1.47f), Math.PI / 2, startSpeed);
-				car.setNodegroupIndex(6);
-			} else if (rand == 5) {
-				car = new PassengerCar(militime, createNodeGroup7(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, startSpeed);
-				car.setNodegroupIndex(7);
-			} else if (rand == 6) {
-				car = new PassengerCar(militime, createNodeGroup8(), new Point3f(0.0f, 0.0f, 2.5f), Math.PI, startSpeed);
-				car.setNodegroupIndex(8);
-			} else if (rand == 7) {
-				car = new PassengerCar(militime, createNodeGroup9(), new Point3f(6.70f, 0.08f, -1.43f), Math.PI / 2, startSpeed);
-				car.setNodegroupIndex(9);
-			} else {
-				car = new PassengerCar();
+				nodeList = createNodeGroup7();
+				start = new Point3f(6.70f, 0.08f, -1.43f);
+				direction = Math.PI / 2;
 			}
+
+			if (carType == 0){
+				car = new Track(militime, nodeList, start, direction, startSpeed);
+			}else {
+				car = new PassengerCar(militime, nodeList, start, direction, startSpeed);
+			}
+
+			car.setNodegroupIndex(rand + 4);
+
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
 
@@ -558,6 +566,65 @@ public class MainFrame extends JFrame {
 			rowIndex++;
 		}
 
+	}
+
+	class LampTimer extends TimerTask{
+
+		@Override
+		public void run() {
+			BranchGroup tempBranchGroup = new BranchGroup();
+			Car car;
+
+			int rand = (int) (Math.random() * 4);
+			int carType = (int) (Math.random() * 4);
+			int startIndex = carLists.get(rand).getCarSize() - 1;
+			int nodeGroupIndex = 0;
+			double startSpeed;
+
+			if (startIndex >= 0) startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
+			else startSpeed = rand >= 2 && rand <= 5 ? 27.77778 : 11.11111;
+
+			NodeList nodeList = null;
+			Point3f start = null;
+			double direction = 0;
+
+			if (rand == 0) {
+				nodeList = createNodeGroup2();
+				start = new Point3f(0, 0, 2.5f);
+				direction = Math.PI;
+				nodeGroupIndex = 2;
+			} else if (rand == 1) {
+				nodeList = createNodeGroup3();
+				start = new Point3f(-5.80f, 0.08f, -1.59f);
+				direction = Math.PI * 3 / 2;
+				nodeGroupIndex = 3;
+			} else if (rand == 2) {
+				nodeList = createNodeGroup8();
+				start = new Point3f(0.0f, 0.0f, 2.5f);
+				direction = Math.PI;
+				nodeGroupIndex = 8;
+			} else if (rand == 3) {
+				nodeList = createNodeGroup9();
+				start = new Point3f(6.70f, 0.08f, -1.43f);
+				direction = Math.PI / 2;
+				nodeGroupIndex = 9;
+			}
+
+			if (carType == 0){
+				car = new Track(militime, nodeList, start, direction, startSpeed);
+			}else {
+				car = new PassengerCar(militime, nodeList, start, direction, startSpeed);
+			}
+
+			car.setNodegroupIndex(nodeGroupIndex);
+
+			tempBranchGroup.addChild(car.carObjectGroup);
+			carBranchGroup.addChild(tempBranchGroup);
+
+			car.setExpSheet(sheet1);
+			car.setSheetIndex(rowIndex);
+			rowIndex++;
+		}
 	}
 
 	/**

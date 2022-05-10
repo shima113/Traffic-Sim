@@ -72,7 +72,7 @@ public class PassengerCar extends Car {
 		pointTransform3d.mul(angleTransform3d);
 		carObjectGroup.setTransform(pointTransform3d);
 
-		size = 5;
+		size = 4.7f;
 	}
 
 }
