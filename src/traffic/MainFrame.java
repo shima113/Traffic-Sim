@@ -124,7 +124,7 @@ public class MainFrame extends JFrame {
 		mainTimer.schedule(new carTimer(), 2000, 1066);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2800, 3200);
+		lampTimer.schedule(new LampTimer(), 3600, 3200);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);

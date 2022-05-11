@@ -19,6 +19,7 @@ public class Track extends Car {
 		super(load, nodes, startPoint, direction, speed);
 
 		carObjectGroup = createObject();
+		init(startPoint, direction);
 	}
 
 	public Track(){

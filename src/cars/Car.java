@@ -169,7 +169,16 @@ public class Car implements ActionListener {
 	}
 
 	private void createChangeLaneNode(Node targetNode){
-		float distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
+		float distance = 0;
+
+		try {
+			distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
+		}catch (NullPointerException e){
+			if (targetNode == null) {
+				System.out.println("our");
+			}
+			e.printStackTrace();
+		}
 		distance /= 2;
 
 		final float CHANGELANE_INTERVAL = 0.10f;
@@ -449,7 +458,9 @@ public class Car implements ActionListener {
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
 				accelByDistance(checkInFrontCar(), temp);
 				checkLimitSpeed();
-				checkChangeLane();
+				if (!(nowNode instanceof CurveNode)){
+					checkChangeLane();
+				}
 			}
 			
 			if (temp == 25) {
