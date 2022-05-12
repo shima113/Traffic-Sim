@@ -55,7 +55,7 @@ public class CarList {
 		int index = cars.indexOf(myCar);
 		Car inFrontCar;
 		
-		if (index != 0) {
+		if (index != 0 && index != -1) {
 			inFrontCar = cars.get(index - 1);			
 		}else {
 			inFrontCar = NOTHING_INFRONT;

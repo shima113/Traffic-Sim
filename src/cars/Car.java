@@ -158,8 +158,10 @@ public class Car implements ActionListener {
 
 		/*System.out.println(nowNode.getEquationStraight().toString() + "  ," + nowNode.getNowOnCars().getNodegroupIndex());
 		System.out.println(no.getEquationStraight().toString() + "  ," + no.getNowOnCars().getNodegroupIndex());*/
-		
-		createChangeLaneNode(no);
+
+		if (!(no == null)) {
+			createChangeLaneNode(no);
+		}
 
 		nodeGroup.addAll(targetNodeGroup.subList(targetNodeGroup.indexOf(no) + 1, targetNodeGroup.size()));
 
