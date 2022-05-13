@@ -121,13 +121,22 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 1333);
+		mainTimer.schedule(new carTimer(), 2000, 2400);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2600, 4000);
+		lampTimer.schedule(new LampTimer(), 2600, 2400);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
+
+		Timer exitTimer = new Timer();
+		exitTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				exportSheet();
+				System.exit(0);
+			}
+		}, 300000);
 
 		Timer logTimer = new Timer();
 		/*logTimer.schedule(new TimerTask() {
