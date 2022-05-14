@@ -32,7 +32,10 @@ import javax.vecmath.Point3f;
 
 import cars.Car;
 import cars.Track;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -91,7 +94,7 @@ public class MainFrame extends JFrame {
 
 		SimpleUniverse universe = new SimpleUniverse(canvas);
 
-		ViewChange viewChange = new ViewChange(canvas, universe, 15.0f);
+		ViewChange viewChange = new ViewChange(canvas, universe, 17.0f);
 		viewChange.setSensitivity(0.01f);
 
 		viewTransformGroup = universe.getViewingPlatform().getViewPlatformTransform();
@@ -121,10 +124,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 2400);
+		mainTimer.schedule(new carTimer(), 2000, 1866);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2600, 2400);
+		lampTimer.schedule(new LampTimer(), 2600, 5600);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -160,7 +163,18 @@ public class MainFrame extends JFrame {
 	//作るだけ
 	private void createExcel() {
 		sheet1 = workbook.createSheet();
-		workbook.setSheetName(0,"yahhhhh");
+		workbook.setSheetName(0,"data");
+
+		for (int i = 0; i < 8; i++) {
+			Row row = sheet1.createRow(i);
+			Cell num = row.createCell(0);
+			Cell ave = row.createCell(1);
+
+			String rowIndex = String.valueOf(i + 1);
+
+			num.setCellValue(String.valueOf(i + 2));
+			ave.setCellFormula("AVERAGEIF($D$10:$D$1000,A" + rowIndex + ",$C$10:$C$1000)");
+		}
 	}
 
 	//ウィンドウ閉じたときに呼ばれる
@@ -517,7 +531,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	int rowIndex = 1;
+	int rowIndex = 9;
 
 	/**
 	 * 車を生成するクラス
