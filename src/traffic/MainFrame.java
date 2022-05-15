@@ -32,8 +32,7 @@ import javax.vecmath.Point3f;
 
 import cars.Car;
 import cars.Track;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -124,10 +123,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 1866);
+		mainTimer.schedule(new carTimer(), 2000, 4000);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2600, 5600);
+		lampTimer.schedule(new LampTimer(), 2700, 4000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -157,7 +156,7 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 
-	Workbook workbook = new HSSFWorkbook();
+	Workbook workbook = new XSSFWorkbook();
 	Sheet sheet1;
 
 	//作るだけ
@@ -182,7 +181,7 @@ public class MainFrame extends JFrame {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 		//String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
-		String folderpath = "C:\\Users\\kohei\\Documents\\program files\\traffic\\TrafficSim_";
+		String folderpath = "C:\\Users\\kohei\\Documents\\Excel\\traffic\\TrafficSim_";
 		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
 
 		FileOutputStream fStream = null;

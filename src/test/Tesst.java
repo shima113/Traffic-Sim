@@ -17,7 +17,7 @@ public class Tesst {
     }
 
     public Tesst(){
-        list = new LinkedList<>();
+        /*list = new LinkedList<>();
         list.add(4);
         list.add(44);
         list.add(1);
@@ -40,7 +40,9 @@ public class Tesst {
 
         for (Integer integer : list) {
             System.out.println(integer);
-        }
+        }*/
+
+
     }
 
     public void sort(){
