@@ -272,7 +272,111 @@ public class MainFrame extends JFrame {
 
 	private final double CHANGELANE_ANGLE = Math.asin(10.0 / 26.0);
 
+	private NodeList createNodeGroup2(){
+		NodeList nodeGroup = new NodeList();
 
+		Node[] nodes = new Node[2];
+
+
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup3(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup4(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup5(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup6(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup7(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup8(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
+
+	private NodeList createNodeGroup9(){
+		NodeList nodeGroup = new NodeList();
+
+		Node[] nodes = new Node[2];
+
+		for (Node node : nodes) {
+			nodeGroup.add(node);
+			node.setNowOnCars(carLists.get(0));
+		}
+
+		return nodeGroup;
+	}
 
 	//create background(sky), ground(grass)
 	private BranchGroup createEnvironment() {
