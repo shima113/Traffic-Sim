@@ -435,7 +435,7 @@ public class Car implements ActionListener {
 			}
 
 			speed = Math.ceil(speed * 10) / 10;
-			if (nodegroupIndex == 3){
+			if (nodegroupIndex == 2){
 				//System.out.println(Arrays.toString(movedVector) + ", " + nodegroupIndex);
 				//System.out.println(speed + ", " + acceralation);
 				//System.out.println(nowNode.getNowOnCars().getNodegroupIndex());
