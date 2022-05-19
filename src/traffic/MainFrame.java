@@ -276,8 +276,9 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup2(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[3];
+		Node[] nodes = new Node[5];
 
+		nodes[0] = new CurveNode()
 		nodes[0] = new StraightNode(1.0f, Math.PI, new Point3f(0.0f, 0.08f, 0.0f), -0.08f);
 		nodes[1] = new CurveNode(1.14217871614f, Math.PI, Math.PI / 9 * 5, new Point3f(1.14217871614f, 0, -1.0f), 0, 0);
 		nodes[2] = new CurveNode(-6.90f, Math.PI / 9 * 14, -Math.PI / 18, new Point3f(2.53868839467f, 0, -8.92f), 0.08f, 0);
