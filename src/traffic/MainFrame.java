@@ -123,10 +123,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 1000);
+		//mainTimer.schedule(new carTimer(), 2000, 1000);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 1000);
+		//lampTimer.schedule(new LampTimer(), 2700, 1000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -278,10 +278,11 @@ public class MainFrame extends JFrame {
 
 		Node[] nodes = new Node[5];
 
-		nodes[0] = new CurveNode()
 		nodes[0] = new StraightNode(1.0f, Math.PI, new Point3f(0.0f, 0.08f, 0.0f), -0.08f);
 		nodes[1] = new CurveNode(1.14217871614f, Math.PI, Math.PI / 9 * 5, new Point3f(1.14217871614f, 0, -1.0f), 0, 0);
 		nodes[2] = new CurveNode(-6.90f, Math.PI / 9 * 14, -Math.PI / 18, new Point3f(2.53868839467f, 0, -8.92f), 0.08f, 0);
+		nodes[3] = new CurveNode(0.52f, Math.PI / 2 * 3, CHANGELANE_ANGLE, new Point3f(2.53868839467f, 0, -1.50f), 0, 0.08f);
+		nodes[4] = new CurveNode(-0.52f, Math.PI / 2 * 3 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(2.93868839467f, 0, -2.46f), 0, 0.08f);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
@@ -294,11 +295,13 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup3(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[3];
+		Node[] nodes = new Node[5];
 
-		nodes[0] = new CurveNode(-6.90f, Math.PI / 2 * 3, -Math.PI / 18, new Point3f(-2.49868839467f, 0, -8.92f), 0.08f, 0.08f);
-		nodes[1] = new CurveNode(1.13217871614f, Math.PI / 9 * 13, Math.PI / 9 * 5, new Point3f(-1.10217871614f, 0, -1.0f), 0, 0.16f);
-		nodes[2] = new StraightNode(1.0f, 0, new Point3f(0.04f, 0.16f, 0.0f), -0.08f);
+		nodes[0] = new CurveNode(-0.52f, Math.PI / 2 * 3, -CHANGELANE_ANGLE, new Point3f(-2.89868839467f, 0, -2.46f), 0, 0.08f);
+		nodes[1] = new CurveNode(0.52f, Math.PI / 2 * 3 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-2.49868839467f, 0, -1.50f), 0, 0.08f);
+		nodes[2] = new CurveNode(-6.90f, Math.PI / 2 * 3, -Math.PI / 18, new Point3f(-2.49868839467f, 0, -8.92f), 0.08f, 0.08f);
+		nodes[3] = new CurveNode(1.13217871614f, Math.PI / 9 * 13, Math.PI / 9 * 5, new Point3f(-1.10217871614f, 0, -1.0f), 0, 0.16f);
+		nodes[4] = new StraightNode(1.0f, 0, new Point3f(0.04f, 0.16f, 0.0f), -0.08f);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
