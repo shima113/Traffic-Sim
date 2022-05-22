@@ -400,6 +400,7 @@ public class MainFrame extends JFrame {
 
 		Node[] nodes = new Node[6];
 
+
 		nodes[0] = new CurveNode(-1.70f, -Math.PI, -Math.PI / 2, new Point3f(-1.70f, 0, 0), 0, 0.08f);
 		nodes[1] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(-1.70f, 0.08f, -1.70f), 0);
 
