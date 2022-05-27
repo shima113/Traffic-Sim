@@ -32,6 +32,7 @@ import javax.vecmath.Point3f;
 
 import cars.Car;
 import cars.Track;
+import org.apache.commons.compress.harmony.pack200.NewAttribute;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -400,9 +401,12 @@ public class MainFrame extends JFrame {
 
 		Node[] nodes = new Node[6];
 
-
-		nodes[0] = new CurveNode(-1.70f, -Math.PI, -Math.PI / 2, new Point3f(-1.70f, 0, 0), 0, 0.08f);
-		nodes[1] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(-1.70f, 0.08f, -1.70f), 0);
+		nodes[0] = new CurveNode(-0.26f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.26f, 0, 0.20f), 0, 0.08f);
+		nodes[1] = new CurveNode(0.26f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.22f, 0, 0), 0, 0.08f);
+		nodes[2] = new CurveNode(-1.70f, Math.PI, -Math.PI / 2, new Point3f(-1.74f, 0, 0), 0, 0.08f);
+		nodes[3] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(-1.74f, 0.08f, -1.70f), 0);
+		nodes[4] = new CurveNode(0.52f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-2.538688394672f, 0, -2.22f), 0, 0.08f);
+		nodes[5] = new CurveNode(-0.52f, Math.PI / 2 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-2.938688394672f, 0, -1.26f), 0, 0.08f);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
@@ -415,7 +419,7 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup9(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[6];
+		Node[] nodes = new Node[2];
 
 		nodes[0] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(2.538688394672f, 0.08f, -1.70f), 0);
 		nodes[1] = new CurveNode(-1.70f, Math.PI / 2, -Math.PI / 2, new Point3f(1.74f, 0, 0), 0, 0.08f);
