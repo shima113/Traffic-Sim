@@ -54,14 +54,32 @@ public class MainFrame extends JFrame {
 
 	ArrayList<CarList> carLists = new ArrayList<>();
 
-	JLabel accelDisplay, speedDisplay, distanceDisplay;
-
 	//PassengerCar car1, car2, car3;
 
 	int militime = 40;
 
 	public static void main(String[] args) {
-		new MainFrame();
+		Timer exitTimer = new Timer();
+		exitTimer.schedule(new TimerTask() {
+			MainFrame f;
+			int kaisu = 0;
+			@Override
+			public void run() {
+				if (kaisu == 0){
+					f = new MainFrame();
+					kaisu++;
+				} else if (kaisu == 3) {
+					f.exportSheet();
+					System.exit(0);
+				} else {
+					f.exportSheet();
+					f.setVisible(false);
+					f = null;
+					f = new MainFrame();
+					kaisu++;
+				}
+			}
+		}, 0, 300000);
 	}
 
 	/**
@@ -124,22 +142,13 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 2000);
+		mainTimer.schedule(new carTimer(), 2000, 4000);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 2000);
+		lampTimer.schedule(new LampTimer(), 2700, 4000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
-
-		Timer exitTimer = new Timer();
-		exitTimer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				exportSheet();
-				System.exit(0);
-			}
-		}, 300000);
 
 		Timer logTimer = new Timer();
 		/*logTimer.schedule(new TimerTask() {
