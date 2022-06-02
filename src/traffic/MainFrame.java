@@ -293,223 +293,35 @@ public class MainFrame extends JFrame {
 
 	//okデス
 	private NodeList createNodeGroup2(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[8];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI, new Point3f(0.0f, 0.08f, 2.5f), 0);
-		nodes[1] = new StraightNode(1.0f, Math.PI, new Point3f(0.0f, 0.08f, 0.0f), -0.08f);
-		nodes[2] = new CurveNode(1.14217871614f, Math.PI, Math.PI / 9 * 5, new Point3f(1.14217871614f, 0, -1.0f), 0, 0);
-		nodes[3] = new CurveNode(-6.90f, Math.PI / 9 * 14, -Math.PI / 18, new Point3f(2.53868839467f, 0, -8.92f), 0.08f, 0);
-		nodes[4] = new CurveNode(0.52f, Math.PI / 2 * 3, CHANGELANE_ANGLE, new Point3f(2.53868839467f, 0, -1.50f), 0, 0.08f);
-		nodes[5] = new CurveNode(-0.52f, Math.PI / 2 * 3 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(2.93868839467f, 0, -2.46f), 0, 0.08f);
-		nodes[6] = new StraightNode(4.20f - 2.93868839467f, Math.PI / 2 * 3, new Point3f(2.93868839467f, 0.08f, -1.94f), 0);
-		nodes[7] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.94f), 0);
-
-		nodes[4].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[5].setType(NodeType.CHANGE_LANE_SECOND);
-
-		nodes[0].setLimitSpeed(13.88889);
-		nodes[1].setLimitSpeed(13.88889);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(0));
-		}
-
-		nodes[6].setNowOnCars(carLists.get(2));
-		nodes[7].setNowOnCars(carLists.get(2));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup3(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[8];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-5.80f, 0.08f, -1.94f), 0);
-		nodes[1] = new StraightNode(3.30f - 2.89868839467f, Math.PI / 2 * 3, new Point3f(-3.30f, 0.08f, -1.94f), 0);
- 		nodes[2] = new CurveNode(-0.52f, Math.PI / 2 * 3, -CHANGELANE_ANGLE, new Point3f(-2.89868839467f, 0, -2.46f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, Math.PI / 2 * 3 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-2.49868839467f, 0, -1.50f), 0, 0.08f);
-		nodes[4] = new CurveNode(-6.90f, Math.PI / 2 * 3, -Math.PI / 18, new Point3f(-2.49868839467f, 0, -8.92f), 0.08f, 0.08f);
-		nodes[5] = new CurveNode(1.13217871614f, Math.PI / 9 * 13, Math.PI / 9 * 5, new Point3f(-1.10217871614f, 0, -1.0f), 0, 0.16f);
-		nodes[6] = new StraightNode(1.0f, 0, new Point3f(0.04f, 0.16f, -1.0f), -0.08f);
-		nodes[7] = new StraightNode(2.5f, 0, new Point3f(0.04f, 0.08f, 0.0f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-
-		nodes[6].setLimitSpeed(13.88889);
-		nodes[7].setLimitSpeed(13.88889);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(1));
-		}
-
-		nodes[0].setNowOnCars(carLists.get(2));
-		nodes[1].setNowOnCars(carLists.get(2));
-		nodes[2].setNowOnCars(carLists.get(2));
-		nodes[3].setNowOnCars(carLists.get(2));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup4(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[5];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-5.80f, 0.08f, -1.94f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.94f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.94f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.94f), 0);
-		nodes[4] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.94f), 0);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(2));
-		}
-
-		nodeGroup.setCarList(carLists.get(2));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup5(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[5];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-5.80f, 0.08f, -1.90f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-3.30f, 0.08f, -1.90f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-0.80f, 0.08f, -1.90f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(1.70f, 0.08f, -1.90f), 0);
-		nodes[4] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(4.20f, 0.08f, -1.90f), 0);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(3));
-		}
-
-		nodeGroup.setCarList(carLists.get(3));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup6(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[5];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(6.70f, 0.08f, -1.82f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI / 2, new Point3f(4.20f, 0.08f, -1.82f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI / 2, new Point3f(1.70f, 0.08f, -1.82f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-0.80f, 0.08f, -1.82f), 0);
-		nodes[4] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-3.30f, 0.08f, -1.82f), 0);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(4));
-		}
-
-		nodeGroup.setCarList(carLists.get(4));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup7(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[5];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(6.70f, 0.08f, -1.78f), 0);
-		nodes[1] = new StraightNode(2.5f, Math.PI / 2, new Point3f(4.20f, 0.08f, -1.78f), 0);
-		nodes[2] = new StraightNode(2.5f, Math.PI / 2, new Point3f(1.70f, 0.08f, -1.78f), 0);
-		nodes[3] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-0.80f, 0.08f, -1.78f), 0);
-		nodes[4] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-3.30f, 0.08f, -1.78f), 0);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(5));
-		}
-
-		nodeGroup.setCarList(carLists.get(5));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup8(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[9];
-
-		nodes[0] = new StraightNode(2.30f, Math.PI, new Point3f(0, 0.08f, 2.5f), 0);
-		nodes[1] = new CurveNode(-0.26f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.26f, 0, 0.20f), 0, 0.08f);
-		nodes[2] = new CurveNode(0.26f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.22f, 0, 0), 0, 0.08f);
-		nodes[3] = new CurveNode(-1.70f, Math.PI, -Math.PI / 2, new Point3f(-1.74f, 0, 0), 0, 0.08f);
-		nodes[4] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(-1.74f, 0.08f, -1.70f), 0);
-		nodes[5] = new CurveNode(0.52f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-2.538688394672f, 0, -2.22f), 0, 0.08f);
-		nodes[6] = new CurveNode(-0.52f, Math.PI / 2 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-2.938688394672f, 0, -1.26f), 0, 0.08f);
-		nodes[7] = new StraightNode(3.30f - 2.938688394672f, Math.PI / 2, new Point3f(-2.938688394672f, 0.08f, -1.78f), 0);
-		nodes[8] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-3.30f, 0.08f, -1.78f), 0);
-
-		nodes[1].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[2].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[5].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[6].setType(NodeType.CHANGE_LANE_SECOND);
-
-		nodes[0].setLimitSpeed(13.88889);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(6));
-		}
-
-		nodes[0].setNowOnCars(carLists.get(0));
-		nodes[1].setNowOnCars(carLists.get(0));
-		nodes[2].setNowOnCars(carLists.get(0));
-		nodes[7].setNowOnCars(carLists.get(5));
-		nodes[8].setNowOnCars(carLists.get(5));
-
-		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup9(){
-		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[9];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(6.70f, 0.08f, -1.78f), 0);
-		nodes[1] = new StraightNode(4.2f - 2.978688394672f, Math.PI / 2, new Point3f(4.20f, 0.08f, -1.78f), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI / 2, -CHANGELANE_ANGLE, new Point3f(2.978688394672f, 0, -1.26f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, Math.PI / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(2.578688394672f, 0, -2.22f), 0, 0.08f);
-		nodes[4] = new StraightNode(0.798688394672f, Math.PI / 2, new Point3f(2.578688394672f, 0.08f, -1.70f), 0);
-		nodes[5] = new CurveNode(-1.70f, Math.PI / 2, -Math.PI / 2, new Point3f(1.78f, 0, 0), 0, 0.08f);
-		nodes[6] = new CurveNode(0.26f, 0, CHANGELANE_ANGLE, new Point3f(-0.18f, 0, 0), 0, 0.08f);
-		nodes[7] = new CurveNode(-0.26f, CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(0.30f, 0, 0.20f), 0, 0.08f);
-		nodes[8] = new StraightNode(2.30f, 0, new Point3f(0.04f, 0.08f, 0.20f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[6].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[7].setType(NodeType.CHANGE_LANE_SECOND);
-
-		nodes[8].setLimitSpeed(13.88889);
-
-		for (Node node : nodes) {
-			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(7));
-		}
-
-		nodes[0].setNowOnCars(carLists.get(5));
-		nodes[1].setNowOnCars(carLists.get(5));
-		nodes[2].setNowOnCars(carLists.get(5));
-		nodes[3].setNowOnCars(carLists.get(5));
-		nodes[8].setNowOnCars(carLists.get(1));
-
-		return nodeGroup;
 	}
 
 	//create background(sky), ground(grass)
