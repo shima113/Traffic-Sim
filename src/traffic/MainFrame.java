@@ -293,35 +293,51 @@ public class MainFrame extends JFrame {
 
 	//okデス
 	private NodeList createNodeGroup2(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup3(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup4(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup5(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup6(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup7(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup8(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	private NodeList createNodeGroup9(){
+		NodeList nodeGroup = new NodeList();
 
+		return nodeGroup;
 	}
 
 	//create background(sky), ground(grass)
