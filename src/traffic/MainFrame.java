@@ -291,7 +291,6 @@ public class MainFrame extends JFrame {
 
 	private final double CHANGELANE_ANGLE = Math.asin(10.0 / 26.0);
 
-	//okデス
 	private NodeList createNodeGroup2(){
 		NodeList nodeGroup = new NodeList();
 
