@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/program files/javadoc/Traffic-Sim_2022-04-06" />
-    <option name="OPTION_SCOPE" value="public" />
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/program files/javadoc/Traffic-Sim_2022-06-05" />
+    <option name="OPTION_SCOPE" value="package" />
     <option name="OTHER_OPTIONS" value="-encoding UTF-8" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK">
