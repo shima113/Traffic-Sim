@@ -334,7 +334,14 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup3(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[3];
+		Node[] nodes = new Node[6];
+
+		nodes[1] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, -5.0f), 0);
+		nodes[0] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, -7.5f), 0);
+		nodes[2] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, -2.5f), 0);
+		nodes[3] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, 0.0f), 0);
+		nodes[4] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, 2.5f), 0);
+		nodes[5] = new StraightNode(2.5f, 0, new Point3f(0.12f, 0.08f, 5.0f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
@@ -347,7 +354,14 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup4(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[3];
+		Node[] nodes = new Node[6];
+
+		nodes[0] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, -7.5f), 0);
+		nodes[1] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, -5.0f), 0);
+		nodes[2] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, -2.5f), 0);
+		nodes[3] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, 0.0f), 0);
+		nodes[4] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, 2.5f), 0);
+		nodes[5] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, 5.0f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
@@ -360,7 +374,7 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup5(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[3];
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
