@@ -11,7 +11,6 @@ import traffic.NodeType;
 import traffic.StraightNode;
 
 import javax.media.j3d.BadTransformException;
-import javax.media.j3d.Sound;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3f;
@@ -100,7 +99,7 @@ public class Car implements ActionListener {
 
 	Sheet expSheet;
 
-	int[] jumpStatus = new int[8];
+	int[] jumpStatus = new int[16];
 
 	Node atoNode;
 	NodeList atnodegroupArrayList;
@@ -330,47 +329,18 @@ public class Car implements ActionListener {
 	long endTime = 0;
 
 	/**
-	 * @param nodegroupIndex 始まりが0のやつ 分岐前後は関係なし
-	 * @param margeDistance 合流するときの相手のdistaaance
+	 * @param margeDistance 合流するときの相手のdistance
 	 */
-	private void checkJumpLump(int nodegroupIndex, float margeDistance){
-		switch (jumpStatus[nodegroupIndex]) {
-			case 0:
-				nowNode.getNowOnCars().removeCar(this);
-				//nowNode.getNowOnCars().getBunkiCarList().addCar(this);
+	private void checkJumpLump(float margeDistance){
+		totalDistance = margeDistance;
 
-				//System.out.println("bunk");
-				break;
-			case 1:
-				totalDistance = margeDistance;
-
-				nowNode.getNowOnCars().removeCar(this);
-				//nowNode.getNowOnCars().getGouryuCarList().addCarChanged(this, margeDistance);
-
-				//System.out.println("gor");
-				break;
-		}
-		jumpStatus[nodegroupIndex]++;
+		nowNode.getNowOnCars().removeCar(this);
 	}
 
 	private void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 
-			if (nowNode.getType() == NodeType.CHANGE_LANE_SECOND){
-
-				//ランプの合流or分岐
-				switch (nodegroupIndex) {
-					case 8:
-						checkJumpLump(6, 1029);
-						break;
-					case 9:
-						checkJumpLump(7, 674.765467383f);
-						break;
-					case 3:
-						checkJumpLump(1, 0);
-						break;
-				}
-
+			if (nowNode.isNextNodeCarListChange()){
 				try {
 					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 				}catch (IndexOutOfBoundsException e){
@@ -458,10 +428,10 @@ public class Car implements ActionListener {
 			updateNode();
 			temp++;
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
-				//accelByDistance(checkInFrontCar(), temp);
-				//checkLimitSpeed();
+				accelByDistance(checkInFrontCar(), temp);
+				checkLimitSpeed();
 				if (!(nowNode instanceof CurveNode)){
-					//checkChangeLane();
+					checkChangeLane();
 				}
 			}
 			

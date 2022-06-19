@@ -36,6 +36,13 @@ public abstract class Node {
 	 */
 	NodeType type = NodeType.MAIN;
 
+	//setterで変える
+	boolean nextNodeCarListChange = false;
+
+	NodeChangeType changeType = NodeChangeType.NO;
+
+	float nextListMarge = 0;
+
 	/**
 	 * 移動時の座標計算をするメソッド
 	 * @param movedDistance Carから渡された移動量
@@ -82,5 +89,29 @@ public abstract class Node {
 
 	public double getDeclination() {
 		return declination;
+	}
+
+	public boolean isNextNodeCarListChange() {
+		return nextNodeCarListChange;
+	}
+
+	public void setNextNodeCarListChange(boolean nextNodeCarListChange) {
+		this.nextNodeCarListChange = nextNodeCarListChange;
+	}
+
+	public float getNextListMarge() {
+		return nextListMarge;
+	}
+
+	public void setNextListMarge(float nextListMarge) {
+		this.nextListMarge = nextListMarge;
+	}
+
+	public NodeChangeType getChangeType() {
+		return changeType;
+	}
+
+	public void setChangeType(NodeChangeType changeType) {
+		this.changeType = changeType;
 	}
 }
