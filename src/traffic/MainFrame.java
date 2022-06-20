@@ -138,10 +138,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		//mainTimer.schedule(new carTimer(), 2000, 4000);
+		mainTimer.schedule(new carTimer(), 2000, 600);
 
 		Timer lampTimer = new Timer();
-		//lampTimer.schedule(new LampTimer(), 2700, 4000);
+		lampTimer.schedule(new LampTimer(), 2700, 600);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -169,7 +169,7 @@ public class MainFrame extends JFrame {
 		}, 0, 30000);
 
 		Timer newCarTimer = new Timer();
-		newCarTimer.schedule(new TimerTask() {
+		/*newCarTimer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				BranchGroup tempBranchGroup = new BranchGroup();
@@ -200,7 +200,7 @@ public class MainFrame extends JFrame {
 
 				carBranchGroup.addChild(tempBranchGroup);
 			}
-		}, 1000, 1000);
+		}, 1000, 1000);*/
 
 		loading.setVisible(false);
 		setVisible(true);
@@ -214,15 +214,15 @@ public class MainFrame extends JFrame {
 		sheet1 = workbook.createSheet();
 		workbook.setSheetName(0,"data");
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 1; i <= 16; i++) {
 			Row row = sheet1.createRow(i);
 			Cell num = row.createCell(0);
 			Cell ave = row.createCell(1);
 
-			String rowIndex = String.valueOf(i + 1);
+			String rowIndex = String.valueOf(i);
 
-			num.setCellValue(String.valueOf(i + 2));
-			ave.setCellFormula("AVERAGEIF($D$10:$D$2000,A" + rowIndex + ",$C$10:$C$2000)");
+			num.setCellValue(String.valueOf(i));
+			ave.setCellFormula("AVERAGEIF($D$10:$D$5000,A" + rowIndex + ",$C$10:$C$5000)");
 		}
 	}
 
@@ -266,10 +266,20 @@ public class MainFrame extends JFrame {
 		cars[5] = new PassengerCar(militime, createNodeGroup6(), new Point3f(-7.5f, 0, 0.04f), Math.PI, 27.77778);
 		cars[6] = new PassengerCar(militime, createNodeGroup7(), new Point3f(7.5f, 0, 0.12f), Math.PI, 27.77778);
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(7.5f, 0, 0.16f), Math.PI, 27.77778);
+		try {//重ならないため
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 		cars[8] = new PassengerCar(militime, createNodeGroup9(), new Point3f(0, 0.08f, 7.5f), Math.PI, 27.77778);
 		cars[9] = new PassengerCar(militime, createNodeGroup10(), new Point3f(-7.5f, 0, 0), Math.PI, 27.77778);
 		cars[10] = new PassengerCar(militime, createNodeGroup11(), new Point3f(0.16f, 0.08f, -7.5f), Math.PI, 27.77778);
 		cars[11] = new PassengerCar(militime, createNodeGroup12(), new Point3f(7.5f, 0, 0.16f), Math.PI, 27.77778);
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 		cars[12] = new PassengerCar(militime, createNodeGroup13(), new Point3f(7.5f, 0, 0.16f), Math.PI, 27.77778);
 		cars[13] = new PassengerCar(militime, createNodeGroup14(), new Point3f(0, 0.08f, 7.5f), Math.PI, 27.77778);
 		cars[14] = new PassengerCar(militime, createNodeGroup15(), new Point3f(-7.5f, 0, 0), Math.PI, 27.77778);
@@ -291,12 +301,16 @@ public class MainFrame extends JFrame {
 			car.setNodegroupIndex(i + 1);
 		}
 
-		/*carLists.get(2).setToChangeLane(createNodeGroup5());
-		carLists.get(3).setToChangeLane(createNodeGroup4());
-		carLists.get(4).setToChangeLane(createNodeGroup7());
-		carLists.get(5).setToChangeLane(createNodeGroup6());
+		carLists.get(0).setToChangeLane(createNodeGroup2());
+		carLists.get(1).setToChangeLane(createNodeGroup1());
+		carLists.get(2).setToChangeLane(createNodeGroup4());
+		carLists.get(3).setToChangeLane(createNodeGroup3());
+		carLists.get(4).setToChangeLane(createNodeGroup6());
+		carLists.get(5).setToChangeLane(createNodeGroup5());
+		carLists.get(6).setToChangeLane(createNodeGroup8());
+		carLists.get(7).setToChangeLane(createNodeGroup7());
 
-		carLists.get(0).setBunkiCarList(carLists.get(6));
+		/*carLists.get(0).setBunkiCarList(carLists.get(6));
 		carLists.get(2).setBunkiCarList(carLists.get(1));
 		carLists.get(5).setBunkiCarList(carLists.get(7));
 
@@ -306,20 +320,29 @@ public class MainFrame extends JFrame {
 	}
 
 	private void createRoad(){
-		Road[] roads = new Road[2];
+		Road[] roads = new Road[4];
 
-		/*roads[0] = new Road();
-		roads[1] = new Road();
+		for (int i = 0; i < 4; i++) {
+			roads[i] = new Road();
+		}
 
-		roads[0].add(carLists.get(2));
-		roads[0].add(carLists.get(3));
-		roads[1].add(carLists.get(5));
-		roads[1].add(carLists.get(4));
+		roads[0].add(carLists.get(0));
+		roads[0].add(carLists.get(1));
+		roads[1].add(carLists.get(3));
+		roads[1].add(carLists.get(2));
+		roads[2].add(carLists.get(4));
+		roads[2].add(carLists.get(5));
+		roads[3].add(carLists.get(7));
+		roads[3].add(carLists.get(6));
 
-		carLists.get(2).setRoad(roads[0]);
-		carLists.get(3).setRoad(roads[0]);
-		carLists.get(4).setRoad(roads[1]);
-		carLists.get(5).setRoad(roads[1]);*/
+		carLists.get(0).setRoad(roads[0]);
+		carLists.get(1).setRoad(roads[0]);
+		carLists.get(2).setRoad(roads[1]);
+		carLists.get(3).setRoad(roads[1]);
+		carLists.get(4).setRoad(roads[2]);
+		carLists.get(5).setRoad(roads[2]);
+		carLists.get(6).setRoad(roads[3]);
+		carLists.get(7).setRoad(roads[3]);
 	}
 
 	private final double CHANGELANE_ANGLE = Math.asin(10.0 / 26.0);
@@ -341,6 +364,8 @@ public class MainFrame extends JFrame {
 			node.setNowOnCars(carLists.get(0));
 		}
 
+		nodeGroup.setCarList(carLists.get(0));
+
 		return nodeGroup;
 	}
 
@@ -360,6 +385,8 @@ public class MainFrame extends JFrame {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(1));
 		}
+
+		nodeGroup.setCarList(carLists.get(1));
 
 		return nodeGroup;
 	}
@@ -381,6 +408,8 @@ public class MainFrame extends JFrame {
 			node.setNowOnCars(carLists.get(2));
 		}
 
+		nodeGroup.setCarList(carLists.get(2));
+
 		return nodeGroup;
 	}
 
@@ -400,6 +429,8 @@ public class MainFrame extends JFrame {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(3));
 		}
+
+		nodeGroup.setCarList(carLists.get(3));
 
 		return nodeGroup;
 	}
@@ -421,6 +452,8 @@ public class MainFrame extends JFrame {
 			node.setNowOnCars(carLists.get(4));
 		}
 
+		nodeGroup.setCarList(carLists.get(4));
+
 		return nodeGroup;
 	}
 
@@ -440,6 +473,8 @@ public class MainFrame extends JFrame {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(5));
 		}
+
+		nodeGroup.setCarList(carLists.get(5));
 
 		return nodeGroup;
 	}
@@ -461,6 +496,8 @@ public class MainFrame extends JFrame {
 			node.setNowOnCars(carLists.get(6));
 		}
 
+		nodeGroup.setCarList(carLists.get(6));
+
 		return nodeGroup;
 	}
 
@@ -480,6 +517,8 @@ public class MainFrame extends JFrame {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(7));
 		}
+
+		nodeGroup.setCarList(carLists.get(7));
 
 		return nodeGroup;
 	}
@@ -528,7 +567,10 @@ public class MainFrame extends JFrame {
 		nodes[14].setNowOnCars(carLists.get(7));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
+		nodes[12].setChangeType(NodeChangeType.GORYU);
+		nodes[12].setNextListMarge(11.64f);
 
 		return nodeGroup;
 	}
@@ -575,7 +617,10 @@ public class MainFrame extends JFrame {
 		nodes[14].setNowOnCars(carLists.get(0));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
+		nodes[12].setChangeType(NodeChangeType.GORYU);
+		nodes[12].setNextListMarge(11.64f);
 
 		return nodeGroup;
 	}
@@ -622,7 +667,10 @@ public class MainFrame extends JFrame {
 		nodes[14].setNowOnCars(carLists.get(4));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
+		nodes[12].setChangeType(NodeChangeType.GORYU);
+		nodes[12].setNextListMarge(11.80f);
 
 		return nodeGroup;
 	}
@@ -669,7 +717,10 @@ public class MainFrame extends JFrame {
 		nodes[14].setNowOnCars(carLists.get(3));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
+		nodes[12].setChangeType(NodeChangeType.GORYU);
+		nodes[12].setNextListMarge(11.80f);
 
 		return nodeGroup;
 	}
@@ -717,11 +768,20 @@ public class MainFrame extends JFrame {
 
 		nodes[0].setNowOnCars(carLists.get(7));
 		nodes[1].setNowOnCars(carLists.get(7));
+		nodes[6].setNowOnCars(carLists.get(19));
+		nodes[14].setNowOnCars(carLists.get(16));
 		nodes[19].setNowOnCars(carLists.get(0));
 		nodes[20].setNowOnCars(carLists.get(0));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
+		nodes[5].setNextNodeCarListChange(true);
+		nodes[5].setChangeType(NodeChangeType.DONT_REMOVE);
+		nodes[13].setNextNodeCarListChange(true);
+		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
+		nodes[18].setChangeType(NodeChangeType.GORYU);
+		nodes[18].setNextListMarge(11.64f);
 
 		return nodeGroup;
 	}
@@ -769,11 +829,20 @@ public class MainFrame extends JFrame {
 
 		nodes[0].setNowOnCars(carLists.get(0));
 		nodes[1].setNowOnCars(carLists.get(0));
+		nodes[6].setNowOnCars(carLists.get(16));
+		nodes[14].setNowOnCars(carLists.get(17));
 		nodes[19].setNowOnCars(carLists.get(4));
 		nodes[20].setNowOnCars(carLists.get(4));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
+		nodes[5].setNextNodeCarListChange(true);
+		nodes[5].setChangeType(NodeChangeType.DONT_REMOVE);
+		nodes[13].setNextNodeCarListChange(true);
+		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
+		nodes[18].setChangeType(NodeChangeType.GORYU);
+		nodes[18].setNextListMarge(11.80f);
 
 		return nodeGroup;
 	}
@@ -821,11 +890,20 @@ public class MainFrame extends JFrame {
 
 		nodes[0].setNowOnCars(carLists.get(4));
 		nodes[1].setNowOnCars(carLists.get(4));
+		nodes[6].setNowOnCars(carLists.get(17));
+		nodes[14].setNowOnCars(carLists.get(18));
 		nodes[19].setNowOnCars(carLists.get(3));
 		nodes[20].setNowOnCars(carLists.get(3));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
+		nodes[5].setNextNodeCarListChange(true);
+		nodes[5].setChangeType(NodeChangeType.DONT_REMOVE);
+		nodes[13].setNextNodeCarListChange(true);
+		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
+		nodes[18].setChangeType(NodeChangeType.GORYU);
+		nodes[18].setNextListMarge(11.80f);
 
 		return nodeGroup;
 	}
@@ -873,11 +951,20 @@ public class MainFrame extends JFrame {
 
 		nodes[0].setNowOnCars(carLists.get(3));
 		nodes[1].setNowOnCars(carLists.get(3));
+		nodes[6].setNowOnCars(carLists.get(18));
+		nodes[14].setNowOnCars(carLists.get(19));
 		nodes[19].setNowOnCars(carLists.get(7));
 		nodes[20].setNowOnCars(carLists.get(7));
 
 		nodes[1].setNextNodeCarListChange(true);
+		nodes[1].setChangeType(NodeChangeType.BUNKI);
+		nodes[5].setNextNodeCarListChange(true);
+		nodes[5].setChangeType(NodeChangeType.DONT_REMOVE);
+		nodes[13].setNextNodeCarListChange(true);
+		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
+		nodes[18].setChangeType(NodeChangeType.GORYU);
+		nodes[18].setNextListMarge(11.64f);
 
 		return nodeGroup;
 	}
@@ -909,7 +996,7 @@ public class MainFrame extends JFrame {
 	int rowIndex = 9;
 
 	/**
-	 * 車を生成するクラス
+	 * 車を生成するクラス mainlane
 	 */
 	class carTimer extends TimerTask{
 
@@ -918,33 +1005,49 @@ public class MainFrame extends JFrame {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			Car car;
 
-			int rand = (int) (Math.random() * 4);
+			int rand = (int) (Math.random() * 8);
 			int carType = (int) (Math.random() * 4);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
 
 			if (startIndex >= 0) startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
-			else startSpeed = rand >= 2 && rand <= 5 ? 27.77778 : 11.11111;
+			else startSpeed = 27.77778;
 
 			NodeList nodeList = null;
 			Point3f start = null;
 			double direction = 0;
 
 			if (rand == 0) {
-				nodeList = createNodeGroup4();
-				start = new Point3f(-5.80f, 0.08f, -1.59f);
-				direction = Math.PI * 3 / 2;
+				nodeList = createNodeGroup1();
+				start = new Point3f(0, 0.08f, 7.5f);
+				direction = Math.PI;
 			} else if (rand == 1) {
-				nodeList = createNodeGroup5();
-				start = new Point3f(-5.80f, 0.08f, -1.55f);
-				direction = Math.PI * 3 / 2;
+				nodeList = createNodeGroup2();
+				start = new Point3f(0.04f, 0.08f, 7.5f);
+				direction = Math.PI;
 			} else if (rand == 2) {
-				nodeList = createNodeGroup6();
-				start = new Point3f(6.70f, 0.08f, -1.47f);
-				direction = Math.PI / 2;
+				nodeList = createNodeGroup3();
+				start = new Point3f(0.12f, 0.08f, -7.5f);
+				direction = 0;
 			} else if (rand == 3) {
+				nodeList = createNodeGroup4();
+				start = new Point3f(0.16f, 0.08f, -7.5f);
+				direction = 0;
+			} else if (rand == 4) {
+				nodeList = createNodeGroup5();
+				start = new Point3f(-7.5f, 0, 0);
+				direction = Math.PI * 3 / 2;
+			} else if (rand == 5) {
+				nodeList = createNodeGroup6();
+				start = new Point3f(-7.5f, 0, 0.04f);
+				direction = Math.PI * 3 / 2;
+			} else if (rand == 6) {
 				nodeList = createNodeGroup7();
-				start = new Point3f(6.70f, 0.08f, -1.43f);
+				start = new Point3f(7.5f, 0, 0.12f);
+				direction = Math.PI / 2;
+			} else if (rand == 7) {
+				nodeList = createNodeGroup8();
+				start = new Point3f(7.5f, 0, 0.16f);
 				direction = Math.PI / 2;
 			}
 
@@ -954,7 +1057,7 @@ public class MainFrame extends JFrame {
 				car = new PassengerCar(militime, nodeList, start, direction, startSpeed);
 			}
 
-			car.setNodegroupIndex(rand + 4);
+			car.setNodegroupIndex(rand + 1);
 
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);
@@ -976,7 +1079,6 @@ public class MainFrame extends JFrame {
 			int rand = (int) (Math.random() * 4);
 			int carType = (int) (Math.random() * 4);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
-			int nodeGroupIndex = 0;
 			double startSpeed;
 
 			if (startIndex >= 0) startSpeed = carLists.get(rand).getCar(startIndex).getSpeed();
@@ -987,25 +1089,37 @@ public class MainFrame extends JFrame {
 			double direction = 0;
 
 			if (rand == 0) {
-				nodeList = createNodeGroup2();
-				start = new Point3f(0, 0.08f, 2.5f);
-				direction = Math.PI;
-				nodeGroupIndex = 2;
-			} else if (rand == 1) {
-				nodeList = createNodeGroup3();
-				start = new Point3f(-5.80f, 0.08f, -1.59f);
-				direction = Math.PI * 3 / 2;
-				nodeGroupIndex = 3;
-			} else if (rand == 2) {
-				nodeList = createNodeGroup8();
-				start = new Point3f(0, 0.08f, 2.5f);
-				direction = Math.PI;
-				nodeGroupIndex = 8;
-			} else if (rand == 3) {
 				nodeList = createNodeGroup9();
-				start = new Point3f(6.70f, 0.08f, -1.43f);
+				start = new Point3f(0, 0.08f, 7.5f);
+				direction = Math.PI;
+			} else if (rand == 1) {
+				nodeList = createNodeGroup10();
+				start = new Point3f(-7.5f, 0, 0);
+				direction = Math.PI * 3 / 2;
+			} else if (rand == 2) {
+				nodeList = createNodeGroup11();
+				start = new Point3f(0.16f, 0.08f, -7.5f);
+				direction = 0;
+			} else if (rand == 3) {
+				nodeList = createNodeGroup12();
+				start = new Point3f(7.5f, 0, 0.16f);
 				direction = Math.PI / 2;
-				nodeGroupIndex = 9;
+			} else if (rand == 4) {
+				nodeList = createNodeGroup13();
+				start = new Point3f(7.5f, 0, 0.16f);
+				direction = Math.PI / 2;
+			} else if (rand == 5) {
+				nodeList = createNodeGroup14();
+				start = new Point3f(0, 0.08f, 7.5f);
+				direction = Math.PI;
+			} else if (rand == 6) {
+				nodeList = createNodeGroup15();
+				start = new Point3f(-7.5f, 0, 0);
+				direction = Math.PI * 3 / 2;
+			} else if (rand == 7) {
+				nodeList = createNodeGroup16();
+				start = new Point3f(0.16f, 0.08f, -7.5f);
+				direction = 0;
 			}
 
 			if (carType == 0){
@@ -1014,7 +1128,7 @@ public class MainFrame extends JFrame {
 				car = new PassengerCar(militime, nodeList, start, direction, startSpeed);
 			}
 
-			car.setNodegroupIndex(nodeGroupIndex);
+			car.setNodegroupIndex(rand + 9);
 
 			tempBranchGroup.addChild(car.carObjectGroup);
 			carBranchGroup.addChild(tempBranchGroup);

@@ -172,6 +172,7 @@ public class Car implements ActionListener {
 	private void createChangeLaneNode(Node targetNode){
 		float distance = 0;
 
+
 		try {
 			distance = (float) nowNode.getEquationStraight().getDistanceLine(targetNode.getEquationStraight());
 		}catch (NullPointerException e){
@@ -195,20 +196,25 @@ public class Car implements ActionListener {
 		}
 
 		Point3f centrePoint3f1 =
-				new Point3f((float)(Math.cos(declination) * radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * -radius + movedVector[2]);
+				new Point3f((float)(Math.cos(declination) * -radius) + movedVector[0], movedVector[1], (float) Math.sin(declination) * -radius + movedVector[2]);
 
-		Point3f centrePoint3f2 = new Point3f((float) (-(CHANGELANE_INTERVAL * 2 * Math.sin(declination) + (radius - 2 * distance) * Math.cos(declination)) + movedVector[0]), movedVector[1],
+		Point3f centrePoint3f2 = new Point3f((float) (-(CHANGELANE_INTERVAL * 2 * Math.sin(declination) + (radius - 2 * distance) * -Math.cos(declination)) + movedVector[0]), movedVector[1],
 				(float) (CHANGELANE_INTERVAL * 2 * Math.cos(declination) + (radius - 2 * distance) * Math.sin(declination) + movedVector[2]));
 
 		CurveNode changeLaneNode1 = new CurveNode(radius, declination, angle, centrePoint3f1, 0, movedVector[1]);
 		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
 		//StraightNode straightNode = new StraightNode(10.0f, declination, new Point3f(movedVector[0] + CHANGELANE_INTERVAL * 2, movedVector[1], movedVector[2] + distance * 2), 0);
 
-		/*System.out.println("radius = " + radius);
-		System.out.println("declination(deg) = " + declination * (180 / Math.PI));
-		System.out.println("angle(deg) = " + angle * (180 / Math.PI));
-		System.out.println("centrePoint3f1 = " + centrePoint3f1);
-		System.out.println("centrePoint3f2 = " + centrePoint3f2);*/
+		System.out.println(nodegroupIndex + " : " + nowNode.getEquationStraight().toString());
+		if (nodegroupIndex == 3){
+
+			System.out.println("distance = " + distance);
+			System.out.println("radius = " + radius);
+			System.out.println("declination(deg) = " + declination * (180 / Math.PI));
+			System.out.println("angle(deg) = " + angle * (180 / Math.PI));
+			System.out.println("centrePoint3f1 = " + centrePoint3f1);
+			System.out.println("centrePoint3f2 = " + centrePoint3f2);
+		}
 
 		changeLaneNode1.setType(NodeType.CHANGE_LANE_FIRST);
 		changeLaneNode2.setType(NodeType.CHANGE_LANE_SECOND);
@@ -311,13 +317,20 @@ public class Car implements ActionListener {
 
 	private void checkChangeLane(){
 		switch (nodegroupIndex){
+			case 1:
+			case 2:
+			case 3:
 			case 4:
 			case 5:
 			case 6:
 			case 7:
+			case 8:
 				CarList toChangeList = nowNode.getNowOnCars().getToChangeLane().getCarList();
+				if (toChangeList == null) {
+					System.out.println("ya");
+				}
 				float infrontDistance = toChangeList.getInFrontDistance(totalDistance);
-				int param = (int) (Math.random() * 500);
+				int param = (int) (Math.random() * 50);
 
 				if (infrontDistance > 100 && param == 2){
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
@@ -328,19 +341,26 @@ public class Car implements ActionListener {
 
 	long endTime = 0;
 
-	/**
-	 * @param margeDistance 合流するときの相手のdistance
-	 */
-	private void checkJumpLump(float margeDistance){
-		totalDistance = margeDistance;
 
-		nowNode.getNowOnCars().removeCar(this);
-	}
 
 	private void updateNode() {
 		if(movedDistanceForCheckNode > nowNode.getLength() * 100) {
 
 			if (nowNode.isNextNodeCarListChange()){
+				switch (nowNode.getChangeType()){
+					case BUNKI :
+						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+						nowNode.getNowOnCars().removeCar(this);
+					case GORYU :
+						totalDistance = nowNode.getNextListMarge();
+
+						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
+						nowNode.getNowOnCars().removeCar(this);
+					case DONT_REMOVE :
+						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCar(this);
+					case REMOVE_ONRY :
+						nowNode.getNowOnCars().removeCar(this);
+				}
 				try {
 					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 				}catch (IndexOutOfBoundsException e){
