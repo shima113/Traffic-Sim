@@ -1,6 +1,8 @@
 package traffic;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cars.Car;
 
@@ -24,6 +26,16 @@ public class CarList {
 	
 	public CarList() {
 		cars = new ArrayList<>();
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (nodegroupIndex == 10) System.out.println(CarList.this);
+			}
+		}, 0, 40);
+
+
 	}
 
 	public void addCar(Car car) {
@@ -165,5 +177,22 @@ public class CarList {
 
 	public void setNodegroupIndex(int nodegroupIndex) {
 		this.nodegroupIndex = nodegroupIndex;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder stringBuffer = new StringBuilder();
+		stringBuffer.append(cars.size());
+		stringBuffer.append(", ");
+		for (Car car : cars) {
+			stringBuffer.append(car.totalDistance);
+			stringBuffer.append(", ");
+			stringBuffer.append(car.getSpeed());
+			stringBuffer.append(", ");
+			stringBuffer.append(car.getAcceralation());
+			stringBuffer.append(";  ");
+		}
+
+		return stringBuffer.toString();
 	}
 }

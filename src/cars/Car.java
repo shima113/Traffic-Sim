@@ -127,7 +127,7 @@ public class Car implements ActionListener {
 	}
 
 	public Car() {}
-	public Car(float totalDistance) {this.totalDistance = totalDistance;} //NOTHING_INFRONT用
+	public Car(float totalDistance) {this.totalDistance = totalDistance; speed = 90;} //NOTHING_INFRONT用
 
 	public void move() {
 		movedDistance = movedDistanceRimainder;
@@ -205,8 +205,7 @@ public class Car implements ActionListener {
 		CurveNode changeLaneNode2 = new CurveNode(-radius, declination + angle, -angle, centrePoint3f2, 0, movedVector[1]);
 		//StraightNode straightNode = new StraightNode(10.0f, declination, new Point3f(movedVector[0] + CHANGELANE_INTERVAL * 2, movedVector[1], movedVector[2] + distance * 2), 0);
 
-		System.out.println(nodegroupIndex + " : " + nowNode.getEquationStraight().toString());
-		if (nodegroupIndex == 3){
+		if (nodegroupIndex == 333){
 
 			System.out.println("distance = " + distance);
 			System.out.println("radius = " + radius);
@@ -256,9 +255,19 @@ public class Car implements ActionListener {
 		return nowNode.getNowOnCars().getInFrontCar(this);
 	}
 
+	float distanceInFront;
+
+	public float getDistanceInFront() {
+		return distanceInFront;
+	}
+
 	private void accelByDistance(Car inFrontCar, int time) {
-		float distanceInFront = inFrontCar.getTotalDistance() - this.totalDistance;
+		distanceInFront = Math.abs(inFrontCar.getTotalDistance() - this.totalDistance);
 		double speedPerHour = speed * 3.6;
+
+		if (speed < 10 && totalDistance > 100 && nodegroupIndex == 10){
+			//System.out.print("nodegroupIndex = " + nodegroupIndex);
+		}
 
 		if (time == 25) {
 			if (distanceInFront > (speedPerHour * 2) && speed < nowNode.getLimitSpeed()) {
@@ -330,7 +339,7 @@ public class Car implements ActionListener {
 					System.out.println("ya");
 				}
 				float infrontDistance = toChangeList.getInFrontDistance(totalDistance);
-				int param = (int) (Math.random() * 50);
+				int param = (int) (Math.random() * 500);
 
 				if (infrontDistance > 100 && param == 2){
 					changeLane(nowNode.getNowOnCars().getToChangeLane());
@@ -351,21 +360,19 @@ public class Car implements ActionListener {
 					case BUNKI :
 						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 						nowNode.getNowOnCars().removeCar(this);
+						break;
 					case GORYU :
 						totalDistance = nowNode.getNextListMarge();
 
 						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 						nowNode.getNowOnCars().removeCar(this);
+						break;
 					case DONT_REMOVE :
 						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCar(this);
+						break;
 					case REMOVE_ONRY :
 						nowNode.getNowOnCars().removeCar(this);
-				}
-				try {
-					nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
-				}catch (IndexOutOfBoundsException e){
-					System.out.println(nodegroupIndex);
-					e.printStackTrace();
+						break;
 				}
 			}
 
@@ -504,6 +511,7 @@ public class Car implements ActionListener {
 	}
 
 	public void stop() {
+		if (nodegroupIndex == 10) System.out.println("hodub");
 		speed = 0;
 		acceralation = 0;
 	}

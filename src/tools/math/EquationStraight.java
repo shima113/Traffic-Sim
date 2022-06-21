@@ -17,13 +17,11 @@ public class EquationStraight {
 	}
 
 	public EquationStraight(double[] startPoint, double angle) {
-		if(angle % Math.PI == Math.PI / 2) {
-			System.out.println("na");
+		if(angle == -Math.PI / 2 || angle == -Math.PI * 3 / 2) {
 			yValue = 0;
 			xValue = 1;
 			constantValue = startPoint[0];
-		}else if (angle == Math.PI || angle == 0) {
-			System.out.println("ho");
+		}else if (angle == -Math.PI || angle == 0) {
 			xValue = 0;
 			yValue = 1;
 			constantValue = startPoint[1];

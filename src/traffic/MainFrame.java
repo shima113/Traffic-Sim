@@ -267,7 +267,7 @@ public class MainFrame extends JFrame {
 		cars[6] = new PassengerCar(militime, createNodeGroup7(), new Point3f(7.5f, 0, 0.12f), Math.PI, 27.77778);
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(7.5f, 0, 0.16f), Math.PI, 27.77778);
 		try {//重ならないため
-			Thread.sleep(100);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
@@ -276,7 +276,7 @@ public class MainFrame extends JFrame {
 		cars[10] = new PassengerCar(militime, createNodeGroup11(), new Point3f(0.16f, 0.08f, -7.5f), Math.PI, 27.77778);
 		cars[11] = new PassengerCar(militime, createNodeGroup12(), new Point3f(7.5f, 0, 0.16f), Math.PI, 27.77778);
 		try {
-			Thread.sleep(100);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
@@ -1076,7 +1076,7 @@ public class MainFrame extends JFrame {
 			BranchGroup tempBranchGroup = new BranchGroup();
 			Car car;
 
-			int rand = (int) (Math.random() * 4);
+			int rand = (int) (Math.random() * 8);
 			int carType = (int) (Math.random() * 4);
 			int startIndex = carLists.get(rand).getCarSize() - 1;
 			double startSpeed;
