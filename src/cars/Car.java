@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import traffic.CarList;
 import traffic.CurveNode;
 import traffic.Node;
+import traffic.NodeChangeType;
 import traffic.NodeList;
 import traffic.NodeType;
 import traffic.StraightNode;
@@ -241,6 +242,9 @@ public class Car implements ActionListener {
 
 		totalDistanceForExcel = totalDistanceForExcel - ( changeLaneNode1.getLength() + changeLaneNode2.getLength() );
 		totalDistanceForExcel += CHANGELANE_INTERVAL * 2;
+
+		changeLaneNode2.setNextNodeCarListChange(true);
+		changeLaneNode2.setChangeType(NodeChangeType.MAIN_LANE);
 	}
 
 	public void setAtoNode(Node atoNode) {
@@ -316,10 +320,14 @@ public class Car implements ActionListener {
 		if (distanceInFront <= inFrontCar.getSize()) {
 			speed = 0;
 		}
+
+		if (speed == 0 && distanceInFront > 15){
+			acceralation = 5;
+		}
 	}
 	
 	private void checkLimitSpeed() {
-		if (speed > nowNode.getLimitSpeed() + 5.55556) {
+		if (speed > nowNode.getLimitSpeed() + 2.7778) {
 			acceralation = -4;
 		}
 	}
@@ -372,6 +380,9 @@ public class Car implements ActionListener {
 						break;
 					case REMOVE_ONRY :
 						nowNode.getNowOnCars().removeCar(this);
+						break;
+					case MAIN_LANE:
+						nodeGroup.get(nodeGroup.indexOf(nowNode) + 1).getNowOnCars().addCarChanged(this);
 						break;
 				}
 			}
@@ -511,7 +522,6 @@ public class Car implements ActionListener {
 	}
 
 	public void stop() {
-		if (nodegroupIndex == 10) System.out.println("hodub");
 		speed = 0;
 		acceralation = 0;
 	}
@@ -574,5 +584,9 @@ public class Car implements ActionListener {
 
 	public float getSize() {
 		return size;
+	}
+
+	public Node getNowNode() {
+		return nowNode;
 	}
 }

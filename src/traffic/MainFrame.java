@@ -138,10 +138,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new carTimer(), 2000, 600);
+		mainTimer.schedule(new carTimer(), 2000, 1200);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 600);
+		lampTimer.schedule(new LampTimer(), 2700, 1200);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -215,7 +215,7 @@ public class MainFrame extends JFrame {
 		workbook.setSheetName(0,"data");
 
 		for (int i = 1; i <= 16; i++) {
-			Row row = sheet1.createRow(i);
+			Row row = sheet1.createRow(i - 1);
 			Cell num = row.createCell(0);
 			Cell ave = row.createCell(1);
 
@@ -570,7 +570,9 @@ public class MainFrame extends JFrame {
 		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
 		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(11.64f);
+		nodes[12].setNextListMarge(1164);
+
+		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -620,7 +622,9 @@ public class MainFrame extends JFrame {
 		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
 		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(11.64f);
+		nodes[12].setNextListMarge(1164);
+
+		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -670,7 +674,9 @@ public class MainFrame extends JFrame {
 		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
 		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(11.80f);
+		nodes[12].setNextListMarge(1180);
+
+		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -720,7 +726,9 @@ public class MainFrame extends JFrame {
 		nodes[1].setChangeType(NodeChangeType.BUNKI);
 		nodes[12].setNextNodeCarListChange(true);
 		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(11.80f);
+		nodes[12].setNextListMarge(1180);
+
+		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -781,7 +789,10 @@ public class MainFrame extends JFrame {
 		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
 		nodes[18].setChangeType(NodeChangeType.GORYU);
-		nodes[18].setNextListMarge(11.64f);
+		nodes[18].setNextListMarge(1164);
+
+		nodes[9].setLimitSpeed(11.11111);
+		nodes[11].setLimitSpeed(11.11111);
 
 		return nodeGroup;
 	}
@@ -842,7 +853,10 @@ public class MainFrame extends JFrame {
 		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
 		nodes[18].setChangeType(NodeChangeType.GORYU);
-		nodes[18].setNextListMarge(11.80f);
+		nodes[18].setNextListMarge(1180);
+
+		nodes[9].setLimitSpeed(11.11111);
+		nodes[11].setLimitSpeed(11.11111);
 
 		return nodeGroup;
 	}
@@ -903,7 +917,10 @@ public class MainFrame extends JFrame {
 		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
 		nodes[18].setChangeType(NodeChangeType.GORYU);
-		nodes[18].setNextListMarge(11.80f);
+		nodes[18].setNextListMarge(1180);
+
+		nodes[9].setLimitSpeed(11.11111);
+		nodes[11].setLimitSpeed(11.11111);
 
 		return nodeGroup;
 	}
@@ -964,7 +981,10 @@ public class MainFrame extends JFrame {
 		nodes[13].setChangeType(NodeChangeType.REMOVE_ONRY);
 		nodes[18].setNextNodeCarListChange(true);
 		nodes[18].setChangeType(NodeChangeType.GORYU);
-		nodes[18].setNextListMarge(11.64f);
+		nodes[18].setNextListMarge(1164);
+
+		nodes[9].setLimitSpeed(11.11111);
+		nodes[11].setLimitSpeed(11.11111);
 
 		return nodeGroup;
 	}
@@ -993,7 +1013,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	int rowIndex = 9;
+	int rowIndex = 18;
 
 	/**
 	 * 車を生成するクラス mainlane

@@ -1,5 +1,5 @@
 package traffic;
 
 public enum NodeChangeType {
-    BUNKI, GORYU, DONT_REMOVE, NO, REMOVE_ONRY
+    BUNKI, GORYU, DONT_REMOVE, NO, REMOVE_ONRY, MAIN_LANE
 }

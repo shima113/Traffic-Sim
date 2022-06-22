@@ -28,12 +28,12 @@ public class CarList {
 		cars = new ArrayList<>();
 
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
+		/*timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				if (nodegroupIndex == 10) System.out.println(CarList.this);
+				if (nodegroupIndex == 12) System.out.println(CarList.this);
 			}
-		}, 0, 40);
+		}, 0, 40);*/
 
 
 	}
@@ -190,6 +190,8 @@ public class CarList {
 			stringBuffer.append(car.getSpeed());
 			stringBuffer.append(", ");
 			stringBuffer.append(car.getAcceralation());
+			stringBuffer.append(", ");
+			stringBuffer.append(car.getNowNode().getLimitSpeed());
 			stringBuffer.append(";  ");
 		}
 
