@@ -138,10 +138,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new  carTimer(), 2000, 2200);
+		mainTimer.schedule(new  carTimer(), 2000, 4000);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 2200);
+		lampTimer.schedule(new LampTimer(), 2700, 4000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
