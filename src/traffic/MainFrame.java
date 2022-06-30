@@ -138,10 +138,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);;
 
 		Timer mainTimer = new Timer();
-		mainTimer.schedule(new  carTimer(), 2000, 4000);
+		//mainTimer.schedule(new  carTimer(), 2000, 4000);
 
 		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 4000);
+		//lampTimer.schedule(new LampTimer(), 2700, 4000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -523,56 +523,22 @@ public class MainFrame extends JFrame {
 		return nodeGroup;
 	}
 
-	private final float x = 2.71289321881345f;
-
 	private NodeList createNodeGroup9(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
+		Node[] nodes = new Node[6];
 
-		nodes[0] = new StraightNode(2.5f, Math.PI, new Point3f(0, 0.08f, 7.5f), 0);
-		nodes[1] = new StraightNode(0.70f, Math.PI, new Point3f(0, 0.08f, 5.0f), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.52f, 0, 4.30f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.44f, 0, 3.90f), 0, 0.08f);
-		nodes[4] = new CurveNode(-0.26f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.34f, 0, 3.90f), 0, 0.08f);
-		nodes[5] = new CurveNode(0.26f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.14f, 0, 3.70f), 0, 0.08f);
-		nodes[6] = new CurveNode(-x, Math.PI, -Math.PI / 4, new Point3f(-0.12f - x, 0, 3.70f), 0, 0.08f);
-		nodes[7] = new StraightNode(1.00f, Math.PI * 3 / 4,
-				new Point3f((float) (-0.12 - x * (1 - Math.cos(Math.PI / 4))), 0.08f, (float) (3.70 - x * Math.sin(Math.PI / 4))), -0.08f);
-		nodes[8] = new CurveNode(-x, Math.PI * 3 / 4, -Math.PI / 4, new Point3f(-3.54f, 0, 0.28f + x), 0, 0);
-		nodes[9] = new CurveNode(0.26f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-3.54f, 0, 0.02f), 0, 0);
-		nodes[10] = new CurveNode(-0.26f, Math.PI / 2 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-3.74f, 0, 0.50f), 0, 0);
-		nodes[11] = new CurveNode(0.52f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-3.74f, 0, -0.28f), 0, 0);
-		nodes[12] = new CurveNode(-0.52f, Math.PI / 2 + CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-4.14f, 0, 0.68f), 0, 0);
-		nodes[13] = new StraightNode(0.86f, Math.PI / 2, new Point3f(-4.14f, 0, 0.16f), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-5.0f, 0, 0.16f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[4].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[5].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[9].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[10].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		nodes[0] = new StraightNode(1.80f, Math.PI, new Point3f(-0.08f, 0, 6.25f), 0);
+		nodes[1] = new CurveNode(-1.35f, Math.PI, -Math.PI / 2, new Point3f(-1.43f, 0, 4.45f), 0, 0);
+		nodes[2] = new StraightNode(1.50f, Math.PI / 2, new Point3f(-1.43f, 0, 3.10f), 0);
+		nodes[3] = new CurveNode(1.51f, Math.PI / 2, Math.PI / 2, new Point3f(-2.93f, 0, 1.59f), 0, 0);
+		nodes[4] = new CurveNode(-1.35f, Math.PI, -Math.PI / 2, new Point3f(-5.75f, 0, 1.59f), 0, 0);
+		nodes[5] = new StraightNode(1.80f, Math.PI / 2, new Point3f(-5.75f, 0, 0.24f), 0);
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(0));
-		nodes[1].setNowOnCars(carLists.get(0));
-		nodes[13].setNowOnCars(carLists.get(7));
-		nodes[14].setNowOnCars(carLists.get(7));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1164);
-
-		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -580,51 +546,12 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup10(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-7.5f, 0, 0), 0);
-		nodes[1] = new StraightNode(0.86f, Math.PI * 3 / 2, new Point3f(-5.0f, 0, 0), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI * 3 / 2, -CHANGELANE_ANGLE, new Point3f(-4.14f, 0, -0.52f), 0, 0);
-		nodes[3] = new CurveNode(0.52f, Math.PI * 3 / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-3.74f, 0, 0.44f), 0, 0);
-		nodes[4] = new CurveNode(-0.26f, Math.PI * 3 / 2, -CHANGELANE_ANGLE, new Point3f(-3.74f, 0, -0.34f), 0, 0);
-		nodes[5] = new CurveNode(0.26f, Math.PI * 3 / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-3.54f, 0, 0.14f), 0, 0);
-		nodes[6] = new CurveNode(-x, Math.PI * 3 / 2, -Math.PI / 4, new Point3f(-3.54f, 0, -0.12f - x), 0, 0);
-		nodes[7] = new StraightNode(1.00f, Math.PI * 5 / 4,
-				new Point3f((float) (-3.54 + x * Math.sin(Math.PI / 4)), 0, (float) (-0.12 - x * (1 - Math.cos(Math.PI / 4)))), 0.08f);
-		nodes[8] = new CurveNode(-x, Math.PI * 5 / 4, -Math.PI / 4, new Point3f(-0.12f - x, 0, -3.54f), 0, 0.08f);
-		nodes[9] = new CurveNode(0.26f, Math.PI, CHANGELANE_ANGLE, new Point3f(0.14f, 0, -3.54f), 0, 0.08f);
-		nodes[10] = new CurveNode(-0.26f, Math.PI + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-0.34f, 0, -3.74f), 0, 0.08f);
-		nodes[11] = new CurveNode(0.52f, Math.PI, CHANGELANE_ANGLE, new Point3f(0.44f, 0, -3.74f), 0, 0.08f);
-		nodes[12] = new CurveNode(-0.52f, Math.PI + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-0.52f, 0, -4.14f), 0, 0.08f);
-		nodes[13] = new StraightNode(0.86f, Math.PI, new Point3f(0, 0.08f, -4.14f), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI, new Point3f(0, 0.08f, -5.0f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[4].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[5].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[9].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[10].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(9));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(4));
-		nodes[1].setNowOnCars(carLists.get(4));
-		nodes[13].setNowOnCars(carLists.get(0));
-		nodes[14].setNowOnCars(carLists.get(0));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1164);
-
-		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -632,51 +559,12 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup11(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, -7.5f), 0);
-		nodes[1] = new StraightNode(0.86f, 0, new Point3f(0.16f, 0.08f, -5.0f), 0);
-		nodes[2] = new CurveNode(-0.52f, 0, -CHANGELANE_ANGLE, new Point3f(0.68f, 0, -4.14f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, -CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-0.28f, 0, -3.74f), 0, 0.08f);
-		nodes[4] = new CurveNode(-0.26f, 0, -CHANGELANE_ANGLE, new Point3f(0.50f, 0, -3.74f), 0, 0.08f);
-		nodes[5] = new CurveNode(0.26f, -CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.02f, 0, -3.54f), 0, 0.08f);
-		nodes[6] = new CurveNode(-x, 0, -Math.PI / 4, new Point3f(0.28f + x, 0, -3.54f), 0, 0.08f);
-		nodes[7] = new StraightNode(1.00f, Math.PI * 7 / 4,
-				new Point3f((float) (0.28 + (x * (1 - Math.cos(Math.PI / 4)))), 0.08f, (float) (-3.54f + x * Math.sin(Math.PI / 4))), -0.08f);
-		nodes[8] = new CurveNode(-x, Math.PI * 7 / 4, -Math.PI / 4, new Point3f(3.70f, 0, -0.12f - x), 0, 0);
-		nodes[9] = new CurveNode(0.26f, Math.PI * 3 / 2, CHANGELANE_ANGLE, new Point3f(3.70f, 0, 0.14f), 0, 0);
-		nodes[10] = new CurveNode(-0.26f, Math.PI * 3 / 2 + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(3.90f, 0, -0.34f), 0, 0);
-		nodes[11] = new CurveNode(0.52f, Math.PI * 3 / 2, CHANGELANE_ANGLE, new Point3f(3.90f, 0, 0.44f), 0, 0);
-		nodes[12] = new CurveNode(-0.52f, Math.PI * 3 / 2 + CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(4.30f, 0, -0.52f), 0, 0);
-		nodes[13] = new StraightNode(0.7f, Math.PI * 3 / 2, new Point3f(4.30f, 0, 0), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(5.0f, 0, 0), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[4].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[5].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[9].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[10].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(10));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(3));
-		nodes[1].setNowOnCars(carLists.get(3));
-		nodes[13].setNowOnCars(carLists.get(4));
-		nodes[14].setNowOnCars(carLists.get(4));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1180);
-
-		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
@@ -684,101 +572,25 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup12(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(7.5f, 0, 0.16f), 0);
-		nodes[1] = new StraightNode(0.7f, Math.PI / 2, new Point3f(5.0f, 0, 0.16f), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI / 2, -CHANGELANE_ANGLE, new Point3f(4.30f, 0, 0.68f), 0, 0);
-		nodes[3] = new CurveNode(0.52f, Math.PI / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(3.90f, 0, -0.28f), 0, 0);
-		nodes[4] = new CurveNode(-0.26f, Math.PI / 2, -CHANGELANE_ANGLE, new Point3f(3.90f, 0, 0.50f), 0, 0);
-		nodes[5] = new CurveNode(0.26f, Math.PI / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(3.70f, 0, 0.02f), 0, 0);
-		nodes[6] = new CurveNode(-x, Math.PI / 2, -Math.PI / 4, new Point3f(3.70f, 0, 0.28f + x), 0, 0);
-		nodes[7] = new StraightNode(1.00f, Math.PI / 4,
-				new Point3f((float) (3.70 - x * Math.sin(Math.PI / 4)), 0, (float) (0.28 + x * (1 - Math.cos(Math.PI / 4)))), 0.08f);
-		nodes[8] = new CurveNode(-x, Math.PI / 4, -Math.PI / 4, new Point3f(0.28f + x, 0, 3.70f), 0, 0.08f);
-		nodes[9] = new CurveNode(0.26f, 0, CHANGELANE_ANGLE, new Point3f(0.02f, 0, 3.70f), 0, 0.08f);
-		nodes[10] = new CurveNode(-0.26f, CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(0.50f, 0, 3.90f), 0, 0.08f);
-		nodes[11] = new CurveNode(0.52f, 0, CHANGELANE_ANGLE, new Point3f(-0.28f, 0, 3.90f), 0, 0.08f);
-		nodes[12] = new CurveNode(-0.52f, CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(0.68f, 0, 4.30f), 0, 0.08f);
-		nodes[13] = new StraightNode(0.7f, 0, new Point3f(0.16f, 0.08f, 4.30f), 0);
-		nodes[14] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, 5.0f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[4].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[5].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[9].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[10].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(11));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(7));
-		nodes[1].setNowOnCars(carLists.get(7));
-		nodes[13].setNowOnCars(carLists.get(3));
-		nodes[14].setNowOnCars(carLists.get(3));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1180);
-
-		nodes[7].setLimitSpeed(16.66667);
 
 		return nodeGroup;
 	}
 
-	private final float r2 = (float) (3.46 - 0.16 / (1 - Math.cos(Math.PI / 4)));
-	private final float stlen = (float) (0.16 * Math.sin(Math.PI / 4) / (1 - Math.cos(Math.PI / 4)) + 0.16);
-	private final float r1 = (float) ((7.24f - (3.46 * Math.sin(Math.PI / 4) + 3.46 * Math.sin(Math.PI / 4) + 0.16)) * Math.sin(Math.PI / 4));
-
-
 	private NodeList createNodeGroup13(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI, new Point3f(0, 0.08f, 7.5f), 0);
-		nodes[1] = new StraightNode(0.70f, Math.PI, new Point3f(0, 0.08f, 5.0f), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI, -CHANGELANE_ANGLE, new Point3f(-0.52f, 0, 4.30f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, Math.PI - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(0.44f, 0, 3.90f), 0, 0.08f);
-		nodes[4] = new StraightNode(0.20f, Math.PI, new Point3f(-0.08f, 0.08f, 3.90f), 0);
-		nodes[5] = new CurveNode(-3.46f, Math.PI, -Math.PI / 4, new Point3f(-0.08f - 3.46f, 0, 3.70f), 0, 0.08f);
-		nodes[6] = new CurveNode(r1, Math.PI * 3 / 4, Math.PI / 4, new Point3f(0, 0, 0.16f), 0, 0.08f);
-		nodes[7] = new CurveNode(r1, Math.PI, Math.PI / 3, new Point3f(0, 0, 0.16f), -0.08f, 0.08f);
-		nodes[8] = new CurveNode(r1, Math.PI * 4 / 3, Math.PI * 5 / 12, new Point3f(0, 0, 0.16f), 0, 0);
-		nodes[9] = new CurveNode(-r2, Math.PI * 7 / 4, -Math.PI / 4, new Point3f(3.70f - stlen, 0, -0.08f - r2), 0, 0);
-		nodes[10] = new StraightNode(0.20f, Math.PI * 3 / 2, new Point3f(3.70f, 0, -0.08f), 0);
-		nodes[11] = new CurveNode(0.52f, Math.PI * 3 / 2, CHANGELANE_ANGLE, new Point3f(3.90f, 0, 0.44f), 0, 0);
-		nodes[12] = new CurveNode(-0.52f, Math.PI * 3 / 2 + CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(4.30f, 0, -0.52f), 0, 0);
-		nodes[13] = new StraightNode(0.7f, Math.PI * 3 / 2, new Point3f(4.3f, 0, 0), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(5.0f, 0, 0), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(12));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(0));
-		nodes[1].setNowOnCars(carLists.get(0));
-		nodes[13].setNowOnCars(carLists.get(4));
-		nodes[14].setNowOnCars(carLists.get(4));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1180);
 
 		return nodeGroup;
 	}
@@ -786,44 +598,12 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup14(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI * 3 / 2, new Point3f(-7.5f, 0, 0), 0);
-		nodes[1] = new StraightNode(0.86f, Math.PI * 3 / 2, new Point3f(-5.0f, 0, 0), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI * 3 / 2, -CHANGELANE_ANGLE, new Point3f(-4.14f, 0, -0.52f), 0, 0);
-		nodes[3] = new CurveNode(0.52f, Math.PI * 3 / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-3.74f, 0, 0.44f), 0, 0);
-		nodes[4] = new StraightNode(0.20f, Math.PI * 3 / 2, new Point3f(-3.74f, 0, -0.08f), 0);
-		nodes[5] = new CurveNode(-3.46f, Math.PI * 3 / 2, -Math.PI / 4, new Point3f(-3.54f, 0, -0.08f - 3.46f), 0,0);
-		nodes[6] = new CurveNode(r1, Math.PI * 5 / 4, Math.PI / 4, new Point3f(0, 0, 0), 0,0);
-		nodes[7] = new CurveNode(r1, Math.PI * 3 / 2, Math.PI / 3, new Point3f(0, 0, 0), 0.08f,0);
-		nodes[8] = new CurveNode(r1, Math.PI * 11 / 6, Math.PI * 5 / 12, new Point3f(0, 0, 0), 0,0.08f);
-		nodes[9] = new CurveNode(-r2, Math.PI / 4, -Math.PI / 4, new Point3f(0.24f + r2, 0, 3.70f - stlen), 0, 0.08f);
-		nodes[10] = new StraightNode(0.20f, 0, new Point3f(0.24f, 0.08f, 3.70f), 0);
-		nodes[11] = new CurveNode(0.52f, 0, CHANGELANE_ANGLE, new Point3f(-0.28f, 0, 3.90f), 0, 0.08f);
-		nodes[12] = new CurveNode(-0.52f, CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(0.68f, 0, 4.30f), 0, 0.08f);
-		nodes[13] = new StraightNode(0.7f, 0, new Point3f(0.16f, 0.08f, 4.3f), 0);
-		nodes[14] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, 5.0f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(13));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(4));
-		nodes[1].setNowOnCars(carLists.get(4));
-		nodes[13].setNowOnCars(carLists.get(3));
-		nodes[14].setNowOnCars(carLists.get(3));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1180);
 
 		return nodeGroup;
 	}
@@ -831,44 +611,12 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup15(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, 0, new Point3f(0.16f, 0.08f, -7.5f), 0);
-		nodes[1] = new StraightNode(0.86f, 0, new Point3f(0.16f, 0.08f, -5.0f), 0);
-		nodes[2] = new CurveNode(-0.52f, 0, -CHANGELANE_ANGLE, new Point3f(0.68f, 0, -4.14f), 0, 0.08f);
-		nodes[3] = new CurveNode(0.52f, -CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-0.28f, 0, -3.74f), 0, 0.08f);
-		nodes[4] = new StraightNode(0.20f, 0, new Point3f(0.24f, 0.08f, -3.74f), 0);
-		nodes[5] = new CurveNode(-3.46f, 0, -Math.PI / 4, new Point3f(0.24f + 3.46f, 0, -3.54f), 0, 0.08f);
-		nodes[6] = new CurveNode(r1, -Math.PI / 4, Math.PI / 4, new Point3f(0.16f, 0, 0), 0, 0.08f);
-		nodes[7] = new CurveNode(r1, 0, Math.PI / 3, new Point3f(0.16f, 0, 0), -0.08f, 0.08f);
-		nodes[8] = new CurveNode(r1, Math.PI / 3, Math.PI * 5 / 12, new Point3f(0.16f, 0, 0), 0, 0);
-		nodes[9] = new CurveNode(-r2, Math.PI * 3 / 4, -Math.PI / 4, new Point3f(-3.54f + stlen, 0, 0.24f + r2), 0, 0);
-		nodes[10] = new StraightNode(0.20f, Math.PI / 2, new Point3f(3.70f, 0, 0.24f), 0);
-		nodes[11] = new CurveNode(0.52f, Math.PI / 2, CHANGELANE_ANGLE, new Point3f(-3.74f, 0, -0.28f), 0, 0);
-		nodes[12] = new CurveNode(-0.52f, Math.PI / 2 + CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(-4.14f, 0, 0.68f), 0, 0);
-		nodes[13] = new StraightNode(0.86f, Math.PI / 2, new Point3f(-4.14f, 0, 0.16f), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI / 2, new Point3f(-5.0f, 0, 0.16f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
-			node.setNowOnCars(carLists.get(14));
+			node.setNowOnCars(carLists.get(8));
 		}
-
-		nodes[0].setNowOnCars(carLists.get(3));
-		nodes[1].setNowOnCars(carLists.get(3));
-		nodes[13].setNowOnCars(carLists.get(7));
-		nodes[14].setNowOnCars(carLists.get(7));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1164);
 
 		return nodeGroup;
 	}
@@ -876,47 +624,16 @@ public class MainFrame extends JFrame {
 	private NodeList createNodeGroup16(){
 		NodeList nodeGroup = new NodeList();
 
-		Node[] nodes = new Node[15];
-
-		nodes[0] = new StraightNode(2.5f, Math.PI / 2, new Point3f(7.5f, 0, 0.16f), 0);
-		nodes[1] = new StraightNode(0.7f, Math.PI / 2, new Point3f(5.0f, 0, 0.16f), 0);
-		nodes[2] = new CurveNode(-0.52f, Math.PI / 2, -CHANGELANE_ANGLE, new Point3f(4.30f, 0, 0.68f), 0, 0);
-		nodes[3] = new CurveNode(0.52f, Math.PI / 2 - CHANGELANE_ANGLE, CHANGELANE_ANGLE, new Point3f(3.90f, 0, -0.28f), 0, 0);
-		nodes[4] = new StraightNode(0.20f, Math.PI / 2, new Point3f(3.90f, 0, 0.24f), 0);
-		nodes[5] = new CurveNode(-3.46f, Math.PI / 2, -Math.PI / 4, new Point3f(3.70f, 0, 0.24f + 3.46f), 0, 0);
-		nodes[6] = new CurveNode(r1, Math.PI / 4, Math.PI / 4, new Point3f(0.16f, 0, 0.16f), 0, 0);
-		nodes[7] = new CurveNode(r1, Math.PI / 2, Math.PI / 3, new Point3f(0.16f, 0, 0.16f), 0.08f, 0);
-		nodes[8] = new CurveNode(r1, Math.PI * 5 / 6, Math.PI * 5 / 12, new Point3f(0.16f, 0, 0.16f), 0, 0.08f);
-		nodes[9] = new CurveNode(-r2, Math.PI * 5 / 4, -Math.PI / 4, new Point3f(-0.08f - r2, 0, -3.54f + stlen), 0, 0.08f);
-		nodes[10] = new StraightNode(0.20f, Math.PI, new Point3f(-0.08f, 0.08f, -3.54f), 0);
-		nodes[11] = new CurveNode(0.52f, Math.PI, CHANGELANE_ANGLE, new Point3f(0.44f, 0, -3.74f), 0, 0.08f);
-		nodes[12] = new CurveNode(-0.52f, Math.PI + CHANGELANE_ANGLE, -CHANGELANE_ANGLE, new Point3f(-0.52f, 0, -4.14f), 0, 0.08f);
-		nodes[13] = new StraightNode(0.86f, Math.PI, new Point3f(0, 0.08f, -4.14f), 0);
-		nodes[14] = new StraightNode(2.5f, Math.PI, new Point3f(0, 0.08f, -5.0f), 0);
-
-		nodes[2].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[3].setType(NodeType.CHANGE_LANE_SECOND);
-		nodes[11].setType(NodeType.CHANGE_LANE_FIRST);
-		nodes[12].setType(NodeType.CHANGE_LANE_SECOND);
+		Node[] nodes = new Node[6];
 
 		for (Node node : nodes) {
 			nodeGroup.add(node);
 			node.setNowOnCars(carLists.get(8));
 		}
 
-		nodes[0].setNowOnCars(carLists.get(7));
-		nodes[1].setNowOnCars(carLists.get(7));
-		nodes[13].setNowOnCars(carLists.get(0));
-		nodes[14].setNowOnCars(carLists.get(0));
-
-		nodes[1].setNextNodeCarListChange(true);
-		nodes[1].setChangeType(NodeChangeType.BUNKI);
-		nodes[12].setNextNodeCarListChange(true);
-		nodes[12].setChangeType(NodeChangeType.GORYU);
-		nodes[12].setNextListMarge(1164);
-
 		return nodeGroup;
 	}
+
 
 
 

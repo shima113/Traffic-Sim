@@ -466,10 +466,10 @@ public class Car implements ActionListener {
 			updateNode();
 			temp++;
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
-				accelByDistance(checkInFrontCar(), temp);
-				checkLimitSpeed();
+				//accelByDistance(checkInFrontCar(), temp);
+				//checkLimitSpeed();
 				if (!(nowNode instanceof CurveNode)){
-					checkChangeLane();
+					//checkChangeLane();
 				}
 			}
 			
