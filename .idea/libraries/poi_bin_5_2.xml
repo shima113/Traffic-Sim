@@ -1,18 +1,18 @@
 <component name="libraryTable">
   <library name="poi-bin-5.2">
     <CLASSES>
-      <root url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2" />
-      <root url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/auxiliary" />
-      <root url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/lib" />
-      <root url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/ooxml-lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/auxiliary" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/ooxml-lib" />
     </CLASSES>
     <JAVADOC>
       <root url="https://poi.apache.org/apidocs/5.0/" />
     </JAVADOC>
     <SOURCES />
-    <jarDirectory url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2" recursive="false" />
-    <jarDirectory url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/auxiliary" recursive="false" />
-    <jarDirectory url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/lib" recursive="false" />
-    <jarDirectory url="file://$USER_HOME$/Downloads/poi-bin-5.2.2-20220312/poi-bin-5.2.2/ooxml-lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/auxiliary" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/poi-bin-5.2.2-20220312/poi-bin-5.2.2/ooxml-lib" recursive="false" />
   </library>
 </component>

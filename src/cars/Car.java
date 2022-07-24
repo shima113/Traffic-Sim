@@ -112,6 +112,7 @@ public class Car implements ActionListener {
 	public Car(int loadingTime, NodeList nodes, Point3f startPoint, double direction, double speed) {
 		time = loadingTime / 1000.0; //ミリ秒 → 秒
 		nodeGroup = nodes;
+		System.out.println(nodeGroup.size());
 		nowNode = nodeGroup.get(nowNodeIndex);
 		movedVector[0] = startPoint.x;
 		movedVector[1] = startPoint.y;
@@ -466,10 +467,10 @@ public class Car implements ActionListener {
 			updateNode();
 			temp++;
 			if (!nowNode.equals(STOPNODE) && !(nowNode.getType() == NodeType.CHANGE_LANE_FIRST) && !(nowNode.getType() == NodeType.CHANGE_LANE_SECOND)) {
-				//accelByDistance(checkInFrontCar(), temp);
-				//checkLimitSpeed();
+				accelByDistance(checkInFrontCar(), temp);
+				checkLimitSpeed();
 				if (!(nowNode instanceof CurveNode)){
-					//checkChangeLane();
+					checkChangeLane();
 				}
 			}
 			
