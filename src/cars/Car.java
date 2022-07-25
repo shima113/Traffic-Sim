@@ -112,7 +112,6 @@ public class Car implements ActionListener {
 	public Car(int loadingTime, NodeList nodes, Point3f startPoint, double direction, double speed) {
 		time = loadingTime / 1000.0; //ミリ秒 → 秒
 		nodeGroup = nodes;
-		System.out.println(nodeGroup.size());
 		nowNode = nodeGroup.get(nowNodeIndex);
 		movedVector[0] = startPoint.x;
 		movedVector[1] = startPoint.y;

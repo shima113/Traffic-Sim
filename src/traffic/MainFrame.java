@@ -141,10 +141,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);
 
 		Timer mainTimer = new Timer();
-		//mainTimer.schedule(new  carTimer(), 2000, 4000);
+		mainTimer.schedule(new  carTimer(), 2000, 1000);
 
 		Timer lampTimer = new Timer();
-		//lampTimer.schedule(new LampTimer(), 2700, 4000);
+		lampTimer.schedule(new LampTimer(), 2700, 1000);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -275,7 +275,7 @@ public class MainFrame extends JFrame {
 		cars[6] = new PassengerCar(militime, createNodeGroup7(), new Point3f(5.0f, 0, 0.12f), Math.PI, 27.77778);
 		cars[7] = new PassengerCar(militime, createNodeGroup8(), new Point3f(5.0f, 0, 0.16f), Math.PI, 27.77778);
 		try {
-			Thread.sleep(150);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -284,7 +284,7 @@ public class MainFrame extends JFrame {
 		cars[10] = new PassengerCar(militime, createNodeGroup11(), new Point3f(0.16f, 0.08f, -5.0f), Math.PI, 27.77778);
 		cars[11] = new PassengerCar(militime, createNodeGroup12(), new Point3f(5.0f, 0, 0.16f), Math.PI, 27.77778);
 		try {
-			Thread.sleep(150);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -297,8 +297,6 @@ public class MainFrame extends JFrame {
 			cars[i].setNodegroupIndex(i + 1);
 			root.addChild(cars[i].carObjectGroup);
 		}
-
-		carBranchGroup.addChild(root); //nullらしい
 
 		return root;
 	}
