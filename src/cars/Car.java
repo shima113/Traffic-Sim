@@ -512,7 +512,7 @@ public class Car implements ActionListener {
 			String rowIndex = String.valueOf(sheetIndex + 1);
 
 			if (totalDistanceForExcel < 0){
-				totalDistanceForExcel = 0;
+				return;
 			}
 
 			time.setCellValue(endTime - startTime);
