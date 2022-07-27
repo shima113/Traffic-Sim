@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
 		//setting swing
 		setTitle("traffic sim");
 		//setBounds(250, 50, 1650, 1000);   //for notebook
-		setBounds(1000, 50, 1600, 1200);   //for desktop
+		setBounds(1000, 50, 1600, 1100);   //for desktop
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		//setting java3D
@@ -146,10 +146,10 @@ public class MainFrame extends JFrame {
 		cp.add(change);
 
 		mainTimer = new Timer();
-		mainTimer.schedule(new  carTimer(), 2000, 1200);
+		mainTimer.schedule(new  carTimer(), 2000, 300);
 
 		lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 1200);
+		lampTimer.schedule(new LampTimer(), 2700, 300);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
