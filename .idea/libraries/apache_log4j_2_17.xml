@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
       <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/apache-log4j-2.17.2-bin" />
     </CLASSES>
     <JAVADOC>
       <root url="https://logging.apache.org/log4j/2.x/log4j-api/apidocs/index.html" />
@@ -10,9 +11,12 @@
     <SOURCES>
       <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
       <root url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/apache-log4j-2.17.2-bin" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/apache-log4j-2.17.2-bin" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/apache-log4j-2.17.2-bin" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$USER_HOME$/Downloads/apache-log4j-2.17.2-bin" recursive="false" type="SOURCES" />
   </library>

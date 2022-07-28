@@ -511,6 +511,10 @@ public class Car implements ActionListener {
 
 			String rowIndex = String.valueOf(sheetIndex + 1);
 
+			if (totalDistanceForExcel < 0){
+				return;
+			}
+
 			time.setCellValue(endTime - startTime);
 			length.setCellValue(totalDistanceForExcel);
 			speed.setCellFormula("B" + rowIndex + "/" + "A" + rowIndex + "*3600");
@@ -524,6 +528,11 @@ public class Car implements ActionListener {
 	public void stop() {
 		speed = 0;
 		acceralation = 0;
+	}
+
+	public void exit(){
+		endTime = System.currentTimeMillis();
+		exportExcel();
 	}
 
 	public TransformGroup getCarObjectGroup() {

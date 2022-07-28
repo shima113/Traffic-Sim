@@ -2,14 +2,18 @@
   <library name="ext">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../../../../../../Program Files/Java/Java3D/1.5.1/lib/ext" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/Java3D/1.5.1/lib/ext" />
     </CLASSES>
     <JAVADOC>
       <root url="file://$USER_HOME$/Downloads/java3d-1_4_0-doc" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/Java3D/java3d-1_4_0-doc" />
     </JAVADOC>
     <NATIVE>
       <root url="file://$PROJECT_DIR$/../../../../../../Program Files/Java/Java3D/1.5.1/bin" />
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/Java/Java3D/1.5.1/bin" />
     </NATIVE>
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../../../Program Files/Java/Java3D/1.5.1/lib/ext" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/Java/Java3D/1.5.1/lib/ext" recursive="false" />
   </library>
 </component>

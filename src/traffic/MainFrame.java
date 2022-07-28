@@ -50,6 +50,8 @@ public class MainFrame extends JFrame {
 
 	ArrayList<CarList> carLists = new ArrayList<>();
 
+	Timer mainTimer, lampTimer;
+
 	//PassengerCar car1, car2, car3;
 
 	int militime = 40;
@@ -69,6 +71,8 @@ public class MainFrame extends JFrame {
 					System.exit(0);
 				} else {
 					f.exportSheet();
+					f.stopping();
+
 					f.setVisible(false);
 					f = null;
 					f = new MainFrame();
@@ -95,12 +99,14 @@ public class MainFrame extends JFrame {
 
 		//setting swing
 		setTitle("traffic sim");
-		setBounds(250, 50, 1650, 1000);
+		//setBounds(250, 50, 1650, 1000);   //for notebook
+		setBounds(1000, 50, 1600, 1100);   //for desktop
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		//setting java3D
 		Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
-		canvas.setBounds(0, 0, 1600, 900);
+		//canvas.setBounds(0, 0, 1600, 900);   //for notebook
+		canvas.setBounds(0, 0, 1500, 1000);   //for desktop
 		JPanel cp = new JPanel();
 		cp.setLayout(null);
 		cp.add(canvas);
@@ -137,11 +143,11 @@ public class MainFrame extends JFrame {
 		change.addActionListener(cars[2]);
 		cp.add(change);;
 
-		Timer mainTimer = new Timer();
-		mainTimer.schedule(new  carTimer(), 2000, 4000);
+		mainTimer = new Timer();
+		mainTimer.schedule(new  carTimer(), 2000, 600);
 
-		Timer lampTimer = new Timer();
-		lampTimer.schedule(new LampTimer(), 2700, 4000);
+		lampTimer = new Timer();
+		lampTimer.schedule(new LampTimer(), 2700, 600);
 
 		Timer carTime2r = new Timer();
 		//carTime2r.schedule(new carTime2r(), 1000);
@@ -230,9 +236,15 @@ public class MainFrame extends JFrame {
 	private void exportSheet(){
 		LocalDateTime localDateTime = LocalDateTime.now();
 		DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-		//String folderpath = "C:\\Users\\kouhe\\Desktop\\program files\\traffic\\TrafficSim_";
-		String folderpath = "C:\\Users\\kohei\\Documents\\Excel\\traffic\\TrafficSim_";
+		String folderpath = "C:\\Users\\kouhe\\Documents\\program files\\Java\\traffic\\honban\\TrafficSim_";
+		//String folderpath = "C:\\Users\\kohei\\Documents\\Excel\\traffic\\TrafficSim_";
 		String filepath = folderpath + dFormatter.format(localDateTime) + ".xlsx";
+
+		for (CarList carList : carLists) {
+			for (Car car : carList.cars) {
+				car.exit();
+			}
+		}
 
 		FileOutputStream fStream = null;
 		try {
@@ -942,6 +954,11 @@ public class MainFrame extends JFrame {
 
 		return root;
 
+	}
+
+	public void stopping(){
+		mainTimer.cancel();
+		lampTimer.cancel();
 	}
 
 	int rowIndex = 18;
