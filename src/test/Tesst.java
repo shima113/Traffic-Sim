@@ -13,7 +13,7 @@ import java.util.List;
 public class Tesst {
     LinkedList<Integer> list;
     public static void main(String[] args) {
-        new Tesst();
+        System.out.println(10 + 2.50 - (6.70 - ( 2.94 + 2.61 / Math.sqrt(2) )));
     }
 
     public Tesst(){

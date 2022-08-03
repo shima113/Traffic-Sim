@@ -100,7 +100,7 @@ public class Car implements ActionListener {
 
 	Sheet expSheet;
 
-	int[] jumpStatus = new int[16];
+	int[] jumpStatus = new int[8];
 
 	Node atoNode;
 	NodeList atnodegroupArrayList;
@@ -334,18 +334,11 @@ public class Car implements ActionListener {
 
 	private void checkChangeLane(){
 		switch (nodegroupIndex){
-			case 1:
-			case 2:
-			case 3:
 			case 4:
 			case 5:
 			case 6:
 			case 7:
-			case 8:
 				CarList toChangeList = nowNode.getNowOnCars().getToChangeLane().getCarList();
-				if (toChangeList == null) {
-					System.out.println("ya");
-				}
 				float infrontDistance = toChangeList.getInFrontDistance(totalDistance);
 				int param = (int) (Math.random() * 500);
 
